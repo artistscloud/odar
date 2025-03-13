@@ -12,7 +12,8 @@ const TechSpecs = () => {
     { id: 'ranging', label: 'Ranging System' },
     { id: 'enclosure', label: 'Enclosure Design' },
     { id: 'microcontroller', label: 'Microcontroller System' },
-    { id: 'sensor', label: 'Sensor Array' }
+    { id: 'sensor', label: 'Sensor Array' },
+    { id: 'visuals', label: 'System Visuals' }
   ];
 
   return (
