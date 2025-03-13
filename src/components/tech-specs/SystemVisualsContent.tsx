@@ -5,9 +5,10 @@ import SystemVisualsSideContent from './system-visuals/SystemVisualsSideContent'
 import SystemVisualsSpecsContent from './system-visuals/SystemVisualsSpecsContent';
 import SystemVisualsActiveContent from './system-visuals/SystemVisualsActiveContent';
 import SystemVisualsAssemblyContent from './system-visuals/SystemVisualsAssemblyContent';
+import SystemVisualsTopContent from './system-visuals/SystemVisualsTopContent';
 
 interface SystemVisualsContentProps {
-  tab: '3d' | 'side' | 'specs' | 'assembly' | 'active';
+  tab: '3d' | 'side' | 'specs' | 'assembly' | 'active' | 'top';
 }
 
 const SystemVisualsContent: React.FC<SystemVisualsContentProps> = ({ tab }) => {
@@ -29,6 +30,10 @@ const SystemVisualsContent: React.FC<SystemVisualsContentProps> = ({ tab }) => {
   
   if (tab === 'assembly') {
     return <SystemVisualsAssemblyContent />;
+  }
+  
+  if (tab === 'top') {
+    return <SystemVisualsTopContent />;
   }
   
   return null;
