@@ -9,6 +9,7 @@ const Processes = () => {
   
   const sections = [
     { id: 'collection', label: 'Data Collection Protocol' },
+    { id: 'chamber', label: 'Testing Chamber Blueprint' },
     { id: 'analysis', label: 'Data Analysis' },
     { id: 'validation', label: 'Validation Procedures' },
     { id: 'maintenance', label: 'System Maintenance' }

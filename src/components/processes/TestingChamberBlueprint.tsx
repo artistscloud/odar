@@ -1,13 +1,14 @@
 
 import React from 'react';
 
-const TestingChamberBlueprint: React.FC = () => {
+const TestingChamberBlueprint = () => {
   return (
-    <div className="space-y-6">
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold mb-4">OdAR Testing Chamber Blueprint</h2>
-        <div className="overflow-auto my-6 border-2 border-odar-gray-300 rounded-md p-4 bg-white">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800" className="w-full">
+    <div className="flex-1 glass-card p-6 overflow-auto">
+      <div className="prose prose-odar max-w-none">
+        <h2 className="text-2xl font-bold text-odar-blue mb-6">OdAR Testing Chamber Blueprint</h2>
+        
+        <div className="mb-8 overflow-auto">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800" className="w-full border border-gray-200 rounded-lg">
             <path fill="#f0f5f9" d="M0 0h1000v800H0z"/>
             <text x="500" y="40" fontFamily="Arial" fontSize="28" fontWeight="bold" textAnchor="middle" fill="#333">OdAR Testing Chamber Blueprint (Revised)</text>
             <path fill="#e6f2ff" stroke="#333" strokeWidth="4" d="M100 150h800v600H100z"/>
@@ -170,130 +171,104 @@ const TestingChamberBlueprint: React.FC = () => {
             <text x="790" y="780" fontFamily="Arial" fontSize="12" fill="#333">Calibration Targets</text>
           </svg>
         </div>
-      </div>
-
-      <h3 className="text-xl font-bold mb-3">OdAR Testing Chamber Specifications</h3>
-      
-      <section className="mb-6">
-        <h4 className="text-lg font-medium mb-2">Chamber Dimensions</h4>
-        <ul className="list-disc pl-5 space-y-1 text-odar-gray-700">
+        
+        <h3 className="text-xl font-semibold mt-8 mb-4">OdAR Testing Chamber Specifications</h3>
+        
+        <h4 className="text-lg font-medium mt-6 mb-3">Chamber Dimensions</h4>
+        <ul className="list-disc pl-5 space-y-1">
           <li><strong>Overall Size</strong>: 5.0m x 5.0m x 5.0m (W x D x H)</li>
           <li><strong>Testing Area</strong>: 4.0m x 4.0m (central workspace)</li>
           <li><strong>Movement Area</strong>: 4.0m x 4.0m (for robotic positioning system)</li>
         </ul>
-      </section>
-      
-      <section className="mb-6">
-        <h4 className="text-lg font-medium mb-2">Systems and Components</h4>
         
-        <div className="mb-4">
-          <h5 className="font-medium mb-1">Gas Delivery System</h5>
-          <ul className="list-disc pl-5 space-y-1 text-odar-gray-700">
-            <li><strong>Gas Panel</strong>: Central control panel with pressure regulators and flow meters</li>
-            <li><strong>Cylinder Storage</strong>: Secure area for gas cylinders</li>
-            <li><strong>Delivery Points</strong>: Multiple labeled points throughout the chamber</li>
-            <li><strong>Quick-Connect Fittings</strong>: For easy setup and connection</li>
-            <li><strong>Gases Supported</strong>: N2, CO2, O2, CH4, H2, C2H4</li>
-          </ul>
-        </div>
+        <h4 className="text-lg font-medium mt-6 mb-3">Systems and Components</h4>
         
-        <div className="mb-4">
-          <h5 className="font-medium mb-1">Environmental Control System</h5>
-          <ul className="list-disc pl-5 space-y-1 text-odar-gray-700">
-            <li><strong>HVAC Unit</strong>: Temperature and humidity control</li>
-            <li><strong>Air Ducts</strong>: Distribution system throughout the chamber</li>
-            <li><strong>Air Vents</strong>: Multiple vents for climate control</li>
-            <li><strong>Sensors</strong>: Temperature and humidity monitoring at multiple locations</li>
-          </ul>
-        </div>
+        <h5 className="text-base font-medium mt-4 mb-2">Gas Delivery System</h5>
+        <ul className="list-disc pl-5 space-y-1">
+          <li><strong>Gas Panel</strong>: Central control panel with pressure regulators and flow meters</li>
+          <li><strong>Cylinder Storage</strong>: Secure area for gas cylinders</li>
+          <li><strong>Delivery Points</strong>: Multiple labeled points throughout the chamber</li>
+          <li><strong>Quick-Connect Fittings</strong>: For easy setup and connection</li>
+          <li><strong>Gases Supported</strong>: N2, CO2, O2, CH4, H2, C2H4</li>
+        </ul>
         
-        <div className="mb-4">
-          <h5 className="font-medium mb-1">Data Acquisition and Monitoring System</h5>
-          <ul className="list-disc pl-5 space-y-1 text-odar-gray-700">
-            <li><strong>Main Workstation</strong>: Central monitoring station with multiple displays</li>
-            <li><strong>Sensor Network</strong>: Distributed sensors throughout the chamber</li>
-            <li><strong>Network Connectivity</strong>: LAN connections for remote monitoring</li>
-            <li><strong>Data Logging</strong>: Automated data collection capabilities</li>
-          </ul>
-        </div>
+        <h5 className="text-base font-medium mt-4 mb-2">Environmental Control System</h5>
+        <ul className="list-disc pl-5 space-y-1">
+          <li><strong>HVAC Unit</strong>: Temperature and humidity control</li>
+          <li><strong>Air Ducts</strong>: Distribution system throughout the chamber</li>
+          <li><strong>Air Vents</strong>: Multiple vents for climate control</li>
+          <li><strong>Sensors</strong>: Temperature and humidity monitoring at multiple locations</li>
+        </ul>
         
-        <div className="mb-4">
-          <h5 className="font-medium mb-1">Robotic Positioning System</h5>
-          <ul className="list-disc pl-5 space-y-1 text-odar-gray-700">
-            <li><strong>XYZ Robotic System</strong>: 3-axis positioning with 4.0m x 4.0m movement area</li>
-            <li><strong>Safety Curtains</strong>: Protective barriers around the robotic area</li>
-            <li><strong>Emergency Stop Buttons</strong>: Multiple access points for immediate shutdown</li>
-            <li><strong>Position Indicators</strong>: Real-time display of robotic position</li>
-          </ul>
-        </div>
+        <h5 className="text-base font-medium mt-4 mb-2">Data Acquisition and Monitoring System</h5>
+        <ul className="list-disc pl-5 space-y-1">
+          <li><strong>Main Workstation</strong>: Central monitoring station with multiple displays</li>
+          <li><strong>Sensor Network</strong>: Distributed sensors throughout the chamber</li>
+          <li><strong>Network Connectivity</strong>: LAN connections for remote monitoring</li>
+          <li><strong>Data Logging</strong>: Automated data collection capabilities</li>
+        </ul>
         
-        <div className="mb-4">
-          <h5 className="font-medium mb-1">Emergency Systems</h5>
-          <ul className="list-disc pl-5 space-y-1 text-odar-gray-700">
-            <li><strong>Emergency Stop Buttons</strong>: Multiple locations throughout the chamber</li>
-            <li><strong>Fire Suppression System</strong>: Integrated safety feature</li>
-            <li><strong>Gas Detection System</strong>: Monitors for hazardous gas leaks</li>
-            <li><strong>Emergency Lighting</strong>: Provides illumination during power failures</li>
-          </ul>
-        </div>
+        <h5 className="text-base font-medium mt-4 mb-2">Robotic Positioning System</h5>
+        <ul className="list-disc pl-5 space-y-1">
+          <li><strong>XYZ Robotic System</strong>: 3-axis positioning with 4.0m x 4.0m movement area</li>
+          <li><strong>Safety Curtains</strong>: Protective barriers around the robotic area</li>
+          <li><strong>Emergency Stop Buttons</strong>: Multiple access points for immediate shutdown</li>
+          <li><strong>Position Indicators</strong>: Real-time display of robotic position</li>
+        </ul>
         
-        <div className="mb-4">
-          <h5 className="font-medium mb-1">Testing Stations</h5>
-          <ul className="list-disc pl-5 space-y-1 text-odar-gray-700">
-            <li><strong>Main Test Station</strong>: Central position for OdAR device testing</li>
-            <li><strong>Alternative Test Positions</strong>: Multiple locations for flexible testing</li>
-            <li><strong>Power and Data Connections</strong>: At each testing position</li>
-          </ul>
-        </div>
+        <h5 className="text-base font-medium mt-4 mb-2">Emergency Systems</h5>
+        <ul className="list-disc pl-5 space-y-1">
+          <li><strong>Emergency Stop Buttons</strong>: Multiple locations throughout the chamber</li>
+          <li><strong>Fire Suppression System</strong>: Integrated safety feature</li>
+          <li><strong>Gas Detection System</strong>: Monitors for hazardous gas leaks</li>
+          <li><strong>Emergency Lighting</strong>: Provides illumination during power failures</li>
+        </ul>
         
-        <div className="mb-4">
-          <h5 className="font-medium mb-1">Reference Instruments</h5>
-          <ul className="list-disc pl-5 space-y-1 text-odar-gray-700">
-            <li><strong>PID Monitor</strong>: Photoionization detector</li>
-            <li><strong>GC</strong>: Gas chromatograph</li>
-            <li><strong>MGS</strong>: Multi-gas analyzer</li>
-            <li><strong>Power Connections</strong>: For each instrument</li>
-          </ul>
-        </div>
+        <h5 className="text-base font-medium mt-4 mb-2">Testing Stations</h5>
+        <ul className="list-disc pl-5 space-y-1">
+          <li><strong>Main Test Station</strong>: Central position for OdAR device testing</li>
+          <li><strong>Alternative Test Positions</strong>: Multiple locations for flexible testing</li>
+          <li><strong>Power and Data Connections</strong>: At each testing position</li>
+        </ul>
         
-        <div className="mb-4">
-          <h5 className="font-medium mb-1">Ranging Calibration Area</h5>
-          <ul className="list-disc pl-5 space-y-1 text-odar-gray-700">
-            <li><strong>Calibration Targets</strong>: Multiple materials (wood, metal, fabric, glass)</li>
-            <li><strong>Measurement Markings</strong>: For precise distance verification</li>
-            <li><strong>Adjustable Stands</strong>: For different height configurations</li>
-          </ul>
-        </div>
+        <h5 className="text-base font-medium mt-4 mb-2">Reference Instruments</h5>
+        <ul className="list-disc pl-5 space-y-1">
+          <li><strong>PID Monitor</strong>: Photoionization detector</li>
+          <li><strong>GC</strong>: Gas chromatograph</li>
+          <li><strong>MGS</strong>: Multi-gas analyzer</li>
+          <li><strong>Power Connections</strong>: For each instrument</li>
+        </ul>
         
-        <div className="mb-4">
-          <h5 className="font-medium mb-1">Entry Airlock System</h5>
-          <ul className="list-disc pl-5 space-y-1 text-odar-gray-700">
-            <li><strong>Airlock Door</strong>: With status indicators (open/closed/locked)</li>
-            <li><strong>Pressure Equalization</strong>: For smooth operation</li>
-            <li><strong>Safety Interlocks</strong>: Prevents simultaneous door opening</li>
-          </ul>
-        </div>
-      </section>
-      
-      <section className="mb-6">
-        <h4 className="text-lg font-medium mb-2">Safety Features</h4>
-        <ul className="list-disc pl-5 space-y-1 text-odar-gray-700">
+        <h5 className="text-base font-medium mt-4 mb-2">Ranging Calibration Area</h5>
+        <ul className="list-disc pl-5 space-y-1">
+          <li><strong>Calibration Targets</strong>: Multiple materials (wood, metal, fabric, glass)</li>
+          <li><strong>Measurement Markings</strong>: For precise distance verification</li>
+          <li><strong>Adjustable Stands</strong>: For different height configurations</li>
+        </ul>
+        
+        <h5 className="text-base font-medium mt-4 mb-2">Entry Airlock System</h5>
+        <ul className="list-disc pl-5 space-y-1">
+          <li><strong>Airlock Door</strong>: With status indicators (open/closed/locked)</li>
+          <li><strong>Pressure Equalization</strong>: For smooth operation</li>
+          <li><strong>Safety Interlocks</strong>: Prevents simultaneous door opening</li>
+        </ul>
+        
+        <h4 className="text-lg font-medium mt-6 mb-3">Safety Features</h4>
+        <ul className="list-disc pl-5 space-y-1">
           <li><strong>Non-slip Flooring</strong>: Throughout the chamber</li>
           <li><strong>Emergency Exits</strong>: Clearly marked evacuation routes</li>
           <li><strong>Safety Signage</strong>: Throughout the chamber</li>
           <li><strong>Collision Detection</strong>: For robotic system</li>
         </ul>
-      </section>
-      
-      <section className="mb-6">
-        <h4 className="text-lg font-medium mb-2">Additional Features</h4>
-        <ul className="list-disc pl-5 space-y-1 text-odar-gray-700">
+        
+        <h4 className="text-lg font-medium mt-6 mb-3">Additional Features</h4>
+        <ul className="list-disc pl-5 space-y-1">
           <li><strong>Control Room</strong>: With observation windows and climate control</li>
           <li><strong>Storage Areas</strong>: For tools and equipment</li>
           <li><strong>Cable Management</strong>: Organized wiring throughout</li>
           <li><strong>Documentation Station</strong>: For recording test results</li>
         </ul>
-      </section>
+      </div>
     </div>
   );
 };
