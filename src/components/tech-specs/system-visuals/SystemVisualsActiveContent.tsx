@@ -1,0 +1,135 @@
+
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { MicroscopeIcon } from 'lucide-react';
+
+const SystemVisualsActiveContent: React.FC = () => {
+  return (
+    <>
+      <div className="overflow-auto my-6">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" className="w-full max-w-3xl mx-auto">
+          {/* Title */}
+          <text x="400" y="30" fontFamily="Arial" fontSize="24" fontWeight="bold" textAnchor="middle" fill="#333">OdAR System - Front View with Active Sampling</text>
+          
+          {/* Front View */}
+          <g transform="translate(400, 180)">
+            <text x="0" y="-40" fontFamily="Arial" fontSize="16" fontWeight="bold" fill="#333">Front View</text>
+            
+            {/* Outline with Gradient */}
+            <defs>
+              <linearGradient id="frontViewGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style={{stopColor:"#bfddf5",stopOpacity:1}} />
+                <stop offset="100%" style={{stopColor:"#89b4d9",stopOpacity:1}} />
+              </linearGradient>
+            </defs>
+            <rect x="-140" y="0" width="280" height="120" fill="url(#frontViewGradient)" stroke="#333" strokeWidth="1.5" rx="5" ry="5"/>
+            
+            {/* Display Window */}
+            <rect x="-35" y="15" width="70" height="35" fill="#222" stroke="#444" strokeWidth="1.5"/>
+            <rect x="-30" y="20" width="60" height="25" fill="#111" stroke="none"/>
+            <text x="0" y="35" fontFamily="Arial" fontSize="10" textAnchor="middle" fill="#4FC3F7">OdAR</text>
+            
+            {/* Control Buttons */}
+            <circle cx="-60" cy="80" r="8" fill="#444" stroke="#333" strokeWidth="1"/>
+            <text x="-60" y="95" fontFamily="Arial" fontSize="8" textAnchor="middle" fill="#333">MENU</text>
+            
+            <circle cx="-30" cy="80" r="8" fill="#444" stroke="#333" strokeWidth="1"/>
+            <text x="-30" y="95" fontFamily="Arial" fontSize="8" textAnchor="middle" fill="#333">SELECT</text>
+            
+            <circle cx="0" cy="80" r="8" fill="#444" stroke="#333" strokeWidth="1"/>
+            <text x="0" y="95" fontFamily="Arial" fontSize="8" textAnchor="middle" fill="#333">BACK</text>
+            
+            {/* Power LED */}
+            <circle cx="-75" cy="80" r="3" fill="#2f2" stroke="#090" strokeWidth="0.5"/>
+            <text x="-75" y="95" fontFamily="Arial" fontSize="7" textAnchor="middle" fill="#333">PWR</text>
+            
+            {/* Front Ultrasonic Sensor */}
+            <circle cx="-75" cy="25" r="10" fill="#e1e1e1" stroke="#333" strokeWidth="1"/>
+            <circle cx="-75" cy="25" r="7" fill="#aaa" stroke="#444" strokeWidth="0.5"/>
+            <circle cx="-75" cy="25" r="3" fill="#666" stroke="none"/>
+            <line x1="-75" y1="35" x2="-75" y2="45" stroke="#333" strokeWidth="0.5" strokeDasharray="2,1"/>
+            <text x="-75" y="55" fontFamily="Arial" fontSize="8" textAnchor="middle" fill="#333">HC-SR04 #1</text>
+            
+            {/* USB-C Port */}
+            <rect x="115" y="80" width="15" height="8" fill="#111" stroke="#444" strokeWidth="0.5" rx="2" ry="2"/>
+            <text x="122" y="95" fontFamily="Arial" fontSize="8" textAnchor="middle" fill="#333">USB-C</text>
+            
+            {/* Power Switch */}
+            <rect x="115" y="65" width="10" height="5" fill="#333" stroke="#444" strokeWidth="0.5"/>
+            <text x="120" y="60" fontFamily="Arial" fontSize="8" textAnchor="middle" fill="#333">PWR</text>
+            
+            {/* Olfactory Sensor Grille */}
+            <rect x="95" y="15" width="20" height="20" fill="#222" stroke="#333" strokeWidth="0.5" rx="2" ry="2"/>
+            <line x1="96" y1="15" x2="96" y2="35" stroke="#555" strokeWidth="0.5"/>
+            <line x1="99" y1="15" x2="99" y2="35" stroke="#555" strokeWidth="0.5"/>
+            <line x1="102" y1="15" x2="102" y2="35" stroke="#555" strokeWidth="0.5"/>
+            <line x1="105" y1="15" x2="105" y2="35" stroke="#555" strokeWidth="0.5"/>
+            <line x1="108" y1="15" x2="108" y2="35" stroke="#555" strokeWidth="0.5"/>
+            <line x1="111" y1="15" x2="111" y2="35" stroke="#555" strokeWidth="0.5"/>
+            <line x1="114" y1="15" x2="114" y2="35" stroke="#555" strokeWidth="0.5"/>
+            <line x1="95" y1="18" x2="115" y2="18" stroke="#555" strokeWidth="0.5"/>
+            <line x1="95" y1="21" x2="115" y2="21" stroke="#555" strokeWidth="0.5"/>
+            <line x1="95" y1="24" x2="115" y2="24" stroke="#555" strokeWidth="0.5"/>
+            <line x1="95" y1="27" x2="115" y2="27" stroke="#555" strokeWidth="0.5"/>
+            <line x1="95" y1="30" x2="115" y2="30" stroke="#555" strokeWidth="0.5"/>
+            <line x1="95" y1="33" x2="115" y2="33" stroke="#555" strokeWidth="0.5"/>
+            
+            {/* NEW: Pump Inlet */}
+            <circle cx="120" cy="25" r="2.5" fill="none" stroke="#333" strokeWidth="1"/>
+            <circle cx="120" cy="25" r="2" fill="#111" stroke="none"/>
+            <line x1="120" y1="35" x2="120" y2="45" stroke="#333" strokeWidth="0.5" strokeDasharray="2,1"/>
+            <text x="120" y="55" fontFamily="Arial" fontSize="8" textAnchor="middle" fill="#333">Pump Inlet</text>
+            
+            {/* NEW: Airflow Indicators */}
+            <path d="M130 25 L123 25" stroke="#0288d1" strokeWidth="0.5" fill="none"/>
+            <path d="M123 25 L126 23 L126 27 Z" fill="#0288d1"/>
+            <text x="135" y="25" fontFamily="Arial" fontSize="7" textAnchor="start" fill="#0288d1">Airflow</text>
+            
+            {/* Dimensions */}
+            <line x1="-150" y1="0" x2="-150" y2="120" stroke="#333" strokeWidth="0.5"/>
+            <line x1="-152" y1="0" x2="-148" y2="0" stroke="#333" strokeWidth="0.5"/>
+            <line x1="-152" y1="120" x2="-148" y2="120" stroke="#333" strokeWidth="0.5"/>
+            <text x="-160" y="60" fontFamily="Arial" fontSize="8" textAnchor="middle" fill="#333" transform="rotate(270 -160,60)">60mm</text>
+            
+            <line x1="-140" y1="130" x2="140" y2="130" stroke="#333" strokeWidth="0.5"/>
+            <line x1="-140" y1="132" x2="-140" y2="128" stroke="#333" strokeWidth="0.5"/>
+            <line x1="140" y1="132" x2="140" y2="128" stroke="#333" strokeWidth="0.5"/>
+            <text x="0" y="140" fontFamily="Arial" fontSize="8" textAnchor="middle" fill="#333">100mm</text>
+            
+            {/* Annotations */}
+            <text x="0" y="-10" fontFamily="Arial" fontSize="8" textAnchor="middle" fill="#333">IP65 Rated with Active Sampling</text>
+          </g>
+        </svg>
+      </div>
+      
+      <div className="mt-6 text-odar-gray-700">
+        <h4 className="text-lg font-medium mb-2">Active Sampling System</h4>
+        <ul className="list-disc pl-5 space-y-2">
+          <li><strong>Pump Inlet</strong>: Piezoelectric micropump pulls air through the inlet at a controlled rate</li>
+          <li><strong>Airflow Path</strong>: Direct sample delivery to the sensor array for precise readings</li>
+          <li><strong>Sensor Array</strong>: Multiple gas sensors with different selectivity profiles</li>
+          <li><strong>Sample Volume</strong>: 2-5 ml/min controllable flow rate</li>
+          <li><strong>Sampling Modes</strong>: Continuous, interval, or user-triggered operation</li>
+        </ul>
+        
+        <div className="mt-6">
+          <Link 
+            to="/tech-specs" 
+            className="inline-flex items-center text-odar-blue hover:text-odar-accent transition-colors"
+            onClick={(e) => {
+              e.preventDefault();
+              window.history.pushState({}, '', '/tech-specs');
+              const event = new CustomEvent('navigate-to-section', { detail: { section: 'sensor' } });
+              window.dispatchEvent(event);
+            }}
+          >
+            <MicroscopeIcon size={18} className="mr-1" />
+            <span>View Sensor Array Details</span>
+          </Link>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default SystemVisualsActiveContent;
