@@ -11,6 +11,7 @@ const SystemVisualsTabs: React.FC = () => {
         <TabsList className="mb-4">
           <TabsTrigger value="3d">3D View</TabsTrigger>
           <TabsTrigger value="side">Side View</TabsTrigger>
+          <TabsTrigger value="active">Active Sampling</TabsTrigger>
           <TabsTrigger value="specs">Key Specs</TabsTrigger>
           <TabsTrigger value="assembly">Assembly Guide</TabsTrigger>
         </TabsList>
@@ -19,6 +20,9 @@ const SystemVisualsTabs: React.FC = () => {
         </TabsContent>
         <TabsContent value="side" className="space-y-4">
           <SystemVisualsContent tab="side" />
+        </TabsContent>
+        <TabsContent value="active" className="space-y-4">
+          <SystemVisualsContent tab="active" />
         </TabsContent>
         <TabsContent value="specs" className="space-y-4">
           <SystemVisualsContent tab="specs" />

@@ -31,7 +31,10 @@ const TechSpecs = () => {
               onSectionChange={setActiveSection} 
             />
             
-            <TechSpecsContent activeSection={activeSection} />
+            <TechSpecsContent 
+              activeSection={activeSection}
+              setActiveSection={setActiveSection} 
+            />
           </div>
         </main>
       </div>

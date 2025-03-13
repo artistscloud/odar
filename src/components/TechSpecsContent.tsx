@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import PumpMechanismTabs from '@/components/tech-specs/PumpMechanismTabs';
 import RangingSystemSection from '@/components/tech-specs/RangingSystemSection';
 import EnclosureDesignSection from '@/components/tech-specs/EnclosureDesignSection';
@@ -9,9 +9,24 @@ import SystemVisualsTabs from '@/components/tech-specs/SystemVisualsTabs';
 
 interface TechSpecsContentProps {
   activeSection: string;
+  setActiveSection: (section: string) => void;
 }
 
-const TechSpecsContent: React.FC<TechSpecsContentProps> = ({ activeSection }) => {
+const TechSpecsContent: React.FC<TechSpecsContentProps> = ({ activeSection, setActiveSection }) => {
+  useEffect(() => {
+    const handleNavigateToSection = (event: CustomEvent) => {
+      if (event.detail && event.detail.section) {
+        setActiveSection(event.detail.section);
+      }
+    };
+
+    window.addEventListener('navigate-to-section', handleNavigateToSection as EventListener);
+    
+    return () => {
+      window.removeEventListener('navigate-to-section', handleNavigateToSection as EventListener);
+    };
+  }, [setActiveSection]);
+
   return (
     <div className="flex-1 glass-card p-6">
       {activeSection === 'pump' && <PumpMechanismTabs />}
