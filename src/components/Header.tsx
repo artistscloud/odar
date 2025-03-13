@@ -2,7 +2,7 @@
 import React from 'react';
 import { useStaggeredAnimation } from '@/utils/animation';
 import { Link } from 'react-router-dom';
-import { FileText } from 'lucide-react';
+import { FileText, Home } from 'lucide-react';
 
 const Header: React.FC = () => {
   const [logoVisible, titleVisible] = useStaggeredAnimation(2, 200, 300);
@@ -47,6 +47,10 @@ const Header: React.FC = () => {
       </div>
       
       <div className="flex items-center space-x-4">
+        <Link to="/" className="flex items-center glass-card px-3 py-1.5 space-x-2 hover:bg-odar-gray-100 transition-colors duration-200">
+          <Home size={16} className="text-odar-gray-600" />
+          <span className="text-sm font-medium">Home</span>
+        </Link>
         <Link to="/tech-specs" className="flex items-center glass-card px-3 py-1.5 space-x-2 hover:bg-odar-gray-100 transition-colors duration-200">
           <FileText size={16} className="text-odar-gray-600" />
           <span className="text-sm font-medium">Tech Specs</span>
