@@ -61,7 +61,7 @@ const DataCollectionProtocol = () => {
         <h4 className="text-lg font-medium mt-6 mb-3">3.1 System Preparation</h4>
         <ol className="list-decimal pl-5 space-y-1">
           <li>Perform visual inspection of all hardware components</li>
-          <li>Check battery status (>80% charge required)</li>
+          <li>Check battery status (&gt;80% charge required)</li>
           <li>Verify firmware is latest version</li>
           <li>Clean sensor array ports with filtered air</li>
           <li>Validate all connections and seals</li>
@@ -71,7 +71,7 @@ const DataCollectionProtocol = () => {
         <h4 className="text-lg font-medium mt-6 mb-3">3.2 Environmental Control Setup</h4>
         <ol className="list-decimal pl-5 space-y-1">
           <li>Set controlled environment chamber to 25°C, 50% relative humidity</li>
-          <li>Verify stable conditions maintained for >30 minutes</li>
+          <li>Verify stable conditions maintained for &gt;30 minutes</li>
           <li>
             Record baseline environmental parameters:
             <ul className="list-none pl-5 mt-1">
