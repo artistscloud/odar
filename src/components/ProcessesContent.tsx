@@ -1,6 +1,7 @@
 
 import React from 'react';
 import DataCollectionProtocol from '@/components/processes/DataCollectionProtocol';
+import TestingChamberBlueprint from '@/components/processes/TestingChamberBlueprint';
 
 interface ProcessesContentProps {
   activeSection: string;
@@ -9,6 +10,10 @@ interface ProcessesContentProps {
 const ProcessesContent: React.FC<ProcessesContentProps> = ({ activeSection }) => {
   if (activeSection === 'collection') {
     return <DataCollectionProtocol />;
+  }
+  
+  if (activeSection === 'chamber') {
+    return <TestingChamberBlueprint />;
   }
   
   // Placeholder for future content
