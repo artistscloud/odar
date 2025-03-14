@@ -1,13 +1,9 @@
-
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
-
 const SystemIntroduction: React.FC = () => {
   const [expanded, setExpanded] = useState(false);
-  
-  return (
-    <div className="glass-card p-6 transition-all duration-300">
-      <h1 className="text-3xl font-bold text-odar-blue mb-4">OdAR System: Revolutionizing Environmental Sensing with Molecular Detection and Spatial Awareness</h1>
+  return <div className="glass-card p-6 transition-all duration-300">
+      <h1 className="font-bold text-odar-blue mb-4 text-2xl">Revolutionizing Environmental Sensing with Molecular Detection and Spatial Awareness</h1>
       
       <div className={`prose prose-lg max-w-none ${expanded ? '' : 'line-clamp-3'}`}>
         <p className="my-4">
@@ -17,8 +13,7 @@ const SystemIntroduction: React.FC = () => {
           detect volatile compounds with remarkable sensitivity, often at parts-per-billion concentrations.
         </p>
         
-        {expanded && (
-          <>
+        {expanded && <>
             <p className="my-4">
               What truly distinguishes the OdAR system is its innovative temperature cycling methodology. Unlike conventional gas sensors 
               that operate at static temperatures, OdAR's sensors are systematically cycled through multiple temperature points (10°C to 40°C), 
@@ -76,28 +71,18 @@ const SystemIntroduction: React.FC = () => {
               monitoring needs become increasingly sophisticated, the OdAR system's multifaceted capabilities position it at the forefront 
               of sensing technology innovation.
             </p>
-          </>
-        )}
+          </>}
       </div>
       
-      <button 
-        onClick={() => setExpanded(!expanded)} 
-        className="flex items-center justify-center gap-2 mt-2 text-odar-blue hover:text-odar-accent transition-colors w-full"
-      >
-        {expanded ? (
-          <>
+      <button onClick={() => setExpanded(!expanded)} className="flex items-center justify-center gap-2 mt-2 text-odar-blue hover:text-odar-accent transition-colors w-full">
+        {expanded ? <>
             <span>Show Less</span>
             <ChevronUp size={18} />
-          </>
-        ) : (
-          <>
+          </> : <>
             <span>Read More</span>
             <ChevronDown size={18} />
-          </>
-        )}
+          </>}
       </button>
-    </div>
-  );
+    </div>;
 };
-
 export default SystemIntroduction;
