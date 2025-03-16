@@ -94,7 +94,7 @@ const SystemMaintenanceContent = () => {
               <div className="mb-2">
                 <p className="font-medium">1. Power System:</p>
                 <ul className="list-disc pl-5 space-y-1">
-                  <li>Verify battery charge level (>50% for field deployment)</li>
+                  <li>Verify battery charge level ({'>'}50% for field deployment)</li>
                   <li>Check power indicators and warning lights</li>
                   <li>Ensure proper connection of external power supply (if applicable)</li>
                 </ul>
@@ -178,7 +178,7 @@ const SystemMaintenanceContent = () => {
                 <p className="font-medium">3. Lifespan and Replacement:</p>
                 <ul className="list-disc pl-5 space-y-1">
                   <li>Expected service life: 18-24 months under normal conditions</li>
-                  <li>Replace if baseline resistance has shifted >25% from initial value</li>
+                  <li>Replace if baseline resistance has shifted {'>'}25% from initial value</li>
                   <li>Replace if temperature cycle performance shows degradation</li>
                 </ul>
               </div>
@@ -209,8 +209,8 @@ const SystemMaintenanceContent = () => {
                 <p className="font-medium">3. Lifespan and Replacement:</p>
                 <ul className="list-disc pl-5 space-y-1">
                   <li>Expected service life: 12-18 months under normal conditions</li>
-                  <li>Replace if sensitivity has decreased >30% from baseline</li>
-                  <li>Replace if recovery time has increased >50% from specification</li>
+                  <li>Replace if sensitivity has decreased {'>'}30% from baseline</li>
+                  <li>Replace if recovery time has increased {'>'}50% from specification</li>
                 </ul>
               </div>
             </div>
