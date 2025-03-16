@@ -1,9 +1,11 @@
 
 import React from 'react';
+import { FileCode } from 'lucide-react';
 
 interface Section {
   id: string;
   label: string;
+  icon?: React.ReactNode;
 }
 
 interface TechSpecsNavProps {
@@ -26,12 +28,13 @@ const TechSpecsNav: React.FC<TechSpecsNavProps> = ({
             <li key={section.id}>
               <button
                 onClick={() => onSectionChange(section.id)}
-                className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm ${
+                className={`w-full text-left px-3 py-2 rounded-md transition-colors text-sm flex items-center gap-2 ${
                   activeSection === section.id 
                     ? 'bg-odar-blue text-white' 
                     : 'hover:bg-odar-gray-100'
                 }`}
               >
+                {section.icon && section.icon}
                 {section.label}
               </button>
             </li>

@@ -6,6 +6,7 @@ import EnclosureDesignSection from '@/components/tech-specs/EnclosureDesignSecti
 import MicrocontrollerSystemSection from '@/components/tech-specs/MicrocontrollerSystemSection';
 import SensorArraySection from '@/components/tech-specs/SensorArraySection';
 import SystemVisualsTabs from '@/components/tech-specs/SystemVisualsTabs';
+import ModelArchitectureSection from '@/components/tech-specs/ModelArchitectureSection';
 
 interface TechSpecsContentProps {
   activeSection: string;
@@ -35,6 +36,7 @@ const TechSpecsContent: React.FC<TechSpecsContentProps> = ({ activeSection, setA
       {activeSection === 'microcontroller' && <MicrocontrollerSystemSection />}
       {activeSection === 'sensor' && <SensorArraySection />}
       {activeSection === 'visuals' && <SystemVisualsTabs />}
+      {activeSection === 'model' && <ModelArchitectureSection />}
     </div>
   );
 };
