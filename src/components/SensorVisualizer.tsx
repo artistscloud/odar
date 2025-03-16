@@ -1,5 +1,6 @@
 
 import React, { useEffect, useRef, useState } from 'react';
+import OdARDashboard from './OdARDashboard';
 
 type Point = {
   x: number;
@@ -13,6 +14,7 @@ const SensorVisualizer: React.FC = () => {
   const [points, setPoints] = useState<Point[]>([]);
   const [devicePosition, setDevicePosition] = useState({ x: 0, y: 0 });
   const [heatmapVisible, setHeatmapVisible] = useState(false);
+  const [showDashboard, setShowDashboard] = useState(false);
   
   // Simulate the movement of a source
   useEffect(() => {
@@ -46,6 +48,26 @@ const SensorVisualizer: React.FC = () => {
       return () => clearInterval(interval);
     }, 2000);
   }, []);
+
+  // Toggle heatmap after delay
+  useEffect(() => {
+    const heatmapTimer = setTimeout(() => {
+      setHeatmapVisible(true);
+    }, 5000);
+    
+    return () => clearTimeout(heatmapTimer);
+  }, []);
+
+  // Toggle dashboard view when heatmap is enabled
+  useEffect(() => {
+    if (heatmapVisible) {
+      const dashboardTimer = setTimeout(() => {
+        setShowDashboard(true);
+      }, 2000);
+      
+      return () => clearTimeout(dashboardTimer);
+    }
+  }, [heatmapVisible]);
   
   // Initialize canvas and handle rendering
   useEffect(() => {
@@ -209,17 +231,22 @@ const SensorVisualizer: React.FC = () => {
     
     render();
     
-    // Toggle heatmap after delay
-    const heatmapTimer = setTimeout(() => {
-      setHeatmapVisible(true);
-    }, 5000);
-    
     return () => {
       window.removeEventListener('resize', updateCanvasSize);
       cancelAnimationFrame(animationFrame);
-      clearTimeout(heatmapTimer);
     };
   }, [points, devicePosition, heatmapVisible]);
+
+  const toggleView = () => {
+    setHeatmapVisible(!heatmapVisible);
+    if (!heatmapVisible) {
+      // When switching to heatmap, wait briefly before showing dashboard
+      setTimeout(() => setShowDashboard(true), 500);
+    } else {
+      // When switching to point view, immediately hide dashboard
+      setShowDashboard(false);
+    }
+  };
   
   return (
     <div className="glass-card p-5 h-full overflow-hidden">
@@ -231,19 +258,26 @@ const SensorVisualizer: React.FC = () => {
             <span className="text-xs text-odar-gray-600">Live Data</span>
           </div>
           <button 
-            onClick={() => setHeatmapVisible(!heatmapVisible)}
+            onClick={toggleView}
             className="text-xs px-2 py-0.5 rounded-full bg-odar-gray-100 text-odar-gray-600 hover:bg-odar-gray-200 transition-colors"
           >
             {heatmapVisible ? 'Point View' : 'Heatmap View'}
           </button>
         </div>
       </div>
-      <div className="relative h-[calc(100%-2rem)] w-full">
-        <canvas 
-          ref={canvasRef}
-          className="w-full h-full rounded-md"
-        />
-      </div>
+      
+      {heatmapVisible && showDashboard ? (
+        <div className="animate-fade-in">
+          <OdARDashboard />
+        </div>
+      ) : (
+        <div className="relative h-[calc(100%-2rem)] w-full">
+          <canvas 
+            ref={canvasRef}
+            className="w-full h-full rounded-md"
+          />
+        </div>
+      )}
     </div>
   );
 };
