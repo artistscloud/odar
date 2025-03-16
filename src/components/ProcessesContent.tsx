@@ -1,35 +1,23 @@
 
 import React from 'react';
-import DataCollectionProtocol from '@/components/processes/DataCollectionProtocol';
-import TestingChamberBlueprint from '@/components/processes/TestingChamberBlueprint';
-import DataAnalysisContent from '@/components/processes/DataAnalysisContent';
-import ValidationProceduresContent from '@/components/processes/ValidationProceduresContent';
+import DataCollectionProtocol from './processes/DataCollectionProtocol';
+import TestingChamberBlueprint from './processes/TestingChamberBlueprint';
+import DataAnalysisContent from './processes/DataAnalysisContent';
+import ValidationProceduresContent from './processes/ValidationProceduresContent';
+import SystemMaintenanceContent from './processes/SystemMaintenanceContent';
 
 interface ProcessesContentProps {
   activeSection: string;
 }
 
 const ProcessesContent: React.FC<ProcessesContentProps> = ({ activeSection }) => {
-  if (activeSection === 'collection') {
-    return <DataCollectionProtocol />;
-  }
-  
-  if (activeSection === 'chamber') {
-    return <TestingChamberBlueprint />;
-  }
-  
-  if (activeSection === 'analysis') {
-    return <DataAnalysisContent />;
-  }
-  
-  if (activeSection === 'validation') {
-    return <ValidationProceduresContent />;
-  }
-  
-  // For maintenance section or any other future sections
   return (
-    <div className="flex-1 glass-card p-6">
-      <p className="text-odar-gray-500 italic">Content for {activeSection} is coming soon...</p>
+    <div className="w-full md:w-3/4">
+      {activeSection === 'collection' && <DataCollectionProtocol />}
+      {activeSection === 'chamber' && <TestingChamberBlueprint />}
+      {activeSection === 'analysis' && <DataAnalysisContent />}
+      {activeSection === 'validation' && <ValidationProceduresContent />}
+      {activeSection === 'maintenance' && <SystemMaintenanceContent />}
     </div>
   );
 };
