@@ -1,0 +1,397 @@
+class EnvironmentalCompensation {
+private:
+    struct CompensationCoefficients {
+        float tempBaseCoeff;    // Base temperature coefficient
+        float tempQuadCoeff;    // Quadratic temperature coefficient
+        float humidityCoeff;    // Humidity coefficient
+        float pressureCoeff;    // Pressure coefficient
+        float crossTempHumid;   // Temperature-humidity cross-sensitivity
+        float driftCoeff;       // Time-based drift coefficient
+    } coefficients[NUM_SENSORS];
+
+    struct AdaptiveParameters {
+        float learningRate;     // Adaptation rate for coefficients
+        float forgettingFactor; // Exponential forgetting for historical data
+        float confidenceThreshold; // Minimum confidence for adaptation
+    } adaptiveParams;
+
+public:
+    struct CompensatedReading {
+        float originalValue;
+        float compensatedValue;
+        float compensationFactor;
+        float confidence;
+        bool reliable;
+    };
+
+    CompensatedReading compensateReading(float rawValue, uint8_t sensorIndex,
+                                       const EnvironmentalConditions& conditions) {
+        CompensatedReading result;
+        result.originalValue = rawValue;
+        
+        // Calculate temperature compensation
+        float tempComp = calculateTemperatureCompensation(
+            rawValue, sensorIndex, conditions.temperature);
+        
+        // Calculate humidity compensation
+        float humidComp = calculateHumidityCompensation(
+            tempComp, sensorIndex, conditions.humidity);
+        
+        // Calculate pressure compensation
+        float pressureComp = calculatePressureCompensation(
+            humidComp, sensorIndex, conditions.pressure);
+        
+        // Apply drift compensation
+        result.compensatedValue = applyDriftCompensation(
+            pressureComp, sensorIndex);
+        
+        // Calculate overall compensation factor
+        result.compensationFactor = result.compensatedValue / rawValue;
+        
+        // Calculate compensation confidence
+        result.confidence = calculateCompensationConfidence(
+            conditions, sensorIndex);
+        
+        // Determine reliability
+        result.reliable = (result.confidence > RELIABILITY_THRESHOLD);
+        
+        return result;
+    }
+
+    void updateCompensationModel(const CompensatedReading& reading,
+                               const EnvironmentalConditions& conditions,
+                               uint8_t sensorIndex) {
+        if (reading.confidence < adaptiveParams.confidenceThreshold) {
+            return;
+        }
+
+        // Update temperature coefficients
+        updateTemperatureModel(reading, conditions.temperature, sensorIndex);
+        
+        // Update humidity coefficients
+        updateHumidityModel(reading, conditions.humidity, sensorIndex);
+        
+        // Update pressure coefficients
+        updatePressureModel(reading, conditions.pressure, sensorIndex);
+        
+        // Update cross-sensitivity coefficients
+        updateCrossSensitivityModel(reading, conditions, sensorIndex);
+        
+        // Update drift coefficients
+        updateDriftModel(reading, sensorIndex);
+    }
+
+private:
+    float calculateTemperatureCompensation(float value, uint8_t sensorIndex, 
+                                         float temperature) {
+        // Get coefficients for this sensor
+        const CompensationCoefficients& coeff = coefficients[sensorIndex];
+        
+        // Calculate temperature difference from reference
+        float tempDiff = temperature - REFERENCE_TEMPERATURE;
+        
+        // Apply quadratic temperature compensation
+        float tempFactor = 1.0f + 
+            coeff.tempBaseCoeff * tempDiff +
+            coeff.tempQuadCoeff * tempDiff * tempDiff;
+        
+        return value * tempFactor;
+    }
+
+    float calculateHumidityCompensation(float value, uint8_t sensorIndex,
+                                      float humidity) {
+        const CompensationCoefficients& coeff = coefficients[sensorIndex];
+        
+        // Calculate humidity difference from reference
+        float humidDiff = humidity - REFERENCE_HUMIDITY;
+        
+        // Apply humidity compensation
+        float humidFactor = 1.0f + coeff.humidityCoeff * humidDiff;
+        
+        return value * humidFactor;
+    }
+
+    float calculatePressureCompensation(float value, uint8_t sensorIndex,
+                                      float pressure) {
+        const CompensationCoefficients& coeff = coefficients[sensorIndex];
+        
+        // Calculate pressure difference from reference
+        float pressDiff = pressure - REFERENCE_PRESSURE;
+        
+        // Apply pressure compensation
+        float pressFactor = 1.0f + coeff.pressureCoeff * pressDiff;
+        
+        return value * pressFactor;
+    }
+
+    float applyDriftCompensation(float value, uint8_t sensorIndex) {
+        const CompensationCoefficients& coeff = coefficients[sensorIndex];
+        
+        // Calculate time since last calibration
+        float timeDiff = (millis() - lastCalibrationTime) / 3600000.0f; // Convert to hours
+        
+        // Apply drift compensation
+        float driftFactor = 1.0f + coeff.driftCoeff * timeDiff;
+        
+        return value * driftFactor;
+    }
+
+    float calculateCompensationConfidence(const EnvironmentalConditions& conditions,
+                                        uint8_t sensorIndex) {
+        // Calculate individual confidence factors
+        float tempConf = calculateTemperatureConfidence(
+            conditions.temperature, sensorIndex);
+        float humidConf = calculateHumidityConfidence(
+            conditions.humidity, sensorIndex);
+        float pressConf = calculatePressureConfidence(
+            conditions.pressure, sensorIndex);
+        float driftConf = calculateDriftConfidence(sensorIndex);
+        
+        // Combine confidence factors
+        const float WEIGHTS[4] = {0.4f, 0.3f, 0.2f, 0.1f};
+        float totalConfidence = 
+            WEIGHTS[0] * tempConf +
+            WEIGHTS[1] * humidConf +
+            WEIGHTS[2] * pressConf +
+            WEIGHTS[3] * driftConf;
+        
+        return totalConfidence;
+    }
+
+    void updateTemperatureModel(const CompensatedReading& reading,
+                              float temperature,
+                              uint8_t sensorIndex) {
+        CompensationCoefficients& coeff = coefficients[sensorIndex];
+        
+        // Calculate prediction error
+        float tempDiff = temperature - REFERENCE_TEMPERATURE;
+        float predictedFactor = 1.0f + 
+            coeff.tempBaseCoeff * tempDiff +
+            coeff.tempQuadCoeff * tempDiff
+void updateTemperatureModel(const CompensatedReading& reading,
+                              float temperature,
+                              uint8_t sensorIndex) {
+        CompensationCoefficients& coeff = coefficients[sensorIndex];
+        
+        // Calculate prediction error
+        float tempDiff = temperature - REFERENCE_TEMPERATURE;
+        float predictedFactor = 1.0f + 
+            coeff.tempBaseCoeff * tempDiff +
+            coeff.tempQuadCoeff * tempDiff * tempDiff;
+        
+        float actualFactor = reading.compensatedValue / reading.originalValue;
+        float error = actualFactor - predictedFactor;
+        
+        // Update coefficients using gradient descent
+        float learningRate = adaptiveParams.learningRate * reading.confidence;
+        
+        coeff.tempBaseCoeff += learningRate * error * tempDiff;
+        coeff.tempQuadCoeff += learningRate * error * tempDiff * tempDiff;
+        
+        // Apply constraints to coefficients
+        coeff.tempBaseCoeff = constrain(coeff.tempBaseCoeff, 
+                                      MIN_TEMP_COEFF, MAX_TEMP_COEFF);
+        coeff.tempQuadCoeff = constrain(coeff.tempQuadCoeff,
+                                      MIN_TEMP_QUAD_COEFF, MAX_TEMP_QUAD_COEFF);
+    }
+
+    class AdaptiveFilter {
+    private:
+        // Kalman filter parameters
+        struct KalmanState {
+            float x;  // State estimate
+            float P;  // Estimation error covariance
+            float Q;  // Process noise covariance
+            float R;  // Measurement noise covariance
+            float K;  // Kalman gain
+        } kalman[NUM_SENSORS];
+
+        // Exponential smoothing parameters
+        struct ExpSmoothing {
+            float alpha;     // Smoothing factor
+            float beta;      // Trend smoothing factor
+            float level;     // Smoothed level
+            float trend;     // Smoothed trend
+        } smooth[NUM_SENSORS];
+
+    public:
+        float filterMeasurement(float measurement, uint8_t sensorIndex,
+                              float confidence) {
+            // Update Kalman filter parameters based on confidence
+            kalman[sensorIndex].R = 1.0f / (confidence + 0.001f);  // Avoid division by zero
+            
+            // Prediction step
+            float x_pred = kalman[sensorIndex].x;
+            float P_pred = kalman[sensorIndex].P + kalman[sensorIndex].Q;
+            
+            // Update step
+            kalman[sensorIndex].K = P_pred / (P_pred + kalman[sensorIndex].R);
+            kalman[sensorIndex].x = x_pred + kalman[sensorIndex].K * (measurement - x_pred);
+            kalman[sensorIndex].P = (1 - kalman[sensorIndex].K) * P_pred;
+            
+            // Apply exponential smoothing
+            smooth[sensorIndex].level = smooth[sensorIndex].alpha * measurement + 
+                (1 - smooth[sensorIndex].alpha) * 
+                (smooth[sensorIndex].level + smooth[sensorIndex].trend);
+            
+            smooth[sensorIndex].trend = smooth[sensorIndex].beta * 
+                (smooth[sensorIndex].level - smooth[sensorIndex].level) +
+                (1 - smooth[sensorIndex].beta) * smooth[sensorIndex].trend;
+            
+            // Combine Kalman and exponential smoothing estimates
+            float combinedEstimate = 
+                confidence * kalman[sensorIndex].x +
+                (1 - confidence) * (smooth[sensorIndex].level + smooth[sensorIndex].trend);
+            
+            return combinedEstimate;
+        }
+    };
+
+    class CrossCompensation {
+    private:
+        struct CrossEffects {
+            float tempHumidity;    // Temperature-humidity interaction
+            float tempPressure;    // Temperature-pressure interaction
+            float humidityPressure; // Humidity-pressure interaction
+        } crossEffects[NUM_SENSORS];
+
+    public:
+        float applyCrossCompensation(float value, uint8_t sensorIndex,
+                                   const EnvironmentalConditions& conditions) {
+            // Calculate interaction terms
+            float tempDiff = conditions.temperature - REFERENCE_TEMPERATURE;
+            float humidDiff = conditions.humidity - REFERENCE_HUMIDITY;
+            float pressDiff = conditions.pressure - REFERENCE_PRESSURE;
+            
+            // Apply cross-compensation factors
+            float crossCompValue = value * (1.0f +
+                crossEffects[sensorIndex].tempHumidity * tempDiff * humidDiff +
+                crossEffects[sensorIndex].tempPressure * tempDiff * pressDiff +
+                crossEffects[sensorIndex].humidityPressure * humidDiff * pressDiff);
+            
+            return crossCompValue;
+        }
+
+        void updateCrossEffects(const CompensatedReading& reading,
+                              const EnvironmentalConditions& conditions,
+                              uint8_t sensorIndex) {
+            if (reading.confidence < CROSS_EFFECT_CONFIDENCE_THRESHOLD) {
+                return;
+            }
+
+            float tempDiff = conditions.temperature - REFERENCE_TEMPERATURE;
+            float humidDiff = conditions.humidity - REFERENCE_HUMIDITY;
+            float pressDiff = conditions.pressure - REFERENCE_PRESSURE;
+            
+            // Calculate prediction error
+            float actualFactor = reading.compensatedValue / reading.originalValue;
+            float predictedFactor = calculatePredictedFactor(sensorIndex, 
+                                                           conditions);
+            float error = actualFactor - predictedFactor;
+            
+            // Update cross-effect coefficients
+            float learningRate = CROSS_EFFECT_LEARNING_RATE * reading.confidence;
+            
+            crossEffects[sensorIndex].tempHumidity += 
+                learningRate * error * tempDiff * humidDiff;
+            crossEffects[sensorIndex].tempPressure += 
+                learningRate * error * tempDiff * pressDiff;
+            crossEffects[sensorIndex].humidityPressure += 
+                learningRate * error * humidDiff * pressDiff;
+            
+            // Apply constraints
+            constrainCrossEffects(sensorIndex);
+        }
+    };
+
+    class DriftCompensation {
+    private:
+        struct DriftParameters {
+            float baselineDrift;    // Long-term drift rate
+            float tempDrift;        // Temperature-dependent drift
+            float humidityDrift;    // Humidity-dependent drift
+            float lastCalibration;  // Timestamp of last calibration
+            float driftConfidence;  // Confidence in drift estimation
+        } driftParams[NUM_SENSORS];
+
+    public:
+        float compensateDrift(float value, uint8_t sensorIndex,
+                            const EnvironmentalConditions& conditions,
+                            uint32_t timestamp) {
+            // Calculate time since last calibration in hours
+            float timeElapsed = (timestamp - driftParams[sensorIndex].lastCalibration) / 3600000.0f;
+            
+            // Calculate environmental drift factors
+            float tempDrift = driftParams[sensorIndex].tempDrift * 
+                            (conditions.temperature - REFERENCE_TEMPERATURE);
+            float humidDrift = driftParams[sensorIndex].humidityDrift *
+                             (conditions.humidity - REFERENCE_HUMIDITY);
+            
+            // Calculate total drift compensation
+            float driftFactor = 1.0f + 
+                driftParams[sensorIndex].baselineDrift * timeElapsed +
+                tempDrift + humidDrift;
+            
+            return value * driftFactor;
+        }
+
+        void updateDriftModel(const CompensatedReading& reading,
+                            const EnvironmentalConditions& conditions,
+                            uint8_t sensorIndex,
+                            uint32_t timestamp) {
+            if (reading.confidence < DRIFT_UPDATE_CONFIDENCE_THRESHOLD) {
+                return;
+            }
+
+            // Calculate observed drift
+            float observedDrift = calculateObservedDrift(reading, sensorIndex);
+            
+            // Update drift parameters using weighted average
+            float weight = reading.confidence * DRIFT_LEARNING_RATE;
+            
+            driftParams[sensorIndex].baselineDrift = 
+                (1 - weight) * driftParams[sensorIndex].baselineDrift +
+                weight * observedDrift;
+            
+            // Update environmental drift factors
+            updateEnvironmentalDrift(reading, conditions, sensorIndex, weight);
+            
+            // Update drift confidence
+            updateDriftConfidence(reading, sensorIndex);
+        }
+    };
+
+    class StabilityMonitor {
+    private:
+        struct StabilityMetrics {
+            float shortTermVariance;
+            float longTermVariance;
+            float stabilityScore;
+            CircularBuffer<float> shortTermBuffer;
+            CircularBuffer<float> longTermBuffer;
+        } stability[NUM_SENSORS];
+
+    public:
+        float calculateStability(const CompensatedReading& reading,
+                               uint8_t sensorIndex) {
+            // Update stability buffers
+            stability[sensorIndex].shortTermBuffer.push(reading.compensatedValue);
+            stability[sensorIndex].longTermBuffer.push(reading.compensatedValue);
+            
+            // Calculate variances
+            stability[sensorIndex].shortTermVariance = 
+                calculateVariance(stability[sensorIndex].shortTermBuffer);
+            stability[sensorIndex].longTermVariance = 
+                calculateVariance(stability[sensorIndex].longTermBuffer);
+            
+            // Calculate stability score
+            float varianceRatio = stability[sensorIndex].shortTermVariance /
+                                stability[sensorIndex].longTermVariance;
+            
+            stability[sensorIndex].stabilityScore = 
+                exp(-varianceRatio * STABILITY_SCALE_FACTOR);
+            
+            return stability[sensorIndex].stabilityScore;
+        }
+    };
+};
