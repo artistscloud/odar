@@ -1,0 +1,98 @@
+The OdAR (Olfactory Detection and Ranging) AI model employs a CNN-LSTM hybrid architecture to effectively process and analyze olfactory sensor data. The architecture comprises several key components:
+
+**1. Input Layer**
+
+- **Shape:** `[batch_size, 8, 4, 1]`
+- **Description:** This layer accepts input from 8 sensors, each providing data across 4 temperature points, resulting in a single-channel input. The data undergoes min-max normalization to scale values between 0 and 1.
+
+**2. Feature Extraction (CNN)**
+
+Convolutional layers are utilized to extract spatial features from the input data:
+
+- **First Convolutional Block:**
+  - `Conv1D` layer with 32 filters and a kernel size of 3, followed by ReLU activation.
+  - Batch normalization to stabilize and accelerate training.
+  - MaxPooling with a pool size of 2 to reduce dimensionality.
+  - Dropout with a rate of 0.2 to prevent overfitting.
+
+- **Second Convolutional Block:**
+  - `Conv1D` layer with 64 filters and a kernel size of 3, followed by ReLU activation.
+  - Batch normalization.
+  - MaxPooling with a pool size of 2.
+  - Dropout with a rate of 0.2.
+
+- **Third Convolutional Block:**
+  - `Conv1D` layer with 128 filters and a kernel size of 3, followed by ReLU activation.
+  - Batch normalization.
+  - Dropout with a rate of 0.3.
+
+**3. Temporal Processing (LSTM)**
+
+To capture temporal dependencies in the data, the model incorporates Bidirectional LSTM layers:
+
+- Reshape the output from the CNN to `[time_steps, features]`.
+- First Bidirectional LSTM layer with 64 units, configured to return sequences.
+- Dropout with a rate of 0.3.
+- Second Bidirectional LSTM layer with 64 units, configured to return the final output.
+- Dropout with a rate of 0.3.
+
+**4. Multi-Task Output**
+
+The model is designed to perform both classification and regression tasks:
+
+- **Shared Dense Layer:**
+  - Dense layer with 64 units and ReLU activation.
+  - Dropout with a rate of 0.4.
+
+- **Classification Branch:**
+  - Dense layer with 32 units and ReLU activation.
+  - Output Dense layer with `num_classes` units and softmax activation for multi-class classification.
+
+- **Concentration Estimation Branch:**
+  - Dense layer with 32 units and ReLU activation.
+  - Output Dense layer with 1 unit and linear activation for regression.
+
+**Training Configuration**
+
+The model's training involves several key steps:
+
+- **Data Preprocessing:**
+  - Normalization of temperature cycles.
+  - Baseline correction.
+  - Feature scaling.
+  - Data augmentation techniques, including random sensor noise (±2%), temperature variations (±0.5°C), and baseline drift simulation.
+
+- **Training Parameters:**
+  - Optimizer: Adam with a learning rate of 0.001.
+  - Loss Functions: Combination of Categorical Crossentropy for classification and Mean Squared Error for concentration estimation, weighted as 0.7 and 0.3, respectively.
+  - Training for 200 epochs with a batch size of 16.
+  - Early stopping with a patience of 20 epochs to prevent overfitting.
+
+**Model Optimization for Embedded Deployment**
+
+To ensure efficient deployment on embedded systems, the model undergoes several optimization techniques:
+
+- **Quantization:**
+  - Post-training quantization reduces weights and activations from FP32 to INT8, using a representative dataset for calibration.
+
+- **Pruning:**
+  - Iterative magnitude-based pruning removes 30% of the model's weights, followed by fine-tuning to maintain performance.
+
+- **Layer Fusion:**
+  - Techniques such as batch normalization folding and convolution-ReLU fusion are applied to streamline the model.
+
+These optimizations result in a reduced model size (from 1.35 MB to 0.98 MB), decreased inference time (720ms on an ESP32), and lower RAM usage (420 KB), while maintaining a classification accuracy of 90.2% and a mean absolute error of 8.2 ppm for concentration estimation.
+
+**Inference Pipeline**
+
+During real-time processing, the model follows these steps:
+
+1. **Data Normalization:** Sensor readings are normalized based on predefined minimum and maximum values.
+
+2. **Temperature Compensation:** Normalized data undergoes temperature compensation to account for environmental variations.
+
+3. **Model Inference:** The processed data is reshaped appropriately and passed through the model to obtain classification and concentration predictions.
+
+4. **Post-Processing:** An exponential moving average is applied to the concentration predictions for temporal smoothing. Detection events are generated if the confidence exceeds a predefined threshold.
+
+This comprehensive architecture enables the OdAR system to accurately detect and quantify various compounds in real-time, even when deployed on resource-constrained embedded devices. 
