@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <!-- Title -->
+  <text x="400" y="30" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">OdAR System - Side View</text>
+  
+  <!-- Side View - Main Enclosure -->
+  <rect x="200" y="200" width="400" height="200" fill="#9abcdd" stroke="#333" stroke-width="2" rx="10" ry="10"/>
+  
+  <!-- Main dimensions -->
+  <line x1="180" y1="200" x2="180" y2="400" stroke="#333" stroke-width="1.5"/>
+  <line x1="175" y1="200" x2="185" y2="200" stroke="#333" stroke-width="1.5"/>
+  <line x1="175" y1="400" x2="185" y2="400" stroke="#333" stroke-width="1.5"/>
+  <text x="150" y="300" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333" transform="rotate(270 150,300)">30mm</text>
+  
+  <!-- IP65 Sealing -->
+  <text x="400" y="180" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">IP65 Rubber Gasket Sealing</text>
+  
+  <!-- Weight and Material Specs -->
+  <text x="520" y="150" font-family="Arial" font-size="14" font-weight="bold" text-anchor="start" fill="#333">Weight: ~210g</text>
+  <text x="520" y="170" font-family="Arial" font-size="14" font-weight="bold" text-anchor="start" fill="#333">Material: Polycarbonate</text>
+  
+  <!-- MOS/CP Sensors -->
+  <rect x="240" y="225" width="30" height="30" fill="#222" stroke="#333" stroke-width="1" rx="2" ry="2"/>
+  <line x1="245" y1="225" x2="245" y2="255" stroke="#555" stroke-width="0.5"/>
+  <line x1="250" y1="225" x2="250" y2="255" stroke="#555" stroke-width="0.5"/>
+  <line x1="255" y1="225" x2="255" y2="255" stroke="#555" stroke-width="0.5"/>
+  <line x1="260" y1="225" x2="260" y2="255" stroke="#555" stroke-width="0.5"/>
+  <line x1="265" y1="225" x2="265" y2="255" stroke="#555" stroke-width="0.5"/>
+  <line x1="240" y1="230" x2="270" y2="230" stroke="#555" stroke-width="0.5"/>
+  <line x1="240" y1="235" x2="270" y2="235" stroke="#555" stroke-width="0.5"/>
+  <line x1="240" y1="240" x2="270" y2="240" stroke="#555" stroke-width="0.5"/>
+  <line x1="240" y1="245" x2="270" y2="245" stroke="#555" stroke-width="0.5"/>
+  <line x1="240" y1="250" x2="270" y2="250" stroke="#555" stroke-width="0.5"/>
+  <text x="255" y="210" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">MOS/CP Sensors</text>
+  
+  <!-- OLED Display Edge -->
+  <rect x="220" y="270" width="5" height="35" fill="#222" stroke="#444" stroke-width="1"/>
+  <text x="230" y="290" font-family="Arial" font-size="14" font-weight="bold" text-anchor="start" fill="#333">OLED</text>
+  
+  <!-- Side Ultrasonic Sensor -->
+  <circle cx="270" cy="370" r="15" fill="#e1e1e1" stroke="#333" stroke-width="1.5"/>
+  <circle cx="270" cy="370" r="10" fill="#aaa" stroke="#444" stroke-width="0.5"/>
+  <circle cx="270" cy="370" r="5" fill="#666" stroke="none"/>
+  <text x="270" y="410" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">HC-SR04 #2</text>
+  
+  <!-- Battery Compartment -->
+  <rect x="300" y="240" width="100" height="100" fill="#a7c9e5" stroke="#333" stroke-width="1.5" rx="3" ry="3"/>
+  <rect x="310" y="250" width="80" height="80" fill="#96b8d4" stroke="#555" stroke-width="0.5" rx="2" ry="2"/>
+  <text x="250" y="250" font-family="Arial" font-size="14" font-weight="bold" text-anchor="end" fill="#333">3.7V Li-Ion</text>
+  <text x="250" y="270" font-family="Arial" font-size="14" font-weight="bold" text-anchor="end" fill="#333">Battery</text>
+  <text x="250" y="290" font-family="Arial" font-size="14" font-weight="bold" text-anchor="end" fill="#333">(3000mAh)</text>
+  
+  <!-- Battery Access Door -->
+  <rect x="320" y="370" width="60" height="10" fill="#777" stroke="#555" stroke-width="1.5" rx="2" ry="2"/>
+  <text x="350" y="395" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">Battery Access Door</text>
+  
+  <!-- Temperature Control System -->
+  <rect x="450" y="240" width="70" height="70" fill="none" stroke="#0277bd" stroke-width="2" rx="5" ry="5"/>
+  <text x="485" y="225" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">Temperature</text>
+  <text x="485" y="245" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">Control System</text>
+  <text x="485" y="265" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">(10-40°C)</text>
+  
+  <!-- PID Controller -->
+  <rect x="530" y="240" width="30" height="40" fill="#f44336" stroke="#b71c1c" stroke-width="1.5" rx="3" ry="3"/>
+  <text x="545" y="265" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="white">PID</text>
+  
+  <!-- Temperature Sensor -->
+  <circle cx="545" cy="310" r="10" fill="#03A9F4" stroke="#0277bd" stroke-width="1.5"/>
+  <text x="570" cy="315" font-family="Arial" font-size="14" font-weight="bold" text-anchor="start" fill="#333">LM35</text>
+  
+  <!-- NEW: Micro Pump -->
+  <rect x="480" y="165" width="40" height="40" fill="#ff9800" stroke="#e65100" stroke-width="2" rx="3" ry="3"/>
+  <text x="500" y="185" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="white">PUMP</text>
+  <text x="545" y="180" font-family="Arial" font-size="12" font-weight="bold" text-anchor="start" fill="#333">(15x15x10mm)</text>
+  
+  <!-- NEW: Airflow Tubing -->
+  <path d="M290 240 C350 220, 400 190, 480 185" stroke="#0288d1" stroke-width="2" fill="none" stroke-dasharray="4,2"/>
+  <text x="350" y="200" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="#0288d1">Airflow</text>
+  <path d="M465 185 L475 185 L470 180 L465 185" fill="#0288d1"/>
+</svg>
