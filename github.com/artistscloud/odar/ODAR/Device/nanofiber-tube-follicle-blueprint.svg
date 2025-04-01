@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" className="w-full">
+  <title>Nanofiber Tubular Artificial Hair Follicle Blueprint</title>
+  
+  <!-- Main Tube Outline -->
+  <g transform="translate(250, 100)">
+    <path 
+      d="M150 0 
+         C200 50, 200 150, 150 250 
+         C100 350, 100 450, 150 500" 
+      fill="none" 
+      stroke="#1E3A8A" 
+      stroke-width="4" 
+      stroke-dasharray="10,5"
+    />
+    
+    <!-- Tube Cross-Section Annotations -->
+    <g transform="translate(0, 250)">
+      <line x1="150" y1="0" x2="250" y2="0" stroke="#4A5568" stroke-width="2" stroke-dasharray="5,3"/>
+      <text x="260" y="5" font-family="Arial" font-size="12" fill="#2D3748">
+        Cross-Section Diameter: 500-1000 nm
+      </text>
+    </g>
+  </g>
+
+  <!-- Detailed Zones -->
+  <g transform="translate(250, 100)">
+    <!-- Entrance Zone -->
+    <circle cx="150" cy="50" r="20" 
+      fill="#3B82F6" 
+      fill-opacity="0.3" 
+      stroke="#3B82F6"
+    />
+    <text x="180" y="50" font-family="Arial" font-size="10" fill="#1E40AF">
+      Entrance Zone
+      • Initial Filtering
+      • Volatile Organic Compound Detection
+    </text>
+
+    <!-- Mid Tube Region -->
+    <circle cx="150" cy="250" r="20" 
+      fill="#10B981" 
+      fill-opacity="0.3" 
+      stroke="#10B981"
+    />
+    <text x="180" y="250" font-family="Arial" font-size="10" fill="#047857">
+      Mid Tube Region
+      • Secondary Interaction
+      • Inorganic Gas Detection
+    </text>
+
+    <!-- Inner Detection Zone -->
+    <circle cx="150" cy="450" r="20" 
+      fill="#EF4444" 
+      fill-opacity="0.3" 
+      stroke="#EF4444"
+    />
+    <text x="180" y="450" font-family="Arial" font-size="10" fill="#B91C1C">
+      Inner Detection Zone
+      • Final Compound Identification
+      • Complex Organic Molecule Detection
+    </text>
+  </g>
+
+  <!-- Material Layers -->
+  <g transform="translate(500, 200)">
+    <rect x="0" y="0" width="250" height="200" 
+      fill="#F3F4F6" 
+      stroke="#4B5563" 
+      stroke-width="2"
+    />
+    <text x="10" y="20" font-family="Arial" font-size="14" font-weight="bold" fill="#1F2937">
+      Material Composition Layers
+    </text>
+
+    <g transform="translate(10, 40)">
+      <rect width="230" height="30" fill="#FECACA" stroke="#7F1D1D" stroke-width="1"/>
+      <text x="10" y="20" font-family="Arial" font-size="10" fill="#7F1D1D">
+        Outer Layer: Primary Chemical Interaction
+      </text>
+    </g>
+
+    <g transform="translate(10, 80)">
+      <rect width="230" height="30" fill="#A7F3D0" stroke="#064E3B" stroke-width="1"/>
+      <text x="10" y="20" font-family="Arial" font-size="10" fill="#064E3B">
+        Middle Layer: Secondary Chemical Sensing
+      </text>
+    </g>
+
+    <g transform="translate(10, 120)">
+      <rect width="230" height="30" fill="#BFDBFE" stroke="#1E3A8A" stroke-width="1"/>
+      <text x="10" y="20" font-family="Arial" font-size="10" fill="#1E3A8A">
+        Inner Layer: High-Specificity Detection
+      </text>
+    </g>
+  </g>
+
+  <!-- Fabrication Techniques -->
+  <g transform="translate(500, 450)">
+    <rect x="0" y="0" width="250" height="120" 
+      fill="#F3F4F6" 
+      stroke="#4B5563" 
+      stroke-width="2"
+    />
+    <text x="10" y="20" font-family="Arial" font-size="14" font-weight="bold" fill="#1F2937">
+      Fabrication Techniques
+    </text>
+
+    <g transform="translate(10, 40)">
+      <circle cx="10" cy="10" r="5" fill="#10B981"/>
+      <text x="25" y="15" font-family="Arial" font-size="10">
+        Sequential Electrospinning
+      </text>
+    </g>
+
+    <g transform="translate(10, 60)">
+      <circle cx="10" cy="10" r="5" fill="#3B82F6"/>
+      <text x="25" y="15" font-family="Arial" font-size="10">
+        Coaxial Electrospinning
+      </text>
+    </g>
+
+    <g transform="translate(10, 80)">
+      <circle cx="10" cy="10" r="5" fill="#EF4444"/>
+      <text x="25" y="15" font-family="Arial" font-size="10">
+        Post-Fabrication Surface Modification
+      </text>
+    </g>
+  </g>
+
+  <!-- Title and Metadata -->
+  <text x="400" y="50" 
+    font-family="Arial" 
+    font-size="20" 
+    font-weight="bold" 
+    text-anchor="middle" 
+    fill="#1F2937"
+  >
+    Nanofiber Tubular Artificial Hair Follicle Blueprint
+  </text>
+
+  <!-- Legend/Metadata -->
+  <g transform="translate(50, 550)">
+    <text font-family="Arial" font-size="10" fill="#6B7280">
+      Scale: Nanoscale | Proposed OdAR System Enhancement
+    </text>
+  </g>
+</svg>
