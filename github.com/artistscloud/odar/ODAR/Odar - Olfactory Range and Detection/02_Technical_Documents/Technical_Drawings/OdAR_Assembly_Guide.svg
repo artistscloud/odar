@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 600">
+  <!-- Generator: Adobe Illustrator 29.3.1, SVG Export Plug-In . SVG Version: 2.1.0 Build 151)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #000001;
+      }
+
+      .st1 {
+        font-size: 8px;
+      }
+
+      .st1, .st2, .st3, .st4, .st5, .st6, .st7 {
+        isolation: isolate;
+      }
+
+      .st1, .st3, .st5, .st7 {
+        font-family: ArialMT, Arial;
+      }
+
+      .st1, .st7 {
+        fill: #fff;
+      }
+
+      .st2 {
+        font-size: 14px;
+      }
+
+      .st2, .st3, .st4, .st5, .st6 {
+        fill: #333;
+      }
+
+      .st2, .st4, .st6 {
+        font-family: Arial-BoldMT, Arial;
+        font-weight: 700;
+      }
+
+      .st3 {
+        font-size: 10px;
+      }
+
+      .st8, .st9, .st10, .st11, .st12 {
+        fill: none;
+      }
+
+      .st8, .st13, .st14, .st15, .st10, .st16, .st12, .st17 {
+        stroke: #333;
+      }
+
+      .st4 {
+        font-size: 24px;
+      }
+
+      .st18 {
+        stroke: #000;
+      }
+
+      .st18, .st19, .st20, .st21, .st10 {
+        stroke-width: .5px;
+      }
+
+      .st18, .st14 {
+        fill: #222;
+      }
+
+      .st5, .st7 {
+        font-size: 12px;
+      }
+
+      .st22 {
+        fill: #f5f5f5;
+      }
+
+      .st22, .st19 {
+        stroke: #ddd;
+      }
+
+      .st6 {
+        font-size: 16px;
+      }
+
+      .st13 {
+        fill: #9abcdd;
+      }
+
+      .st19 {
+        fill: #f9f9f9;
+        fill-opacity: .8;
+      }
+
+      .st23 {
+        clip-path: url(#clippath-1);
+      }
+
+      .st24 {
+        fill: #607d8b;
+        stroke: #455a64;
+      }
+
+      .st15 {
+        fill: #e1e1e1;
+      }
+
+      .st20 {
+        fill: #e8f5e9;
+        fill-opacity: .7;
+        stroke: #2e7d32;
+      }
+
+      .st21 {
+        fill: #aaa;
+        stroke: #444;
+      }
+
+      .st25 {
+        fill: #0c7d3e;
+        stroke: #064023;
+      }
+
+      .st10 {
+        stroke-dasharray: 2 1;
+      }
+
+      .st11 {
+        stroke: #666;
+        stroke-dasharray: 5 2;
+      }
+
+      .st16 {
+        fill: #d5e6f3;
+      }
+
+      .st12 {
+        stroke-dasharray: 2 3;
+        stroke-width: 2px;
+      }
+
+      .st17 {
+        fill: #bfddf5;
+      }
+
+      .st26 {
+        clip-path: url(#clippath);
+      }
+    </style>
+    <clipPath id="clippath">
+      <rect class="st9" x="233.7" y="29" width="114.5" height="31.2"/>
+    </clipPath>
+    <clipPath id="clippath-1">
+      <rect class="st9" x="233.7" y="29" width="114.5" height="31.2"/>
+    </clipPath>
+  </defs>
+  <text class="st4" transform="translate(353.2 52)"><tspan x="0" y="0" xml:space="preserve"> - Assembly Guide</tspan></text>
+  <g>
+    <rect class="st22" x="80" y="95" width="240" height="180" rx="5" ry="5"/>
+    <text class="st2" transform="translate(119.1 115)"><tspan x="0" y="0">Step 1: Mount Main PCB</tspan></text>
+    <rect class="st13" x="100" y="180" width="200" height="80" rx="3" ry="3"/>
+    <rect class="st25" x="120" y="190" width="160" height="50" rx="2" ry="2"/>
+    <text class="st7" transform="translate(187.7 220)"><tspan x="0" y="0">PCB</tspan></text>
+    <circle class="st8" cx="130" cy="200" r="5"/>
+    <line class="st10" x1="130" y1="200" x2="130" y2="170"/>
+    <text class="st3" transform="translate(103.6 160)"><tspan x="0" y="0">M2.5 Screw</tspan></text>
+    <circle class="st8" cx="270" cy="200" r="5"/>
+    <line class="st10" x1="270" y1="200" x2="270" y2="170"/>
+    <text class="st3" transform="translate(243.6 160)"><tspan x="0" y="0">M2.5 Screw</tspan></text>
+    <circle class="st8" cx="130" cy="230" r="5"/>
+    <line class="st10" x1="130" y1="230" x2="130" y2="260"/>
+    <text class="st3" transform="translate(103.6 270)"><tspan x="0" y="0">M2.5 Screw</tspan></text>
+    <circle class="st8" cx="270" cy="230" r="5"/>
+    <line class="st10" x1="270" y1="230" x2="270" y2="260"/>
+    <text class="st3" transform="translate(243.6 270)"><tspan x="0" y="0">M2.5 Screw</tspan></text>
+  </g>
+  <g>
+    <rect class="st22" x="480" y="95" width="240" height="180" rx="5" ry="5"/>
+    <text class="st2" transform="translate(503.7 115)"><tspan x="0" y="0">Step 2: Attach Sensor Arrays</tspan></text>
+    <rect class="st17" x="500" y="180" width="200" height="80" rx="3" ry="3"/>
+    <circle class="st15" cx="540" cy="200" r="15"/>
+    <circle class="st21" cx="540" cy="200" r="10"/>
+    <line class="st10" x1="540" y1="200" x2="540" y2="170"/>
+    <text class="st3" transform="translate(511.7 160)"><tspan x="0" y="0">HC-SR04 #1</tspan></text>
+    <rect class="st14" x="640" y="190" width="30" height="30" rx="2" ry="2"/>
+    <line class="st10" x1="655" y1="190" x2="655" y2="170"/>
+    <text class="st3" transform="translate(615.3 160)"><tspan x="0" y="0">Olfactory Sensors</tspan></text>
+    <rect class="st13" x="500" y="245" width="80" height="30"/>
+    <circle class="st15" cx="540" cy="260" r="10"/>
+    <text class="st3" transform="translate(580 265)"><tspan x="0" y="0">Side Sensors</tspan></text>
+  </g>
+  <g>
+    <rect class="st22" x="80" y="295" width="240" height="180" rx="5" ry="5"/>
+    <text class="st2" transform="translate(120.7 315)"><tspan x="0" y="0">Step 3: Connect Battery</tspan></text>
+    <rect class="st13" x="100" y="380" width="200" height="80" rx="3" ry="3"/>
+    <rect class="st24" x="120" y="390" width="160" height="50" rx="8" ry="8"/>
+    <text class="st7" transform="translate(150.3 420)"><tspan x="0" y="0">3.7V Li-Ion Battery</tspan></text>
+    <rect class="st18" x="180" y="390" width="10" height="20"/>
+    <line class="st10" x1="185" y1="390" x2="185" y2="360"/>
+    <text class="st3" transform="translate(144.7 350)"><tspan x="0" y="0">Battery Connector</tspan></text>
+    <rect class="st24" x="120" y="360" width="30" height="20"/>
+    <text class="st1" transform="translate(126.3 374)"><tspan x="0" y="0">BMS</tspan></text>
+    <line class="st11" x1="180" y1="400" x2="135" y2="370"/>
+  </g>
+  <g>
+    <rect class="st22" x="480" y="295" width="240" height="180" rx="5" ry="5"/>
+    <text class="st2" transform="translate(523.6 315)"><tspan x="0" y="0">Step 4: Final Assembly</tspan></text>
+    <path class="st16" d="M510,385l70-30h100l-70,30h-100Z"/>
+    <text class="st3" transform="translate(572.8 345)"><tspan x="0" y="0">Top Panel</tspan></text>
+    <path class="st17" d="M510,385v60h100v-60h-100Z"/>
+    <text class="st3" transform="translate(468.3 415)"><tspan x="0" y="0">Front</tspan></text>
+    <path class="st13" d="M610,385l70-30v60l-70,30v-60Z"/>
+    <text class="st3" transform="translate(680 415)"><tspan x="0" y="0">Side</tspan></text>
+    <path class="st12" d="M515,387l65-27h95l-65,27h-95Z"/>
+    <text class="st3" transform="translate(591.4 370)"><tspan x="0" y="0">Rubber Gasket</tspan></text>
+  </g>
+  <rect class="st19" x="40" y="480" width="720" height="100" rx="5" ry="5"/>
+  <text class="st6" transform="translate(323.5 500)"><tspan x="0" y="0">Assembly Parts List</tspan></text>
+  <text class="st5" transform="translate(60 525)"><tspan x="0" y="0">• 1x Main PCB with ESP32-WROOM-32E</tspan></text>
+  <text class="st5" transform="translate(60 550)"><tspan x="0" y="0">• 1x Olfactory Sensor Array (8 sensors)</tspan></text>
+  <text class="st5" transform="translate(60 575)"><tspan x="0" y="0">• 3x HC-SR04 Ultrasonic Sensors</tspan></text>
+  <text class="st5" transform="translate(320 525)"><tspan x="0" y="0">• 1x 3.7V Li-Ion Battery (3000mAh)</tspan></text>
+  <text class="st5" transform="translate(320 550)"><tspan x="0" y="0">• 1x IP65 Polycarbonate Enclosure</tspan></text>
+  <text class="st5" transform="translate(320 575)"><tspan x="0" y="0">• 1x 0.96&quot; OLED Display</tspan></text>
+  <text class="st5" transform="translate(580 525)"><tspan x="0" y="0">• 8x M2.5 Mounting Screws</tspan></text>
+  <text class="st5" transform="translate(580 550)"><tspan x="0" y="0">• 1x Rubber Gasket Seal</tspan></text>
+  <text class="st5" transform="translate(580 575)"><tspan x="0" y="0">• 3x Control Buttons</tspan></text>
+  <rect class="st20" x="40" y="440" width="720" height="30" rx="5" ry="5"/>
+  <text class="st5" transform="translate(42.6 460)"><tspan x="0" y="0">Note: Ensure temperature control system is calibrated before final assembly. Apply silicone to sensor connections for added protection.</tspan></text>
+  <g id="Artwork_894">
+    <g class="st26">
+      <g class="st23">
+        <path class="st0" d="M248.4,29c6.9-.5,13.6,4.3,15.7,10.8,1.3,4,.9,8.6-1.1,12.3-3,5.5-9.5,8.9-15.7,8-3.8-.4-7.3-2.4-9.7-5.2-2.2-2.4-3.4-5.5-3.7-8.7-.4-4,.8-8.1,3.3-11.3,2.7-3.5,6.9-5.7,11.3-5.9M246.7,38.5c-2.4.6-4.1,3.1-3.8,5.5.3,3.1,2.8,5.8,5.7,6.7,1.6.6,3.5.5,4.8-.5,1.5-1,2.4-2.8,2.2-4.6,0-2.1-1.3-3.9-2.8-5.2-1.7-1.4-3.9-2.5-6.2-1.9"/>
+        <path class="st0" d="M266.1,30c3.2,0,6.3,0,9.5,0,2.1,0,4.2-.1,6.3.3,3.2.6,6.2,2.3,8.4,4.9,2,2.4,3.2,5.4,3.5,8.5,1.9-4.6,3.7-9.1,5.6-13.7,3.6,0,7.2,0,10.9,0,3,7.2,5.7,14.6,8.8,21.8.2-7.2,0-14.5,0-21.8,6,0,12.1,0,18.1,0,2.7-.1,5.4,1.3,7.1,3.5,2.4,3.2,2.6,7.8.7,11.2-1,1.8-2.7,3.2-4.7,3.7,2.6,3.6,5.2,7.1,7.7,10.8-3.9,0-7.9,0-11.8,0-2.3-3.3-4.6-6.7-7.1-9.9,0,3.3,0,6.6,0,9.9-6,0-11.9,0-17.9,0-.3-.8-.7-1.6-.9-2.4-3.5,0-7,0-10.4,0,1.2-2.6,2.3-5.2,3.4-7.8,1.3,0,2.6,0,3.9,0-.8-2.2-1.6-4.4-2.5-6.6-1.1,2.3-2,4.7-3,7-1.4,3.3-2.8,6.5-4.1,9.8-3.5,0-7.1,0-10.6,0,.4-1,.8-2,1.2-3-2.8,2-6.2,3.1-9.6,3-4.2,0-8.4,0-12.5,0,0-9.7,0-19.4,0-29.1M329.2,38.6c0,1.1,0,2.2,0,3.3,1.7,0,3.4,0,5.1,0,.4,0,.8,0,1.1-.1,1.2-.6,1.2-2.8-.1-3.2-2,0-4.1,0-6.2,0M275.9,39.6c0,3.3,0,6.7,0,10,1.5,0,3,.1,4.4-.1,2-.4,3.2-2.6,3.2-4.6,0-1.9-.7-4.2-2.6-4.9-1.6-.6-3.4-.3-5.1-.4"/>
+      </g>
+    </g>
+  </g>
+</svg>
