@@ -1,0 +1,188 @@
+class DataAcquisitionSystem {
+private:
+    const uint32_t SAMPLE_RATE = 100;  // Hz
+    const uint16_t BUFFER_SIZE = 1024;
+    const uint8_t NUM_CHANNELS = 8;
+
+    struct CalibrationData {
+        float sensorOffsets[NUM_CHANNELS];
+        float sensorGains[NUM_CHANNELS];
+        float tempCoefficients[NUM_CHANNELS];
+        float baselineValues[NUM_CHANNELS];
+        uint32_t lastCalibration;
+        bool isCalibrated;
+    } calibration;
+
+    struct SensorBuffer {
+        float data[BUFFER_SIZE][NUM_CHANNELS];
+        uint16_t writeIndex;
+        uint16_t readIndex;
+        bool overflow;
+    } buffer;
+
+public:
+    void initializeADC() {
+        // Configure ADC for each channel
+        adc1_config_width(ADC_WIDTH_BIT_12);
+        
+        for (int i = 0; i < NUM_CHANNELS; i++) {
+            adc1_config_channel_atten(ADC1_CHANNEL_0 + i, ADC_ATTEN_DB_11);
+        }
+
+        // Initialize DMA for continuous sampling
+        initializeDMA();
+    }
+
+    void startAcquisition() {
+        // Start ADC DMA operation
+        adc_dma_start();
+        
+        // Start timer for regular sampling
+        startSamplingTimer(SAMPLE_RATE);
+    }
+
+    bool performCalibration() {
+        // Zero calibration
+        if (!performZeroCalibration()) {
+            return false;
+        }
+
+        // Span calibration using reference compounds
+        if (!performSpanCalibration()) {
+            return false;
+        }
+
+        // Temperature compensation calibration
+        if (!performTempCalibration()) {
+            return false;
+        }
+
+        calibration.lastCalibration = millis();
+        calibration.isCalibrated = true;
+
+        // Save calibration data to flash
+        saveCalibrationData();
+
+        return true;
+    }
+
+private:
+    bool performZeroCalibration() {
+        const uint16_t NUM_SAMPLES = 100;
+        float sensorSums[NUM_CHANNELS] = {0};
+
+        // Ensure clean air environment
+        if (!verifyCleanAir()) {
+            return false;
+        }
+
+        // Collect baseline readings
+        for (int i = 0; i < NUM_SAMPLES; i++) {
+            float* readings = readSensors();
+            for (int j = 0; j < NUM_CHANNELS; j++) {
+                sensorSums[j] += readings[j];
+            }
+            delay(100);
+        }
+
+        // Calculate and store offsets
+        for (int i = 0; i < NUM_CHANNELS; i++) {
+            calibration.sensorOffsets[i] = sensorSums[i] / NUM_SAMPLES;
+            calibration.baselineValues[i] = calibration.sensorOffsets[i];
+        }
+
+        return true;
+    }
+
+    bool performSpanCalibration() {
+        const uint16_t SAMPLES_PER_POINT = 50;
+        const uint8_t NUM_CALIBRATION_POINTS = 3;
+        
+        // Calibration concentrations (ppm)
+        const float CAL_CONCENTRATIONS[NUM_CALIBRATION_POINTS] = {50, 100, 200};
+
+        for (int point = 0; point < NUM_CALIBRATION_POINTS; point++) {
+            // Set calibration gas concentration
+            setCalibrationGas(CAL_CONCENTRATIONS[point]);
+            
+            // Wait for stable readings
+            delay(5000);
+
+            // Collect samples
+            float sensorSums[NUM_CHANNELS] = {0};
+            for (int i = 0; i < SAMPLES_PER_POINT; i++) {
+                float* readings = readSensors();
+                for (int j = 0; j < NUM_CHANNELS; j++) {
+                    sensorSums[j] += readings[j];
+                }
+                delay(100);
+            }
+
+            // Calculate average responses
+            float avgResponses[NUM_CHANNELS];
+            for (int i = 0; i < NUM_CHANNELS; i++) {
+                avgResponses[i] = sensorSums[i] / SAMPLES_PER_POINT;
+            }
+
+            // Calculate gains for this point
+            for (int i = 0; i < NUM_CHANNELS; i++) {
+                float expectedResponse = CAL_CONCENTRATIONS[point];
+                float measuredResponse = avgResponses[i] - calibration.sensorOffsets[i];
+                calibration.sensorGains[i] = expectedResponse / measuredResponse;
+            }
+        }
+
+        return true;
+    }
+
+    bool performTempCalibration() {
+        const uint8_t NUM_TEMP_POINTS = 4;
+        const float TEMP_POINTS[NUM_TEMP_POINTS] = {10, 20, 30, 40};
+        
+        for (int temp = 0; temp < NUM_TEMP_POINTS; temp++) {
+            // Set temperature
+            setTemperature(TEMP_POINTS[temp]);
+            
+            // Wait for temperature stabilization
+            while (!isTemperatureStable()) {
+                delay(1000);
+            }
+
+            // Measure response to reference gas
+            float responses[NUM_CHANNELS];
+            measureReferenceResponses(responses);
+
+            // Calculate temperature coefficients
+            for (int i = 0; i < NUM_CHANNELS; i++) {
+                float tempDiff = TEMP_POINTS[temp] - 20.0; // Reference temp
+                float responseDiff = responses[i] - calibration.baselineValues[i];
+                calibration.tempCoefficients[i] = responseDiff / tempDiff;
+            }
+        }
+
+        return true;
+    }
+
+    void saveCalibrationData() {
+        // Save to EEPROM or Flash
+        EEPROM.begin(512);
+        
+        int addr = 0;
+        EEPROM.put(addr, calibration);
+        addr += sizeof(CalibrationData);
+        
+        EEPROM.commit();
+        EEPROM.end();
+    }
+
+    bool loadCalibrationData() {
+        EEPROM.begin(512);
+        
+        int addr = 0;
+        EEPROM.get(addr, calibration);
+        
+        EEPROM.end();
+        
+        return calibration.isCalibrated;
+    }
+};
