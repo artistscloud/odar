@@ -1,7 +1,9 @@
+
 import React from 'react';
 import { useStaggeredAnimation } from '@/utils/animation';
 import { Link } from 'react-router-dom';
 import { FileText, Home, ClipboardList } from 'lucide-react';
+
 const Header: React.FC = () => {
   const [logoVisible, titleVisible] = useStaggeredAnimation(2, 200, 300);
   return <header className="w-full py-6 px-8 flex items-center justify-between">
@@ -12,7 +14,13 @@ const Header: React.FC = () => {
           </svg>
         </div>
         <div className={`transform transition-all duration-700 delay-100 ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
-          <h1 className="text-2xl font-medium tracking-tight">OdAR System</h1>
+          <h1 className="text-2xl font-medium tracking-tight">
+            <img 
+              src="/lovable-uploads/cf2fca09-6429-43ae-a918-3589c006bfb9.png" 
+              alt="OdAR System Logo" 
+              className="h-8"
+            />
+          </h1>
           <div className="flex items-center">
             <span className="text-xs uppercase tracking-wider text-odar-gray-500 font-medium">OLFACTORY DETECTION & RANGING</span>
             <span className="ml-3 px-2 py-0.5 bg-odar-gray-100 rounded-full text-xs font-medium text-odar-blue">
