@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <!-- Title -->
+  <text x="400" y="30" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">OdAR System - Master 3D View</text>
+  
+  <!-- Main Enclosure - Isometric View -->
+  <g transform="translate(400, 300) scale(1.8) rotate(30) skewX(-30) translate(-130, -80)">
+    <!-- Front Panel with Gradient -->
+    <defs>
+      <linearGradient id="frontGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#bfddf5;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#89b4d9;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+    <polygon points="20,20 220,20 220,140 20,140" fill="url(#frontGradient)" stroke="#333" stroke-width="1.5"/>
+    
+    <!-- Top Panel with Gradient -->
+    <defs>
+      <linearGradient id="topGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#d5e6f3;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#a7c9e5;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+    <polygon points="20,20 70,0 270,0 220,20" fill="url(#topGradient)" stroke="#333" stroke-width="1.5"/>
+    
+    <!-- Side Panel with Gradient -->
+    <defs>
+      <linearGradient id="sideGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#9abcdd;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#6d9bc8;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+    <polygon points="220,20 270,0 270,120 220,140" fill="url(#sideGradient)" stroke="#333" stroke-width="1.5"/>
+    
+    <!-- Display Window -->
+    <rect x="85" y="40" width="70" height="35" fill="#222" stroke="#444" stroke-width="1.5"/>
+    <rect x="90" y="45" width="60" height="25" fill="#111" stroke="none"/>
+    
+    <!-- Front Olfactory Sensor Grille -->
+    <rect x="170" y="45" width="30" height="30" fill="#222" stroke="#333" stroke-width="0.5" rx="2" ry="2"/>
+    <line x1="175" y1="45" x2="175" y2="75" stroke="#555" stroke-width="0.5"/>
+    <line x1="180" y1="45" x2="180" y2="75" stroke="#555" stroke-width="0.5"/>
+    <line x1="185" y1="45" x2="185" y2="75" stroke="#555" stroke-width="0.5"/>
+    <line x1="190" y1="45" x2="190" y2="75" stroke="#555" stroke-width="0.5"/>
+    <line x1="195" y1="45" x2="195" y2="75" stroke="#555" stroke-width="0.5"/>
+    <line x1="170" y1="50" x2="200" y2="50" stroke="#555" stroke-width="0.5"/>
+    <line x1="170" y1="55" x2="200" y2="55" stroke="#555" stroke-width="0.5"/>
+    <line x1="170" y1="60" x2="200" y2="60" stroke="#555" stroke-width="0.5"/>
+    <line x1="170" y1="65" x2="200" y2="65" stroke="#555" stroke-width="0.5"/>
+    <line x1="170" y1="70" x2="200" y2="70" stroke="#555" stroke-width="0.5"/>
+    
+    <!-- ENHANCED: Pump Inlet with Tube -->
+    <circle cx="205" cy="60" r="5" fill="none" stroke="#0288d1" stroke-width="1"/>
+    <rect x="200" y="55" width="5" height="10" fill="#e1f5fe" stroke="#0288d1" stroke-width="0.5"/>
+    
+    <!-- ENHANCED: Airflow Path from Inlet to Sensors -->
+    <path d="M200 60 Q190 50 185 60" stroke="#0288d1" stroke-width="1" stroke-dasharray="2,1" fill="none"/>
+    <path d="M185 60 L188 57 L188 63 Z" fill="#0288d1"/>
+    
+    <!-- Front Ultrasonic Sensor #1 -->
+    <circle cx="50" cy="50" r="10" fill="#e1e1e1" stroke="#333" stroke-width="1"/>
+    <circle cx="50" cy="50" r="7" fill="#aaa" stroke="#444" stroke-width="0.5"/>
+    <circle cx="50" cy="50" r="3" fill="#666" stroke="none"/>
+    
+    <!-- Control Buttons -->
+    <circle cx="70" cy="110" r="8" fill="#444" stroke="#333" stroke-width="1"/>
+    <circle cx="100" cy="110" r="8" fill="#444" stroke="#333" stroke-width="1"/>
+    <circle cx="130" cy="110" r="8" fill="#444" stroke="#333" stroke-width="1"/>
+    
+    <!-- Power LED -->
+    <circle cx="45" cy="110" r="3" fill="#2f2" stroke="#090" stroke-width="0.5"/>
+    
+    <!-- USB-C Port -->
+    <rect x="175" y="110" width="15" height="8" fill="#111" stroke="#444" stroke-width="0.5" rx="2" ry="2"/>
+    
+    <!-- Power Switch -->
+    <rect x="200" y="110" width="10" height="5" fill="#333" stroke="#444" stroke-width="0.5"/>
+  </g>
+  
+  <!-- ENHANCED: Untransformed Labels for Airflow -->
+  <text x="520" y="290" font-family="Arial" font-size="8" fill="#0288d1">Pump Inlet</text>
+  <text x="500" y="270" font-family="Arial" font-size="7" text-anchor="middle" fill="#0288d1">Airflow</text>
+  
+  <!-- Perspective Guide Lines (Subtle) -->
+  <g opacity="0.15">
+    <path d="M320 340 L250 250" stroke="#333" stroke-width="0.5" stroke-dasharray="1,2"/>
+    <path d="M320 340 L550 250" stroke="#333" stroke-width="0.5" stroke-dasharray="1,2"/>
+    <path d="M320 340 L550 350" stroke="#333" stroke-width="0.5" stroke-dasharray="1,2"/>
+  </g>
+  
+  <!-- Top View Indicator -->
+  <path d="M580 180 L620 120" stroke="#333" stroke-width="0.5" stroke-dasharray="1,1"/>
+  <circle cx="620" cy="120" r="10" fill="#f4f4f4" stroke="#333" stroke-width="0.5"/>
+  <text x="620" y="124" font-family="Arial" font-size="10" font-weight="bold" text-anchor="middle" fill="#333">T</text>
+  
+  <!-- Front View Indicator -->
+  <path d="M280 380 L220 420" stroke="#333" stroke-width="0.5" stroke-dasharray="1,1"/>
+  <circle cx="220" cy="420" r="10" fill="#f4f4f4" stroke="#333" stroke-width="0.5"/>
+  <text x="220" y="424" font-family="Arial" font-size="10" font-weight="bold" text-anchor="middle" fill="#333">F</text>
+  
+  <!-- Side View Indicator -->
+  <path d="M480 380 L540 420" stroke="#333" stroke-width="0.5" stroke-dasharray="1,1"/>
+  <circle cx="540" cy="420" r="10" fill="#f4f4f4" stroke="#333" stroke-width="0.5"/>
+  <text x="540" y="424" font-family="Arial" font-size="10" font-weight="bold" text-anchor="middle" fill="#333">S</text>
+  
+  <!-- Exploded View Indicator -->
+  <path d="M580 320 L640 380" stroke="#333" stroke-width="0.5" stroke-dasharray="1,1"/>
+  <circle cx="640" cy="380" r="10" fill="#f4f4f4" stroke="#333" stroke-width="0.5"/>
+  <text x="640" y="384" font-family="Arial" font-size="10" font-weight="bold" text-anchor="middle" fill="#333">E</text>
+  
+  <!-- NEW: Detailed Airflow Indicator -->
+  <path d="M480 240 L550 270" stroke="#0288d1" stroke-width="0.5" stroke-dasharray="2,1"/>
+  <circle cx="550" cy="270" r="10" fill="#e1f5fe" stroke="#0288d1" stroke-width="0.5"/>
+  <text x="550" y="274" font-family="Arial" font-size="10" font-weight="bold" text-anchor="middle" fill="#0288d1">A</text>
+  
+  <!-- Key (Minimal) -->
+  <rect x="600" y="520" width="180" height="70" fill="#f9f9f9" fill-opacity="0.7" rx="5" ry="5" stroke="#ddd" stroke-width="0.5"/>
+  <text x="690" y="540" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle" fill="#333">View Navigation</text>
+  <circle cx="620" cy="560" r="6" fill="#f4f4f4" stroke="#333" stroke-width="0.5"/>
+  <text x="620" y="563" font-family="Arial" font-size="8" font-weight="bold" text-anchor="middle" fill="#333">T</text>
+  <text x="640" y="563" font-family="Arial" font-size="10" text-anchor="start" fill="#333">Top View</text>
+  
+  <circle cx="670" cy="560" r="6" fill="#f4f4f4" stroke="#333" stroke-width="0.5"/>
+  <text x="670" y="563" font-family="Arial" font-size="8" font-weight="bold" text-anchor="middle" fill="#333">F</text>
+  <text x="690" y="563" font-family="Arial" font-size="10" text-anchor="start" fill="#333">Front View</text>
+  
+  <circle cx="720" cy="560" r="6" fill="#f4f4f4" stroke="#333" stroke-width="0.5"/>
+  <text x="720" y="563" font-family="Arial" font-size="8" font-weight="bold" text-anchor="middle" fill="#333">S</text>
+  <text x="740" y="563" font-family="Arial" font-size="10" text-anchor="start" fill="#333">Side View</text>
+  
+  <circle cx="620" cy="580" r="6" fill="#f4f4f4" stroke="#333" stroke-width="0.5"/>
+  <text x="620" y="583" font-family="Arial" font-size="8" font-weight="bold" text-anchor="middle" fill="#333">E</text>
+  <text x="640" y="583" font-family="Arial" font-size="10" text-anchor="start" fill="#333">Exploded View</text>
+  
+  <!-- ENHANCED: Airflow Regulation Text -->
+  <circle cx="670" cy="580" r="6" fill="#e1f5fe" stroke="#0288d1" stroke-width="0.5"/>
+  <text x="670" y="583" font-family="Arial" font-size="8" font-weight="bold" text-anchor="middle" fill="#0288d1">A</text>
+  <text x="690" y="583" font-family="Arial" font-size="10" text-anchor="start" fill="#333">Airflow Regulation</text>
+</svg>
