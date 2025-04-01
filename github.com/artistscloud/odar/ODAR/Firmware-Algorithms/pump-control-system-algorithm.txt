@@ -1,0 +1,225 @@
+class PumpController {
+private:
+    // Pump configuration
+    const uint8_t FLOW_RATES[5] = {
+        0,    // OFF
+        25,   // LOW
+        50,   // MEDIUM
+        75,   // HIGH
+        100   // MAX
+    };
+    
+    // Operating parameters
+    struct PumpParameters {
+        uint32_t onTime;    // ms
+        uint32_t offTime;   // ms
+        uint8_t flowRate;   // percentage
+        float concentration; // ppm
+        bool isRunning;
+        uint32_t lastStateChange;
+    } params;
+    
+    // Adaptive control parameters
+    struct AdaptiveControl {
+        float targetConcentration;
+        float concentrationError;
+        float integralError;
+        float lastError;
+        float Kp, Ki, Kd;  //
+
+// Continuing PumpController class...
+    struct AdaptiveControl {
+        float targetConcentration;
+        float concentrationError;
+        float integralError;
+        float lastError;
+        float Kp, Ki, Kd;  // PID constants for adaptive flow control
+        uint32_t lastUpdate;
+        float outputLimit;
+    } adaptiveParams;
+
+public:
+    enum class PumpMode {
+        OFF,
+        CONTINUOUS,
+        DUTY_CYCLE,
+        ADAPTIVE,
+        PULSED
+    };
+
+    void configurePump(PumpMode mode, uint32_t onTime = 5000, uint32_t offTime = 15000) {
+        switch (mode) {
+            case PumpMode::ADAPTIVE:
+                initializeAdaptiveControl();
+                params.flowRate = FLOW_RATES[2];  // Start at MEDIUM
+                break;
+
+            case PumpMode::DUTY_CYCLE:
+                params.onTime = onTime;
+                params.offTime = offTime;
+                params.lastStateChange = millis();
+                params.isRunning = true;
+                setPumpFlow(params.flowRate);
+                break;
+
+            case PumpMode::PULSED:
+                configurePulsedMode(onTime, offTime);
+                break;
+
+            case PumpMode::CONTINUOUS:
+                params.isRunning = true;
+                setPumpFlow(params.flowRate);
+                break;
+
+            case PumpMode::OFF:
+            default:
+                params.isRunning = false;
+                setPumpFlow(0);
+                break;
+        }
+    }
+
+    void updatePumpControl(float currentConcentration) {
+        uint32_t currentTime = millis();
+
+        switch (currentMode) {
+            case PumpMode::ADAPTIVE:
+                updateAdaptiveControl(currentConcentration, currentTime);
+                break;
+
+            case PumpMode::DUTY_CYCLE:
+                updateDutyCycle(currentTime);
+                break;
+
+            case PumpMode::PULSED:
+                updatePulsedMode(currentTime);
+                break;
+
+            case PumpMode::CONTINUOUS:
+                // Maintain current flow rate
+                break;
+        }
+    }
+
+private:
+    void initializeAdaptiveControl() {
+        adaptiveParams.Kp = 2.0;      // Proportional gain
+        adaptiveParams.Ki = 0.1;      // Integral gain
+        adaptiveParams.Kd = 0.5;      // Derivative gain
+        adaptiveParams.integralError = 0;
+        adaptiveParams.lastError = 0;
+        adaptiveParams.lastUpdate = millis();
+        adaptiveParams.outputLimit = 100.0;  // Maximum output limit
+    }
+
+    void updateAdaptiveControl(float currentConcentration, uint32_t currentTime) {
+        float dt = (currentTime - adaptiveParams.lastUpdate) / 1000.0;  // Convert to seconds
+        adaptiveParams.lastUpdate = currentTime;
+
+        // Calculate error
+        float error = adaptiveParams.targetConcentration - currentConcentration;
+
+        // Update integral term with anti-windup
+        adaptiveParams.integralError += error * dt;
+        adaptiveParams.integralError = constrain(adaptiveParams.integralError, -adaptiveParams.outputLimit, adaptiveParams.outputLimit);
+
+        // Calculate derivative term
+        float derivative = (error - adaptiveParams.lastError) / dt;
+        adaptiveParams.lastError = error;
+
+        // Calculate PID output
+        float output = adaptiveParams.Kp * error +
+                      adaptiveParams.Ki * adaptiveParams.integralError +
+                      adaptiveParams.Kd * derivative;
+
+        // Convert PID output to flow rate
+        output = constrain(output, 0, adaptiveParams.outputLimit);
+        uint8_t newFlowRate = map(output, 0, adaptiveParams.outputLimit, FLOW_RATES[0], FLOW_RATES[4]);
+
+        // Apply flow rate change with rate limiting
+        if (abs(newFlowRate - params.flowRate) >= 5) {  // Minimum change threshold
+            params.flowRate = newFlowRate;
+            setPumpFlow(params.flowRate);
+        }
+    }
+
+    void updateDutyCycle(uint32_t currentTime) {
+        if (params.isRunning && (currentTime - params.lastStateChange >= params.onTime)) {
+            // Switch to off phase
+            params.isRunning = false;
+            setPumpFlow(0);
+            params.lastStateChange = currentTime;
+        }
+        else if (!params.isRunning && (currentTime - params.lastStateChange >= params.offTime)) {
+            // Switch to on phase
+            params.isRunning = true;
+            setPumpFlow(params.flowRate);
+            params.lastStateChange = currentTime;
+        }
+    }
+
+    void configurePulsedMode(uint32_t pulseWidth, uint32_t period) {
+        // Configure timer for precise pulse generation
+        const uint32_t TIMER_DIVIDER = 80;  // 80 MHz / 80 = 1 MHz
+        timer_config_t config = {
+            .alarm_en = TIMER_ALARM_EN,
+            .counter_en = TIMER_START,
+            .intr_type = TIMER_INTR_LEVEL,
+            .counter_dir = TIMER_COUNT_UP,
+            .auto_reload = TIMER_AUTORELOAD_EN,
+            .divider = TIMER_DIVIDER
+        };
+
+        timer_init(TIMER_GROUP_0, TIMER_0, &config);
+        timer_set_counter_value(TIMER_GROUP_0, TIMER_0, 0);
+        timer_set_alarm_value(TIMER_GROUP_0, TIMER_0, period);
+        timer_enable_intr(TIMER_GROUP_0, TIMER_0);
+        timer_isr_register(TIMER_GROUP_0, TIMER_0, pulsed_timer_isr, this, ESP_INTR_FLAG_IRAM, NULL);
+        
+        params.onTime = pulseWidth;
+        params.offTime = period - pulseWidth;
+    }
+
+    void setPumpFlow(uint8_t flowRate) {
+        // Convert percentage to PWM value (0-255)
+        uint8_t pwmValue = map(flowRate, 0, 100, 0, 255);
+        
+        // Apply PWM with soft start/stop
+        if (flowRate > params.flowRate) {
+            // Ramping up
+            for (uint8_t i = params.flowRate; i <= flowRate; i++) {
+                uint8_t pwm = map(i, 0, 100, 0, 255);
+                ledcWrite(PUMP_PWM_CHANNEL, pwm);
+                delay(5);  // 5ms ramp time
+            }
+        } else {
+            // Ramping down
+            for (uint8_t i = params.flowRate; i >= flowRate; i--) {
+                uint8_t pwm = map(i, 0, 100, 0, 255);
+                ledcWrite(PUMP_PWM_CHANNEL, pwm);
+                delay(5);
+            }
+        }
+        
+        params.flowRate = flowRate;
+    }
+
+    // Flow monitoring and fault detection
+    bool checkPumpOperation() {
+        // Read flow sensor feedback (if available)
+        float actualFlow = readFlowSensor();
+        
+        // Check for pump faults
+        if (params.isRunning && actualFlow < (params.flowRate * 0.8)) {
+            // Flow is significantly lower than expected
+            return false;
+        }
+        
+        // Check for blockage
+        if (params.isRunning && getPumpCurrent() > PUMP_CURRENT_MAX) {
+            return false;
+        }
+        
+        return true;
+    }
+};
