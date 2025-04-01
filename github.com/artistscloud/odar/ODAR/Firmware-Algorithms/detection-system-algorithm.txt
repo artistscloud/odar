@@ -1,0 +1,337 @@
+class DetectionSystem {
+private:
+    // Detection thresholds
+    struct DetectionThresholds {
+        float baselineDeviation;    // Minimum deviation from baseline
+        float confidenceThreshold;  // Minimum confidence score
+        float gradientThreshold;    // Minimum concentration gradient
+        uint16_t minimumSamples;    // Minimum samples for valid detection
+        float temporalConsistency;  // Required temporal consistency
+    } thresholds;
+
+    // Environmental compensation
+    struct EnvironmentalConditions {
+        float temperature;
+        float humidity;
+        float pressure;
+        float temperatureGradient;
+        float humidityGradient;
+        float pressureGradient;
+        bool stable;
+    } envConditions;
+
+public:
+    struct DetectionResult {
+        bool detected;
+        uint8_t compoundID;
+        float concentration;
+        float confidence;
+        float gradientVector[3];  // Spatial gradient (x,y,z)
+        uint32_t timestamp;
+        EnvironmentalConditions conditions;
+    };
+
+    DetectionResult processDetection(const ProcessedSignal signals[NUM_SENSORS],
+                                   const RangingData& ranging,
+                                   const EnvironmentalConditions& environment) {
+        DetectionResult result = {};
+        result.timestamp = millis();
+        result.conditions = environment;
+
+        // Update environmental stability
+        updateEnvironmentalStability(environment);
+
+        // Only proceed if environmental conditions are stable
+        if (!envConditions.stable) {
+            return result;
+        }
+
+        // Analyze sensor signals
+        SignalAnalysis signalAnalysis = analyzeSensorSignals(signals);
+
+        // Check for valid detection
+        if (signalAnalysis.validDetection) {
+            // Perform pattern recognition
+            PatternRecognition::RecognitionResult pattern = 
+                patternRecognizer.analyzePattern(signalAnalysis.tempCycleData);
+
+            if (pattern.patternMatched) {
+                // Calculate concentration and confidence
+                float concentration = calculateConcentration(signals, pattern);
+                float confidence = calculateConfidence(signals, pattern, environment);
+
+                // Calculate spatial gradient
+                calculateGradient(signals, ranging, result.gradientVector);
+
+                // Update result
+                result.detected = true;
+                result.compoundID = pattern.compoundID;
+                result.concentration = concentration;
+                result.confidence = confidence;
+
+                // Log detection event
+                logDetectionEvent(result);
+            }
+        }
+
+        return result;
+    }
+
+private:
+    void updateEnvironmentalStability(const EnvironmentalConditions& current) {
+        static EnvironmentalConditions previous = {};
+        static uint32_t lastUpdate = 0;
+        
+        uint32_t deltaTime = (millis() - lastUpdate) / 1000.0; // seconds
+        
+        // Calculate environmental gradients
+        envConditions.temperatureGradient = 
+            (current.temperature - previous.temperature) / deltaTime;
+        envConditions.humidityGradient = 
+            (current.humidity - previous.humidity) / deltaTime;
+        envConditions.pressureGradient = 
+            (current.pressure - previous.pressure) / deltaTime;
+        
+        // Check stability criteria
+        bool tempStable = abs(envConditions.temperatureGradient) < TEMP_STABILITY_THRESHOLD;
+        bool humidityStable = abs(envConditions.humidityGradient) < HUMIDITY_STABILITY_THRESHOLD;
+        bool pressureStable = abs(envConditions.pressureGradient) < PRESSURE_STABILITY_THRESHOLD;
+        
+        envConditions.stable = tempStable && humidityStable && pressureStable;
+        
+        // Update previous values
+        previous = current;
+        lastUpdate = millis();
+    }
+
+    SignalAnalysis analyzeSensorSignals(const ProcessedSignal signals[NUM_SENSORS]) {
+        SignalAnalysis analysis = {};
+        
+        // Check baseline deviation
+        bool significantDeviation = false;
+        for (int i = 0; i < NUM_SENSORS; i++) {
+            if (abs(signals[i].baselineCorrected) > thresholds.baselineDeviation) {
+                significantDeviation = true;
+                break;
+            }
+        }
+        
+        // Analyze temporal consistency
+        if (significantDeviation) {
+            analysis.validDetection = checkTemporalConsistency(signals);
+        }
+bool checkTemporalConsistency(const ProcessedSignal signals[NUM_SENSORS]) {
+        static CircularBuffer<ProcessedSignal[NUM_SENSORS]> signalHistory(HISTORY_SIZE);
+        signalHistory.push(signals);
+        
+        if (signalHistory.size() < thresholds.minimumSamples) {
+            return false;
+        }
+
+        // Calculate temporal consistency metrics
+        float consistencyScore = 0.0;
+        for (int sensor = 0; sensor < NUM_SENSORS; sensor++) {
+            // Calculate trend consistency
+            float trendConsistency = calculateTrendConsistency(signalHistory, sensor);
+            
+            // Calculate signal stability
+            float signalStability = calculateSignalStability(signalHistory, sensor);
+            
+            // Combine metrics
+            consistencyScore += (trendConsistency * 0.7 + signalStability * 0.3);
+        }
+        
+        consistencyScore /= NUM_SENSORS;
+        return consistencyScore >= thresholds.temporalConsistency;
+    }
+
+    float calculateTrendConsistency(const CircularBuffer<ProcessedSignal[NUM_SENSORS]>& history, 
+                                  int sensorIndex) {
+        std::vector<float> values;
+        values.reserve(history.size());
+        
+        // Extract values for the specific sensor
+        for (size_t i = 0; i < history.size(); i++) {
+            values.push_back(history[i][sensorIndex].normalizedValue);
+        }
+        
+        // Calculate trend using linear regression
+        float slope, intercept, rSquared;
+        linearRegression(values, slope, intercept, rSquared);
+        
+        // Return R-squared value as trend consistency metric
+        return rSquared;
+    }
+
+    float calculateSignalStability(const CircularBuffer<ProcessedSignal[NUM_SENSORS]>& history,
+                                 int sensorIndex) {
+        std::vector<float> values;
+        values.reserve(history.size());
+        
+        // Extract values for the specific sensor
+        for (size_t i = 0; i < history.size(); i++) {
+            values.push_back(history[i][sensorIndex].normalizedValue);
+        }
+        
+        // Calculate stability metrics
+        float mean = calculateMean(values);
+        float stdDev = calculateStdDev(values, mean);
+        float cv = stdDev / mean;  // Coefficient of variation
+        
+        // Convert to stability score (0-1)
+        return exp(-cv * cv / 2.0);
+    }
+
+    void calculateGradient(const ProcessedSignal signals[NUM_SENSORS],
+                         const RangingData& ranging,
+                         float gradientVector[3]) {
+        // Initialize gradient vector
+        gradientVector[0] = 0.0f;  // X component
+        gradientVector[1] = 0.0f;  // Y component
+        gradientVector[2] = 0.0f;  // Z component
+        
+        // Calculate concentration differences between sensors
+        for (int i = 0; i < NUM_SENSORS - 1; i++) {
+            for (int j = i + 1; j < NUM_SENSORS; j++) {
+                float concentrationDiff = signals[j].normalizedValue - 
+                                        signals[i].normalizedValue;
+                
+                // Calculate spatial vector between sensors
+                float dx = sensorPositions[j].x - sensorPositions[i].x;
+                float dy = sensorPositions[j].y - sensorPositions[i].y;
+                float dz = sensorPositions[j].z - sensorPositions[i].z;
+                
+                // Add contribution to gradient
+                float magnitude = concentrationDiff / 
+                                sqrt(dx*dx + dy*dy + dz*dz);
+                gradientVector[0] += magnitude * dx;
+                gradientVector[1] += magnitude * dy;
+                gradientVector[2] += magnitude * dz;
+            }
+        }
+        
+        // Normalize gradient vector
+        float length = sqrt(gradientVector[0]*gradientVector[0] + 
+                          gradientVector[1]*gradientVector[1] + 
+                          gradientVector[2]*gradientVector[2]);
+        if (length > 0) {
+            gradientVector[0] /= length;
+            gradientVector[1] /= length;
+            gradientVector[2] /= length;
+        }
+    }
+
+    float calculateConcentration(const ProcessedSignal signals[NUM_SENSORS],
+                               const PatternRecognition::RecognitionResult& pattern) {
+        // Initialize weighted sum for concentration calculation
+        float weightedSum = 0.0f;
+        float totalWeight = 0.0f;
+        
+        // Calculate concentration contribution from each sensor
+        for (int i = 0; i < NUM_SENSORS; i++) {
+            // Get sensor-specific calibration curve
+            const CalibrationCurve& curve = calibrationCurves[i][pattern.compoundID];
+            
+            // Calculate concentration from response
+            float conc = curve.calculateConcentration(signals[i].normalizedValue);
+            
+            // Apply environmental corrections
+            conc = applyEnvironmentalCorrections(conc, i);
+            
+            // Weight based on sensor confidence
+            float weight = signals[i].confidenceScore;
+            weightedSum += conc * weight;
+            totalWeight += weight;
+        }
+        
+        return totalWeight > 0 ? weightedSum / totalWeight : 0.0f;
+    }
+
+    float applyEnvironmentalCorrections(float concentration, int sensorIndex) {
+        // Temperature correction
+        float tempCorrected = concentration * 
+            (1.0f + tempCoeff[sensorIndex] * (envConditions.temperature - 25.0f));
+        
+        // Humidity correction
+        float humidCorrected = tempCorrected * 
+            (1.0f + humidityCoeff[sensorIndex] * (envConditions.humidity - 50.0f));
+        
+        // Pressure correction
+        float pressureCorrected = humidCorrected * 
+            (1.0f + pressureCoeff[sensorIndex] * (envConditions.pressure - 1013.25f));
+        
+        return pressureCorrected;
+    }
+
+    float calculateConfidence(const ProcessedSignal signals[NUM_SENSORS],
+                            const PatternRecognition::RecognitionResult& pattern,
+                            const EnvironmentalConditions& environment) {
+        // Initialize confidence factors
+        float signalConfidence = 0.0f;
+        float patternConfidence = pattern.confidence;
+        float environmentalConfidence = calculateEnvironmentalConfidence(environment);
+        float temporalConfidence = calculateTemporalConfidence(signals);
+        
+        // Calculate overall signal confidence
+        for (int i = 0; i < NUM_SENSORS; i++) {
+            signalConfidence += signals[i].confidenceScore;
+        }
+        signalConfidence /= NUM_SENSORS;
+        
+        // Combine confidence factors with weights
+        const float WEIGHTS[4] = {0.3f, 0.3f, 0.2f, 0.2f};
+        float totalConfidence = 
+            WEIGHTS[0] * signalConfidence +
+            WEIGHTS[1] * patternConfidence +
+            WEIGHTS[2] * environmentalConfidence +
+            WEIGHTS[3] * temporalConfidence;
+        
+        return totalConfidence;
+    }
+
+    float calculateEnvironmentalConfidence(const EnvironmentalConditions& environment) {
+        // Temperature confidence
+        float tempConf = gaussian(environment.temperature, 25.0f, 10.0f);
+        
+        // Humidity confidence
+        float humidConf = gaussian(environment.humidity, 50.0f, 20.0f);
+        
+        // Pressure confidence
+        float pressConf = gaussian(environment.pressure, 1013.25f, 10.0f);
+        
+        // Stability confidence
+        float stabilityConf = calculateStabilityConfidence(environment);
+        
+        // Combine with weights
+        const float WEIGHTS[4] = {0.3f, 0.3f, 0.2f, 0.2f};
+        return WEIGHTS[0] * tempConf +
+               WEIGHTS[1] * humidConf +
+               WEIGHTS[2] * pressConf +
+               WEIGHTS[3] * stabilityConf;
+    }
+
+    void logDetectionEvent(const DetectionResult& result) {
+        // Create JSON document for logging
+        StaticJsonDocument<512> doc;
+        
+        doc["timestamp"] = result.timestamp;
+        doc["compound_id"] = result.compoundID;
+        doc["concentration"] = result.concentration;
+        doc["confidence"] = result.confidence;
+        
+        JsonArray gradient = doc.createNestedArray("gradient");
+        gradient.add(result.gradientVector[0]);
+        gradient.add(result.gradientVector[1]);
+        gradient.add(result.gradientVector[2]);
+        
+        JsonObject env = doc.createNestedObject("environment");
+        env["temperature"] = result.conditions.temperature;
+        env["humidity"] = result.conditions.humidity;
+        env["pressure"] = result.conditions.pressure;
+        
+        // Log to file system or send to remote server
+        String output;
+        serializeJson(doc, output);
+        logger.write(output);
+    }
+};
