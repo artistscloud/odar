@@ -1,0 +1,202 @@
+class DataLogger {
+private:
+    // Configuration parameters
+    struct LoggerConfig {
+        uint32_t sampleInterval;    // ms between samples
+        uint16_t bufferSize;        // Number of samples to buffer
+        uint8_t compressionLevel;   // 0-9, 0=none, 9=max
+        bool enableCircularBuffer;  // Overwrite old data when full
+        bool enableEncryption;      // Encrypt sensitive data
+    } config;
+
+    // Data structures for different log types
+    struct SensorLog {
+        uint32_t timestamp;
+        float rawValues[NUM_SENSORS];
+        float compensatedValues[NUM_SENSORS];
+        float temperature;
+        float humidity;
+        float pressure;
+        uint8_t sensorStatus;
+    };
+
+    struct DetectionLog {
+        uint32_t timestamp;
+        uint8_t compoundId;
+        float concentration;
+        float confidence;
+        float position[3];
+        uint8_t detectionStatus;
+    };
+
+    struct SystemLog {
+        uint32_t timestamp;
+        float batteryVoltage;
+        float temperature;
+        uint8_t systemStatus;
+        char message[64];
+    };
+
+public:
+    void initialize() {
+        // Initialize SD card
+        if (!SD.begin(SD_CS_PIN)) {
+            Serial.println("SD card initialization failed!");
+            return;
+        }
+
+        // Create directory structure
+        createDirectoryStructure();
+
+        // Initialize encryption if enabled
+        if (config.enableEncryption) {
+            initializeEncryption();
+        }
+
+        // Start logging task
+        xTaskCreatePinnedToCore(
+            loggingTask,
+            "DataLogger",
+            8192,
+            this,
+            1,
+            &loggingTaskHandle,
+            0
+        );
+    }
+
+    void logSensorData(const SensorData& data) {
+        SensorLog log;
+        log.timestamp = millis();
+        
+        // Copy sensor values
+        memcpy(log.rawValues, data.rawValues, sizeof(float) * NUM_SENSORS);
+        memcpy(log.compensatedValues, data.compensatedValues, sizeof(float) * NUM_SENSORS);
+        
+        // Copy environmental data
+        log.temperature = data.temperature;
+        log.humidity = data.humidity;
+        log.pressure = data.pressure;
+        
+        // Add to buffer
+        addToBuffer(LOG_TYPE_SENSOR, &log, sizeof(SensorLog));
+    }
+
+    void logDetection(const DetectionResult& result) {
+        DetectionLog log;
+        log.timestamp = millis();
+        log.compoundId = result.compoundId;
+        log.concentration = result.concentration;
+        log.confidence = result.confidence;
+        memcpy(log.position, result.position, sizeof(float) * 3);
+        
+        // Add to buffer
+        addToBuffer(LOG_TYPE_DETECTION, &log, sizeof(DetectionLog));
+    }
+
+private:
+    void createDirectoryStructure() {
+        // Create main directories
+        SD.mkdir("/data");
+        SD.mkdir("/data/sensor");
+        SD.mkdir("/data/detection");
+        SD.mkdir("/data/system");
+        
+        // Create date-based subdirectory
+        char datePath[32];
+        getDatePath(datePath);
+        SD.mkdir(datePath);
+    }
+
+    void addToBuffer(uint8_t logType, void* data, size_t size) {
+        if (xSemaphoreTake(bufferMutex, pdMS_TO_TICKS(100)) == pdTRUE) {
+            // Compress data if enabled
+            if (config.compressionLevel > 0) {
+                size_t compressedSize;
+                uint8_t* compressedData = compressData(data, size, &compressedSize);
+                
+                // Add to appropriate buffer
+                switch (logType) {
+                    case LOG_TYPE_SENSOR:
+                        sensorBuffer.push(compressedData, compressedSize);
+                        break;
+                    case LOG_TYPE_DETECTION:
+                        detectionBuffer.push(compressedData, compressedSize);
+                        break;
+                    case LOG_TYPE_SYSTEM:
+                        systemBuffer.push(compressedData, compressedSize);
+                        break;
+                }
+                
+                free(compressedData);
+            } else {
+                // Add uncompressed data
+                switch (logType) {
+                    case LOG_TYPE_SENSOR:
+                        sensorBuffer.push(data, size);
+                        break;
+                    case LOG_TYPE_DETECTION:
+                        detectionBuffer.push(data, size);
+                        break;
+                    case LOG_TYPE_SYSTEM:
+                        systemBuffer.push(data, size);
+                        break;
+                }
+            }
+            
+            xSemaphoreGive(bufferMutex);
+        }
+    }
+
+    void loggingTask(void* parameter) {
+        while (true) {
+            // Check if buffers need to be written to SD card
+            if (xSemaphoreTake(bufferMutex, pdMS_TO_TICKS(100)) == pdTRUE) {
+                if (sensorBuffer.needsFlush()) {
+                    flushSensorBuffer();
+                }
+                if (detectionBuffer.needsFlush()) {
+                    flushDetectionBuffer();
+                }
+                if (systemBuffer.needsFlush()) {
+                    flushSystemBuffer();
+                }
+                xSemaphoreGive(bufferMutex);
+            }
+            
+            // Write periodic statistics
+            if (millis() - lastStatWrite > STAT_WRITE_INTERVAL) {
+                writeStatistics();
+                lastStatWrite = millis();
+            }
+            
+            // Manage old files
+            if (millis() - lastFileManagement > FILE_MANAGEMENT_INTERVAL) {
+                manageOldFiles();
+                lastFileManagement = millis();
+            }
+            
+            vTaskDelay(pdMS_TO_TICKS(100));
+        }
+    }
+
+    void flushSensorBuffer() {
+        char filename[64];
+        getLogFilename(filename, LOG_TYPE_SENSOR);
+        
+        File file = SD.open(filename, FILE_WRITE);
+        if (!file) {
+            logError("Failed to open sensor log file");
+            return;
+        }
+        
+        // Write buffer contents
+        size_t written = file.write(sensorBuffer.data(), sensorBuffer.size());
+        if (written != sensorBuffer.size()) {
+            logError("Failed to write complete sensor buffer");
+        }
+        
+        file.close();
+        sensorBuffer.clear();
+    }
+};
