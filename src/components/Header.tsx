@@ -13,7 +13,7 @@ const Header: React.FC = () => {
         </div>
         <div className={`transform transition-all duration-700 delay-100 ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
           <h1 className="text-2xl font-medium tracking-tight">
-            <img alt="OdAR System Logo" className="h-12" src="/lovable-uploads/99b38f1d-1de0-432b-80a9-26fcba0c6e6c.png" />
+            <img alt="OdAR System Logo" src="/lovable-uploads/99b38f1d-1de0-432b-80a9-26fcba0c6e6c.png" className="h-20 object-cover" />
           </h1>
           <div className="flex items-center">
             <span className="text-xs uppercase tracking-wider text-odar-gray-500 font-medium">OLFACTORY DETECTION & RANGING</span>
