@@ -1,0 +1,224 @@
+class PowerManager {
+private:
+    // Battery parameters
+    const float BATTERY_FULL_VOLTAGE = 4.2;
+    const float BATTERY_EMPTY_VOLTAGE = 3.0;
+    const float BATTERY_NOMINAL_VOLTAGE = 3.7;
+    const float BATTERY_LOW_THRESHOLD = 3.3;
+    const float BATTERY_CRITICAL_THRESHOLD = 3.0;
+    
+    // Power consumption profiles (mA)
+    const struct PowerProfile {
+        float sleep;
+        float idle;
+        float active;
+        float sensing;
+        float ranging;
+        float tempControl;
+        float display;
+        float wireless;
+    } powerProfiles = {
+        .sleep = 0.01,      // Deep sleep
+        .idle = 80.0,       // Standby mode
+        .active = 240.0,    // Normal operation
+        .sensing = 50.0,    // Additional for sensors
+        .ranging = 100.0,   // Additional for ranging
+        .tempControl = 200.0, // During heating
+        .display = 30.0,    // Display active
+        .wireless = 80.0    // WiFi/BT active
+    };
+    
+    // Operating parameters
+    float currentVoltage;
+    float currentCurrent;
+    uint32_t lastMeasurement;
+    float batteryPercentage;
+    float powerConsumption;
+    bool chargingStatus;
+    
+public:
+    struct PowerStatus {
+        float voltage;
+        float percentage;
+        float current;
+        float power;
+        float estimatedRuntime;
+        bool isCharging;
+        bool isLowBattery;
+        bool isCriticalBattery;
+    };
+    
+    PowerStatus updatePowerStatus() {
+        PowerStatus status;
+        
+        // Read battery voltage with averaging
+        float voltageSum = 0;
+        for (int i = 0; i < 10; i++) {
+            voltageSum += readBatteryVoltage();
+            delay(1);
+        }
+        currentVoltage = voltageSum / 10.0;
+        
+        // Calculate battery percentage
+        batteryPercentage = calculateBatteryPercentage(currentVoltage);
+        
+        // Measure current consumption
+        currentCurrent = measureCurrent();
+        powerConsumption = currentVoltage * currentCurrent;
+        
+        // Check charging status
+        chargingStatus = digitalRead(CHARGING_PIN);
+        
+        // Update status structure
+        status.voltage = currentVoltage;
+        status.percentage = batteryPercentage;
+        status.current = currentCurrent;
+        status.power = powerConsumption;
+        status.isCharging = chargingStatus;
+        status.isLowBattery = (currentVoltage <= BATTERY_LOW_THRESHOLD);
+        status.isCriticalBattery = (currentVoltage <= BATTERY_CRITICAL_THRESHOLD);
+        
+        // Estimate remaining runtime
+        if (currentCurrent > 0) {
+            status.estimatedRuntime = calculateRemainingRuntime();
+        } else {
+            status.estimatedRuntime = 0;
+        }
+        
+        return status;
+    }
+    
+    void configurePowerMode(PowerMode mode) {
+        switch (mode) {
+            case PowerMode::NORMAL:
+                // Full functionality
+                enablePeripherals(true);
+                setCpuFrequency(240);
+                break;
+                
+            case PowerMode::ECO:
+                // Reduced functionality
+                disableNonEssentialPeripherals();
+                setCpuFrequency(160);
+                break;
+                
+            case PowerMode::LOW_POWER:
+                // Minimal functionality
+                disableNonEssentialPeripherals();
+                setCpuFrequency(80);
+                break;
+                
+            case PowerMode::SLEEP:
+                // Sleep mode
+                prepareSleep();
+                enterDeepSleep();
+                break;
+        }
+    }
+    
+private:
+    float readBatteryVoltage() {
+        // Read ADC with voltage divider compensation
+        uint32_t adcReading = analogRead(BATTERY_ADC_PIN);
+        
+        // Convert to actual battery voltage
+        // Assuming voltage divider ratio and ADC reference
+        float voltage = (adcReading / 4095.0) * 3.3 * 2.0;
+        
+        return voltage;
+    }
+    
+    float calculateBatteryPercentage(float voltage) {
+        // Non-linear battery percentage calculation
+        if (voltage >= BATTERY_FULL_VOLTAGE) return 100.0;
+        if (voltage <= BATTERY_EMPTY_VOLTAGE) return 0.0;
+        
+        // Use lookup table for more accurate percentage
+        static const struct {
+            float voltage;
+            float percentage;
+        } BATTERY_CURVE[] = {
+            {4.2, 100.0},
+            {4.1, 90.0},
+            {4.0, 80.0},
+            {3.9, 70.0},
+            {3.8, 60.0},
+            {3.7, 50.0},
+            {3.6, 40.0},
+            {3.5, 30.0},
+            {3.4, 20.0},
+            {3.3, 10.0},
+            {3.2, 5.0},
+            {3.1, 2.0},
+            {3.0, 0.0}
+        };
+        
+        // Interpolate between points
+        for (int i = 0; i < sizeof(BATTERY_CURVE)/sizeof(BATTERY_CURVE[0]) - 1; i++) {
+            if (voltage >= BATTERY_CURVE[i+1].voltage) {
+                float voltDiff = BATTERY_CURVE[i].voltage - BATTERY_CURVE[i+1].voltage;
+                float percent = (voltage - BATTERY_CURVE[i+1].voltage) / voltDiff;
+                return BATTERY_CURVE[i+1].percentage + 
+                       percent * (BATTERY_CURVE[i].percentage - BATTERY_CURVE[i+1].percentage);
+            }
+        }
+        
+        return 0.0;
+    }
+    
+    float calculateRemainingRuntime() {
+        // Calculate remaining battery capacity
+        float remainingCapacity = BATTERY_CAPACITY_MAH * (batteryPercentage / 100.0);
+        
+        // Calculate runtime based on current consumption
+        float runtime = remainingCapacity / currentCurrent;  // Hours
+        
+        return runtime;
+    }
+    
+    void prepareSleep() {
+        // Save critical data to RTC memory
+        RTC_DATA_ATTR static uint32_t bootCount = 0;
+        bootCount++;
+        
+        // Configure wake sources
+        esp_sleep_enable_ext0_wakeup(GPIO_NUM_13, 0);  // Button wake
+        esp_sleep_enable_timer_wakeup(SLEEP_DURATION);  // Timer wake
+        
+        // Disable peripherals
+        disablePeripherals();
+        
+        // Wait for any pending operations
+        delay(100);
+    }
+    
+    void enterDeepSleep() {
+        esp_deep_sleep_start();
+    }
+    
+    void disablePeripherals() {
+        // Disable sensors
+        for (int i = 0; i < NUM_SENSORS; i++) {
+            digitalWrite(SENSOR_POWER_PINS[i], LOW);
+        }
+        
+        // Disable display
+        displayOff();
+        
+        // Disable wireless
+        WiFi.disconnect(true);
+        WiFi.mode(WIFI_OFF);
+        btStop();
+        
+        // Disable ADC
+        adc_power_off();
+        
+        // Disable unused GPIO
+        for (int i = 0; i < NUM_GPIO; i++) {
+            if (!isGPIORequired(i)) {
+                gpio_set_direction((gpio_num_t)i, GPIO_MODE_INPUT);
+                gpio_pulldown_en((gpio_num_t)i);
+            }
+        }
+    }
+};
