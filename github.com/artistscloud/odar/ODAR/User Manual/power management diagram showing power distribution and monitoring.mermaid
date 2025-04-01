@@ -1,0 +1,77 @@
+flowchart TB
+    subgraph PWR["Power Management System"]
+        direction TB
+        
+        subgraph SRC["Power Sources"]
+            BAT["Li-Ion Battery
+            3.7V, 3000mAh"]
+            USB["USB-C Input
+            5V, 2A"]
+        end
+        
+        subgraph BMS["Battery Management"]
+            CHG["Charging
+            Circuit"]
+            PROT["Protection
+            Circuit"]
+            MON["Battery
+            Monitor"]
+        end
+        
+        subgraph REG["Power Regulation"]
+            BUCK["Buck Converter
+            3.3V Main"]
+            BOOST["Boost Converter
+            5V Heater"]
+            LDO["LDO Regulator
+            3.3V Sensors"]
+        end
+        
+        subgraph DIST["Power Distribution"]
+            MCU["MCU Rail
+            3.3V, 240mA"]
+            SENS["Sensor Rail
+            3.3V, 100mA"]
+            HTR["Heater Rail
+            5V, 500mA"]
+            RF["RF Rail
+            3.3V, 80mA"]
+        end
+        
+        subgraph MON["Power Monitoring"]
+            CUR["Current
+            Monitor"]
+            VOLT["Voltage
+            Monitor"]
+            TEMP["Temperature
+            Monitor"]
+        end
+    end
+    
+    %% Power Flow
+    BAT --> PROT
+    USB --> CHG
+    CHG --> BAT
+    PROT --> BUCK
+    PROT --> BOOST
+    BUCK --> LDO
+    
+    %% Distribution
+    BUCK --> MCU
+    LDO --> SENS
+    BOOST --> HTR
+    BUCK --> RF
+    
+    %% Monitoring
+    BAT --> MON
+    CUR --> |"Status"| MCU
+    VOLT --> |"Status"| MCU
+    TEMP --> |"Status"| MCU
+    
+    classDef source fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+    classDef regulation fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+    classDef monitoring fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    
+    class BAT,USB source
+    class BUCK,BOOST,LDO regulation
+    class CUR,VOLT,TEMP monitoring
