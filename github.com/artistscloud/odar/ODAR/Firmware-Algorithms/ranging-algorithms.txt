@@ -1,0 +1,162 @@
+// Core Ranging System
+class RangingSystem {
+private:
+    // Configuration
+    const float SOUND_SPEED = 343.0;  // m/s at 20°C
+    const float TEMP_COEFFICIENT = 0.607;  // m/s per °C
+    const uint16_t MAX_RANGE_CM = 400;  // 4 meters maximum range
+    const uint16_t MIN_RANGE_CM = 2;    // 2cm minimum range
+    
+    // Sensor positions (relative to center, in cm)
+    const struct SensorPosition {
+        float x, y;
+    } sensorPositions[3] = {
+        {0.0, 0.0},    // Front sensor
+        {-5.0, -2.5},  // Left sensor
+        {5.0, -2.5}    // Right sensor
+    };
+    
+    // Kalman filter parameters for distance smoothing
+    struct KalmanFilter {
+        float Q = 0.1;  // Process noise
+        float R = 1.0;  // Measurement noise
+        float P = 1.0;  // Estimation error
+        float K = 0.0;  // Kalman gain
+        float x = 0.0;  // State estimate
+    } filters[3];
+
+public:
+    struct RangingResult {
+        uint16_t distances[3];  // Front, Left, Right distances in cm
+        float angleToSource;    // Angle in degrees (-90 to +90)
+        float estimatedDistance; // Best distance estimate in cm
+        float confidence;       // Confidence level (0-1)
+        bool targetDetected;    // Valid target detection flag
+    };
+    
+    RangingResult measureDistances(float ambientTemp) {
+        RangingResult result;
+        result.targetDetected = false;
+        
+        // Adjust sound speed for temperature
+        float actualSoundSpeed = SOUND_SPEED + (ambientTemp - 20.0) * TEMP_COEFFICIENT;
+        
+        // Measure all three sensors
+        for (int i = 0; i < 3; i++) {
+            uint16_t rawDistance = measureSingleSensor(i, actualSoundSpeed);
+            result.distances[i] = applyKalmanFilter(rawDistance, i);
+            
+            // Validate measurement
+            if (result.distances[i] >= MIN_RANGE_CM && 
+                result.distances[i] <= MAX_RANGE_CM) {
+                result.targetDetected = true;
+            }
+        }
+        
+        // Calculate source position if we have valid readings
+        if (result.targetDetected) {
+            calculateSourcePosition(&result);
+        }
+        
+        return result;
+    }
+    
+private:
+    uint16_t measureSingleSensor(int sensorIndex, float soundSpeed) {
+        // Trigger pulse
+        digitalWrite(TRIG_PINS[sensorIndex], LOW);
+        delayMicroseconds(2);
+        digitalWrite(TRIG_PINS[sensorIndex], HIGH);
+        delayMicroseconds(10);
+        digitalWrite(TRIG_PINS[sensorIndex], LOW);
+        
+        // Measure echo duration with timeout
+        long duration = pulseIn(ECHO_PINS[sensorIndex], HIGH, 30000);
+        
+        // Convert to distance (cm)
+        // duration * soundSpeed(cm/us) / 2 (round trip)
+        return (duration * (soundSpeed / 10000.0)) / 2.0;
+    }
+    
+    uint16_t applyKalmanFilter(uint16_t measurement, int sensorIndex) {
+        KalmanFilter* kf = &filters[sensorIndex];
+        
+        // Prediction
+        kf->P = kf->P + kf->Q;
+        
+        // Update
+        kf->K = kf->P / (kf->P + kf->R);
+        kf->x = kf->x + kf->K * (measurement - kf->x);
+        kf->P = (1 - kf->K) * kf->P;
+        
+        return (uint16_t)kf->x;
+    }
+    
+    void calculateSourcePosition(RangingResult* result) {
+        // Calculate angle using improved triangulation
+        if (result->distances[1] < result->distances[2]) {
+            // Source is more towards the left sensor
+            float angleFactor = calculateAngleFactor(
+                result->distances[1],  // left
+                result->distances[2]   // right
+            );
+            result->angleToSource = -90.0 * angleFactor;
+        } else {
+            // Source is more towards the right sensor
+            float angleFactor = calculateAngleFactor(
+                result->distances[2],  // right
+                result->distances[1]   // left
+            );
+            result->angleToSource = 90.0 * angleFactor;
+        }
+        
+        // Estimate true distance using geometric correction
+        result->estimatedDistance = calculateTrueDistance(
+            result->distances[0],  // front
+            result->angleToSource
+        );
+        
+        // Calculate confidence based on measurement consistency
+        result->confidence = calculateConfidence(result->distances);
+    }
+    
+    float calculateAngleFactor(float nearerDistance, float fartherDistance) {
+        // Improved angle calculation using sensor geometry
+        float distanceDiff = fartherDistance - nearerDistance;
+        float distanceSum = fartherDistance + nearerDistance;
+        
+        // Apply geometric correction based on sensor positions
+        float correction = atan2(
+            sensorPositions[2].x - sensorPositions[1].x,
+            sensorPositions[2].y - sensorPositions[1].y
+        );
+        
+        return (distanceDiff / distanceSum) * (1.0 + correction);
+    }
+    
+    float calculateTrueDistance(float frontDistance, float angle) {
+        // Correct distance measurement based on angle
+        return frontDistance * cos(angle * PI / 180.0);
+    }
+    
+    float calculateConfidence(uint16_t distances[3]) {
+        // Calculate confidence based on measurement consistency
+        float consistency = 0.0;
+        
+        // Check geometric consistency
+        float expectedFront = (distances[1] + distances[2]) / 2.0;
+        float frontError = abs(distances[0] - expectedFront) / expectedFront;
+        
+        // Check measurement validity
+        int validCount = 0;
+        for (int i = 0; i < 3; i++) {
+            if (distances[i] >= MIN_RANGE_CM && distances[i] <= MAX_RANGE_CM) {
+                validCount++;
+            }
+        }
+        
+        // Combine factors for final confidence
+        consistency = (1.0 - frontError) * (validCount / 3.0);
+        return constrain(consistency, 0.0, 1.0);
+    }
+};
