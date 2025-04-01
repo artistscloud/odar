@@ -1,0 +1,290 @@
+class SignalProcessor {
+private:
+    // Signal processing parameters
+    struct ProcessingParams {
+        const uint16_t WINDOW_SIZE = 32;         // Moving average window
+        const float ALPHA_EMA = 0.1;             // Exponential moving average coefficient
+        const float BASELINE_ADAPT_RATE = 0.01;  // Baseline adaptation rate
+        const float OUTLIER_THRESHOLD = 3.0;     // Standard deviations for outlier detection
+        const uint16_t FFT_SIZE = 256;           // FFT analysis window size
+    } params;
+
+    // Pattern recognition parameters
+    struct PatternParams {
+        const uint8_t TEMP_POINTS = 4;           // Temperature cycle points
+        const uint8_t NUM_FEATURES = 6;          // Features per sensor
+        const float SIMILARITY_THRESHOLD = 0.85;  // Pattern matching threshold
+        const uint16_t PATTERN_BUFFER_SIZE = 64; // Recent pattern storage
+    } patternParams;
+
+    // Environmental compensation
+    struct EnvCompensation {
+        float tempCoeff;      // Temperature compensation coefficient
+        float humidityCoeff;  // Humidity compensation coefficient
+        float pressureCoeff;  // Pressure compensation coefficient
+        float baseline;       // Dynamic baseline
+        float drift;          // Sensor drift rate
+    } envComp[NUM_SENSORS];
+
+public:
+    struct ProcessedSignal {
+        float rawValue;
+        float filteredValue;
+        float baselineCorrected;
+        float environmentallyCompensated;
+        float normalizedValue;
+        bool outlierDetected;
+        float confidenceScore;
+    };
+
+    ProcessedSignal processSensorSignal(float rawSignal, uint8_t sensorIndex, 
+                                      float temperature, float humidity, float pressure) {
+        ProcessedSignal result;
+        result.rawValue = rawSignal;
+
+        // Apply digital filtering
+        result.filteredValue = applyDigitalFilters(rawSignal, sensorIndex);
+
+        // Detect and handle outliers
+        result.outlierDetected = detectOutlier(result.filteredValue, sensorIndex);
+        if (result.outlierDetected) {
+            result.filteredValue = handleOutlier(result.filteredValue, sensorIndex);
+        }
+
+        // Apply baseline correction
+        result.baselineCorrected = applyBaselineCorrection(result.filteredValue, sensorIndex);
+
+        // Apply environmental compensation
+        result.environmentallyCompensated = applyEnvironmentalCompensation(
+            result.baselineCorrected, sensorIndex, temperature, humidity, pressure);
+
+        // Normalize signal
+        result.normalizedValue = normalizeSignal(result.environmentallyCompensated, sensorIndex);
+
+        // Calculate confidence score
+        result.confidenceScore = calculateConfidence(result, sensorIndex);
+
+        return result;
+    }
+
+private:
+    float applyDigitalFilters(float signal, uint8_t sensorIndex) {
+        static FilterChain filterChain[NUM_SENSORS];
+        
+        // Apply moving average filter
+        signal = filterChain[sensorIndex].movingAverage(signal, params.WINDOW_SIZE);
+        
+        // Apply exponential moving average
+        signal = filterChain[sensorIndex].exponentialMovingAverage(signal, params.ALPHA_EMA);
+        
+        // Apply Savitzky-Golay filter for smoothing while preserving peaks
+        signal = filterChain[sensorIndex].savitzkyGolay(signal);
+        
+        // Optional: Apply Kalman filter for noise reduction
+        signal = filterChain[sensorIndex].kalmanFilter(signal);
+        
+        return signal;
+    }
+
+    bool detectOutlier(float value, uint8_t sensorIndex) {
+        static CircularBuffer<float> recentValues[NUM_SENSORS](50);
+        
+        // Calculate statistics of recent values
+        float mean = recentValues[sensorIndex].mean();
+        float stdDev = recentValues[sensorIndex].standardDeviation();
+        
+        // Check if current value is an outlier
+        float zScore = abs(value - mean) / stdDev;
+        
+        // Update buffer
+        recentValues[sensorIndex].push(value);
+        
+        return zScore > params.OUTLIER_THRESHOLD;
+    }
+
+    float handleOutlier(float value, uint8_t sensorIndex) {
+        static float lastValidValue[NUM_SENSORS] = {0};
+        
+        // Replace outlier with interpolated value
+        float interpolatedValue = (lastValidValue[sensorIndex] + value) / 2.0;
+        
+        // Update last valid value if not an outlier
+        if (!detectOutlier(value, sensorIndex)) {
+            lastValidValue[sensorIndex] = value;
+        }
+        
+        return interpolatedValue;
+    }
+
+    float applyBaselineCorrection(float value, uint8_t sensorIndex) {
+        // Dynamic baseline adaptation
+        if (isCleanAirCondition()) {
+            envComp[sensorIndex].baseline = 
+                (1 - params.BASELINE_ADAPT_RATE) * envComp[sensorIndex].baseline +
+                params.BASELINE_ADAPT_RATE * value;
+        }
+        
+        // Apply drift compensation
+        float driftCompensation = envComp[sensorIndex].drift * 
+                                 (millis() - lastCalibrationTime) / 3600000.0; // Convert to hours
+        
+        // Return baseline corrected value
+        return value - envComp[sensorIndex].baseline - driftCompensation;
+    }
+
+    float applyEnvironmentalCompensation(float value, uint8_t sensorIndex,
+                                       float temperature, float humidity, float pressure) {
+        // Temperature compensation
+        float tempCompensation = (temperature - 25.0) * envComp[sensorIndex].tempCoeff;
+        
+        // Humidity compensation
+        float humidityCompensation = (humidity - 50.0) * envComp[sensorIndex].humidityCoeff;
+        
+        // Pressure compensation
+        float pressureCompensation = (pressure - 1013.25) * envComp[sensorIndex].pressureCoeff;
+        
+        // Apply all compensations
+        return value - tempCompensation - humidityCompensation - pressureCompensation;
+    }
+
+    float calculateConfidence(const ProcessedSignal& signal, uint8_t sensorIndex) {
+        float confidence = 1.0;
+        
+        // Reduce confidence for outliers
+        if (signal.outlierDetected) {
+            confidence *= 0.5;
+        }
+        
+        // Consider signal-to-noise ratio
+        float snr = calculateSNR(signal.filteredValue, sensorIndex);
+        confidence *= constrainMap(snr, 1.0, 10.0, 0.5, 1.0);
+        
+        // Consider environmental stability
+        float envStability = calculateEnvironmentalStability();
+        confidence *= envStability;
+        
+        return confidence;
+    }
+};
+
+class PatternRecognition {
+private:
+    // Pattern database
+    struct Pattern {
+        float features[NUM_SENSORS][NUM_FEATURES];
+        uint8_t compoundID;
+        float typicalConcentration;
+        float temperatureResponse[4];
+    };
+    
+    std::vector<Pattern> patternDatabase;
+    
+public:
+    struct RecognitionResult {
+        uint8_t compoundID;
+        float concentration;
+        float confidence;
+        float temperatureResponse[4];
+        bool patternMatched;
+    };
+
+    RecognitionResult analyzePattern(const float tempCycleData[4][NUM_SENSORS]) {
+        RecognitionResult result;
+        result.patternMatched = false;
+        
+        // Extract features from temperature cycle data
+        float features[NUM_SENSORS][NUM_FEATURES];
+        extractFeatures(tempCycleData, features);
+        
+        // Find best matching pattern
+        float bestMatchScore = 0;
+        int bestMatchIndex = -1;
+        
+        for (size_t i = 0; i < patternDatabase.size(); i++) {
+            float matchScore = calculatePatternMatch(features, patternDatabase[i]);
+            
+            if (matchScore > bestMatchScore && matchScore > MATCH_THRESHOLD) {
+                bestMatchScore = matchScore;
+                bestMatchIndex = i;
+            }
+        }
+        
+        // If pattern matched, calculate results
+        if (bestMatchIndex >= 0) {
+            result.patternMatched = true;
+            result.compoundID = patternDatabase[bestMatchIndex].compoundID;
+            result.confidence = bestMatchScore;
+            
+            // Calculate concentration from response curve
+            result.concentration = calculateConcentration(
+                tempCycleData, patternDatabase[bestMatchIndex]);
+                
+            // Copy temperature response profile
+            memcpy(result.temperatureResponse, 
+                   patternDatabase[bestMatchIndex].temperatureResponse,
+                   sizeof(float) * 4);
+        }
+        
+        return result;
+    }
+
+private:
+    void extractFeatures(const float tempCycleData[4][NUM_SENSORS], 
+                        float features[NUM_SENSORS][NUM_FEATURES]) {
+        for (int sensor = 0; sensor < NUM_SENSORS; sensor++) {
+            // Feature 1: Maximum response
+            features[sensor][0] = findMaxResponse(tempCycleData, sensor);
+            
+            // Feature 2: Response slope
+            features[sensor][1] = calculateResponseSlope(tempCycleData, sensor);
+            
+            // Feature 3: Area under curve
+            features[sensor][2] = calculateAUC(tempCycleData, sensor);
+            
+            // Feature 4: Temperature of maximum response
+            features[sensor][3] = findMaxResponseTemperature(tempCycleData, sensor);
+            
+            // Feature 5: Response pattern similarity
+            features[sensor][4] = calculatePatternSimilarity(tempCycleData, sensor);
+            
+            // Feature 6: Recovery rate
+            features[sensor][5] = calculateRecoveryRate(tempCycleData, sensor);
+        }
+    }
+
+    float calculatePatternMatch(const float features[NUM_SENSORS][NUM_FEATURES],
+                              const Pattern& pattern) {
+        float totalScore = 0;
+        float weightedSum = 0;
+        float weightSum = 0;
+        
+        // Define feature weights
+        const float weights[NUM_FEATURES] = {1.0, 0.8, 0.7, 0.6, 0.5, 0.4};
+        
+        for (int sensor = 0; sensor < NUM_SENSORS; sensor++) {
+            for (int feature = 0; feature < NUM_FEATURES; feature++) {
+                float diff = abs(features[sensor][feature] - 
+                               pattern.features[sensor][feature]);
+                float score = exp(-diff * diff / 2.0); // Gaussian similarity
+                weightedSum += score * weights[feature];
+                weightSum += weights[feature];
+            }
+        }
+        
+        return weightedSum / weightSum;
+    }
+
+    float calculateConcentration(const float tempCycleData[4][NUM_SENSORS],
+                               const Pattern& pattern) {
+        // Use response curve calibration
+        float responseRatio = calculateResponseRatio(tempCycleData, pattern);
+        
+        // Apply non-linear calibration curve
+        float concentration = pattern.typicalConcentration * responseRatio;
+        
+        // Adjust for temperature effects
+        concentration = applyTemperatureCorrection(concentration, tempCycleData);
+        
+        return concentration;
+    }
+};
