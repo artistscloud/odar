@@ -18,7 +18,7 @@ const Header: React.FC = () => {
             <img 
               src="/lovable-uploads/cf2fca09-6429-43ae-a918-3589c006bfb9.png" 
               alt="OdAR System Logo" 
-              className="h-8"
+              className="h-12"
             />
           </h1>
           <div className="flex items-center">
