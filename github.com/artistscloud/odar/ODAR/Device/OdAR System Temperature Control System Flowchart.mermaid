@@ -1,0 +1,85 @@
+flowchart TB
+    subgraph TC["Temperature Control System"]
+        direction TB
+        
+        subgraph SENS["Temperature Sensing"]
+            LM35["LM35 Sensor
+            0.5°C Precision"]
+            THERM["Thermistor
+            Backup"]
+            ADC["ADC Interface
+            12-bit"]
+        end
+        
+        subgraph HEAT["Heating System"]
+            HTR["Ceramic Heater
+            5V, Low Power"]
+            PWM["PWM Control
+            5kHz"]
+            FET["MOSFET Driver"]
+        end
+        
+        subgraph CTRL["Control Logic"]
+            PID["PID Controller
+            Kp=2.0, Ki=0.1, Kd=0.5"]
+            PROF["Temperature
+            Profile Manager"]
+            COMP["Environmental
+            Compensation"]
+        end
+        
+        subgraph SAFE["Safety Systems"]
+            OTP["Over-Temperature
+            Protection"]
+            FAIL["Failure
+            Detection"]
+            SHUT["Emergency
+            Shutdown"]
+        end
+        
+        subgraph MON["Monitoring"]
+            LOG["Temperature
+            Logging"]
+            STAT["Status
+            Reporting"]
+            DIAG["Diagnostic
+            Interface"]
+        end
+    end
+
+    %% Sensor Flow
+    LM35 --> ADC
+    THERM --> ADC
+    ADC --> PID
+    
+    %% Control Flow
+    PID --> PWM
+    PROF --> PID
+    COMP --> PID
+    PWM --> FET
+    FET --> HTR
+    
+    %% Safety Flow
+    LM35 --> OTP
+    OTP --> SHUT
+    FAIL --> SHUT
+    SHUT --> FET
+    
+    %% Monitoring Flow
+    PID --> LOG
+    OTP --> STAT
+    FAIL --> STAT
+    LOG --> DIAG
+    STAT --> DIAG
+    
+    %% Feedback Loops
+    HTR --> |"Thermal Feedback"| LM35
+    COMP --> |"Environmental Data"| PROF
+    
+    classDef primary fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+    classDef secondary fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef safety fill:#ffebee,stroke:#c62828,stroke-width:2px
+    
+    class LM35,ADC,THERM primary
+    class PID,PROF,COMP,PWM,FET,HTR secondary
+    class OTP,FAIL,SHUT safety
