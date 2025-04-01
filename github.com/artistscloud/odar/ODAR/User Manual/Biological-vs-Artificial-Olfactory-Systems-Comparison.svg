@@ -1,0 +1,48 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" width="1000" height="700"><style>tspan{white-space:pre}.a{fill:#f9f9f9}.b{font-size: 19px;fill: #000000;font-family: "Arial"}.c{stroke:#888;stroke-width:2;stroke-dasharray:5,5}.d{font-size: 20px;fill: #1a5276;font-family: "Arial"}.e{font-size: 20px;fill: #7d3c98;font-family: "Arial"}.f{fill:#d4efff}.g{font-size: 16px;fill: #000000;font-family: "Arial"}.h{font-size: 14px;fill: #000000;font-family: "Arial"}.i{fill:#f4ddff}.j{fill:none;stroke:#555;stroke-width:2}.k{opacity:.8;fill:#e8e8e8}.l{font-size: 12px;fill: #000000;font-family: "Arial"}</style><path fill-rule="evenodd" class="a" d="m0 0h1000v700h-1000z"/><text style="transform:matrix(1,0,0,1,381,35)" ><tspan x="-313.5" y="0" class="b">Biological vs. Artificial Olfactory Systems: A Comparative Analysis
+</tspan></text><path fill-rule="evenodd" class="c" d="m500 60v620"/><text style="transform:matrix(1,0,0,1,250,80)" ><tspan x="-96.3" y="0" class="d">Biological Olfaction
+</tspan></text><text style="transform:matrix(1,0,0,1,750,80)" ><tspan x="-177.7" y="0" class="e">Artificial Olfaction (Electronic Nose)
+</tspan></text><path fill-rule="evenodd" class="f" d="m60 100h380c5.5 0 10 4.5 10 10v70c0 5.5-4.5 10-10 10h-380c-5.5 0-10-4.5-10-10v-70c0-5.5 4.5-10 10-10z"/><text style="transform:matrix(1,0,0,1,250,120)" ><tspan x="-68.7" y="0" class="g">Input Mechanism
+</tspan></text><text style="transform:matrix(1,0,0,1,60,145)" ><tspan x="0" y="0" class="h">• Odorant molecules dissolve in mucus
+</tspan></text><text style="transform:matrix(1,0,0,1,60,165)" ><tspan x="0" y="0" class="h">• Bind to olfactory receptors in epithelium
+</tspan></text><text style="transform:matrix(1,0,0,1,60,185)" ><tspan x="0" y="0" class="h">• ~400 receptor types in humans, each with affinity patterns
+</tspan></text><path fill-rule="evenodd" class="i" d="m560 100h380c5.5 0 10 4.5 10 10v70c0 5.5-4.5 10-10 10h-380c-5.5 0-10-4.5-10-10v-70c0-5.5 4.5-10 10-10z"/><text style="transform:matrix(1,0,0,1,750,120)" ><tspan x="-68.7" y="0" class="g">Input Mechanism
+</tspan></text><text style="transform:matrix(1,0,0,1,560,145)" ><tspan x="0" y="0" class="h">• Volatile compounds interact with sensor surface
+</tspan></text><text style="transform:matrix(1,0,0,1,560,165)" ><tspan x="0" y="0" class="h">• Changes sensor electrical/physical properties
+</tspan></text><text style="transform:matrix(1,0,0,1,560,185)" ><tspan x="0" y="0" class="h">• 8-12 sensors typically used with overlapping sensitivities
+</tspan></text><path fill-rule="evenodd" class="f" d="m60 210h380c5.5 0 10 4.5 10 10v90c0 5.5-4.5 10-10 10h-380c-5.5 0-10-4.5-10-10v-90c0-5.5 4.5-10 10-10z"/><text style="transform:matrix(1,0,0,1,250,230)" ><tspan x="-60.9" y="0" class="g">Receptor Types
+</tspan></text><text style="transform:matrix(1,0,0,1,60,255)" ><tspan x="0" y="0" class="h">• Olfactory Sensory Neurons (OSNs)
+</tspan></text><text style="transform:matrix(1,0,0,1,60,275)" ><tspan x="0" y="0" class="h">• Each neuron expresses one receptor type
+</tspan></text><text style="transform:matrix(1,0,0,1,60,295)" ><tspan x="0" y="0" class="h">• G-protein coupled receptors trigger signal cascade
+</tspan></text><text style="transform:matrix(1,0,0,1,60,315)" ><tspan x="0" y="0" class="h">• Different receptors respond to different molecular features
+</tspan></text><path fill-rule="evenodd" class="i" d="m560 210h380c5.5 0 10 4.5 10 10v90c0 5.5-4.5 10-10 10h-380c-5.5 0-10-4.5-10-10v-90c0-5.5 4.5-10 10-10z"/><text style="transform:matrix(1,0,0,1,750,230)" ><tspan x="-52.5" y="0" class="g">Sensor Types
+</tspan></text><text style="transform:matrix(1,0,0,1,560,255)" ><tspan x="0" y="0" class="h">• Metal Oxide Semiconductors (SnO₂, ZnO, WO₃)
+</tspan></text><text style="transform:matrix(1,0,0,1,560,275)" ><tspan x="0" y="0" class="h">• Conducting Polymers (Polyaniline, Polypyrrole)
+</tspan></text><text style="transform:matrix(1,0,0,1,560,295)" ><tspan x="0" y="0" class="h">• QCM, SAW, optical sensors for specialized detection
+</tspan></text><text style="transform:matrix(1,0,0,1,560,315)" ><tspan x="0" y="0" class="h">• Each sensor responds to multiple compounds
+</tspan></text><path fill-rule="evenodd" class="f" d="m60 340h380c5.5 0 10 4.5 10 10v80c0 5.5-4.5 10-10 10h-380c-5.5 0-10-4.5-10-10v-80c0-5.5 4.5-10 10-10z"/><text style="transform:matrix(1,0,0,1,250,360)" ><tspan x="-78.1" y="0" class="g">Signal Transduction
+</tspan></text><text style="transform:matrix(1,0,0,1,60,385)" ><tspan x="0" y="0" class="h">• Receptor binding triggers ion channel opening
+</tspan></text><text style="transform:matrix(1,0,0,1,60,405)" ><tspan x="0" y="0" class="h">• Depolarization generates action potentials
+</tspan></text><text style="transform:matrix(1,0,0,1,60,425)" ><tspan x="0" y="0" class="h">• Signal amplitude relates to odor concentration
+</tspan></text><path fill-rule="evenodd" class="i" d="m560 340h380c5.5 0 10 4.5 10 10v80c0 5.5-4.5 10-10 10h-380c-5.5 0-10-4.5-10-10v-80c0-5.5 4.5-10 10-10z"/><text style="transform:matrix(1,0,0,1,750,360)" ><tspan x="-78.1" y="0" class="g">Signal Transduction
+</tspan></text><text style="transform:matrix(1,0,0,1,560,385)" ><tspan x="0" y="0" class="h">• Resistance/conductance changes in MOS/CP sensors
+</tspan></text><text style="transform:matrix(1,0,0,1,560,405)" ><tspan x="0" y="0" class="h">• Mass loading effects in QCM/SAW sensors
+</tspan></text><text style="transform:matrix(1,0,0,1,560,425)" ><tspan x="0" y="0" class="h">• Analog to digital conversion for processing
+</tspan></text><path fill-rule="evenodd" class="f" d="m60 460h380c5.5 0 10 4.5 10 10v80c0 5.5-4.5 10-10 10h-380c-5.5 0-10-4.5-10-10v-80c0-5.5 4.5-10 10-10z"/><text style="transform:matrix(1,0,0,1,250,480)" ><tspan x="-78.4" y="0" class="g">Pattern Recognition
+</tspan></text><text style="transform:matrix(1,0,0,1,60,505)" ><tspan x="0" y="0" class="h">• Signals converge in olfactory bulb
+</tspan></text><text style="transform:matrix(1,0,0,1,60,525)" ><tspan x="0" y="0" class="h">• Spatial and temporal coding creates &quot;odor image&quot;
+</tspan></text><text style="transform:matrix(1,0,0,1,60,545)" ><tspan x="0" y="0" class="h">• Processed in olfactory cortex and limbic system
+</tspan></text><path fill-rule="evenodd" class="i" d="m560 460h380c5.5 0 10 4.5 10 10v80c0 5.5-4.5 10-10 10h-380c-5.5 0-10-4.5-10-10v-80c0-5.5 4.5-10 10-10z"/><text style="transform:matrix(1,0,0,1,750,480)" ><tspan x="-78.4" y="0" class="g">Pattern Recognition
+</tspan></text><text style="transform:matrix(1,0,0,1,560,505)" ><tspan x="0" y="0" class="h">• Machine learning algorithms (SVM, Neural Networks)
+</tspan></text><text style="transform:matrix(1,0,0,1,560,525)" ><tspan x="0" y="0" class="h">• Temperature-cycled data enhances discrimination
+</tspan></text><text style="transform:matrix(1,0,0,1,560,545)" ><tspan x="0" y="0" class="h">• Feature extraction and dimensionality reduction
+</tspan></text><path fill-rule="evenodd" class="f" d="m60 580h380c5.5 0 10 4.5 10 10v80c0 5.5-4.5 10-10 10h-380c-5.5 0-10-4.5-10-10v-80c0-5.5 4.5-10 10-10z"/><text style="transform:matrix(1,0,0,1,250,600)" ><tspan x="-65.2" y="0" class="g">Unique Features
+</tspan></text><text style="transform:matrix(1,0,0,1,60,625)" ><tspan x="0" y="0" class="h">• Neurogenesis refreshes olfactory neurons
+</tspan></text><text style="transform:matrix(1,0,0,1,60,645)" ><tspan x="0" y="0" class="h">• Strong connection to memory and emotion
+</tspan></text><text style="transform:matrix(1,0,0,1,60,665)" ><tspan x="0" y="0" class="h">• Can detect ~1 trillion different odors
+</tspan></text><path fill-rule="evenodd" class="i" d="m560 580h380c5.5 0 10 4.5 10 10v80c0 5.5-4.5 10-10 10h-380c-5.5 0-10-4.5-10-10v-80c0-5.5 4.5-10 10-10z"/><text style="transform:matrix(1,0,0,1,750,600)" ><tspan x="-65.2" y="0" class="g">Unique Features
+</tspan></text><text style="transform:matrix(1,0,0,1,560,625)" ><tspan x="0" y="0" class="h">• Spatial ranging capabilities (when equipped)
+</tspan></text><text style="transform:matrix(1,0,0,1,560,645)" ><tspan x="0" y="0" class="h">• Sensor drift and recovery requires calibration
+</tspan></text><text style="transform:matrix(1,0,0,1,560,665)" ><tspan x="0" y="0" class="h">• Continuous improvement through AI model updates
+</tspan></text><path fill-rule="evenodd" class="j" d="m250 190v20"/><path fill-rule="evenodd" class="j" d="m250 320v20"/><path fill-rule="evenodd" class="j" d="m250 440v20"/><path fill-rule="evenodd" class="j" d="m250 560v20"/><path fill-rule="evenodd" class="j" d="m750 190v20"/><path fill-rule="evenodd" class="j" d="m750 320v20"/><path fill-rule="evenodd" class="j" d="m750 440v20"/><path fill-rule="evenodd" class="j" d="m750 560v20"/><path fill-rule="evenodd" class="k" d="m783 0h150c2.8 0 5 2.2 5 5v50c0 2.8-2.2 5-5 5h-150c-2.8 0-5-2.2-5-5v-50c0-2.8 2.2-5 5-5z"/><path fill-rule="evenodd" class="f" d="m789 13h20v10h-20z"/><text style="transform:matrix(1,0,0,1,813,23)" ><tspan x="0" y="0" class="l">Biological System
+</tspan></text><path fill-rule="evenodd" class="i" d="m791 37h20v10h-20z"/><text style="transform:matrix(1,0,0,1,819,46)" ><tspan x="0" y="0" class="l">Artificial System
+</tspan></text></svg>
