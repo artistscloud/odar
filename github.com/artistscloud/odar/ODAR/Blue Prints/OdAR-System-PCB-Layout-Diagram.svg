@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <!-- PCB Board Background -->
+  <rect width="760" height="520" x="20" y="40" fill="#0C7D3E" stroke="#064023" stroke-width="2" rx="10" ry="10"/>
+  
+  <!-- Board Title -->
+  <text x="400" y="25" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">OdAR System PCB Layout - Rev 1.0</text>
+  
+  <!-- Microcontroller Section -->
+  <rect x="280" y="100" width="240" height="180" fill="#37946e" stroke="#064023" stroke-width="2" rx="5" ry="5"/>
+  <text x="400" y="90" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="white">ESP32-WROOM-32E</text>
+  <!-- ESP32 Module -->
+  <rect x="330" y="120" width="140" height="80" fill="#c0c0c0" stroke="#555" stroke-width="1"/>
+  <rect x="345" y="130" width="110" height="60" fill="#333" stroke="#000" stroke-width="1"/>
+  <text x="400" y="165" font-family="Arial" font-size="14" text-anchor="middle" fill="white">ESP32</text>
+  <!-- Crystal -->
+  <rect x="300" y="130" width="20" height="10" fill="#silver" stroke="#555" stroke-width="1"/>
+  <text x="310" y="150" font-family="Arial" font-size="8" text-anchor="middle" fill="white">XTAL</text>
+  <!-- Flash Memory -->
+  <rect x="300" y="160" width="20" height="20" fill="#1e88e5" stroke="#555" stroke-width="1"/>
+  <text x="310" y="185" font-family="Arial" font-size="8" text-anchor="middle" fill="white">FLASH</text>
+  <!-- USB-C Port -->
+  <rect x="390" y="220" width="30" height="20" fill="#888" stroke="#555" stroke-width="1" rx="2" ry="2"/>
+  <text x="405" y="250" font-family="Arial" font-size="10" text-anchor="middle" fill="white">USB-C</text>
+  <!-- Power Regulator -->
+  <rect x="440" y="130" width="40" height="30" fill="#444" stroke="#222" stroke-width="1"/>
+  <text x="460" y="145" font-family="Arial" font-size="8" text-anchor="middle" fill="white">3.3V</text>
+  <text x="460" y="155" font-family="Arial" font-size="8" text-anchor="middle" fill="white">REG</text>
+  
+  <!-- ADC Section -->
+  <rect x="280" y="300" width="240" height="100" fill="#206694" stroke="#064023" stroke-width="2" rx="5" ry="5"/>
+  <text x="400" y="320" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="white">ADC & Signal Conditioning</text>
+  <!-- ADC Chips -->
+  <rect x="300" y="340" width="80" height="40" fill="#ccc" stroke="#555" stroke-width="1"/>
+  <text x="340" y="365" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">ADC 1</text>
+  <rect x="420" y="340" width="80" height="40" fill="#ccc" stroke="#555" stroke-width="1"/>
+  <text x="460" y="365" font-family="Arial" font-size="12" text-anchor="middle" fill="#333">ADC 2</text>
+  
+  <!-- Olfactory Sensor Array -->
+  <rect x="40" y="100" width="200" height="200" fill="#9C27B0" stroke="#064023" stroke-width="2" rx="5" ry="5"/>
+  <text x="140" y="90" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="white">Olfactory Sensor Array</text>
+  
+  <!-- MOS Sensors -->
+  <circle cx="80" cy="140" r="15" fill="#E1BEE7" stroke="#555" stroke-width="1"/>
+  <text x="80" cy="140" font-family="Arial" font-size="8" text-anchor="middle" fill="#333">SnO₂</text>
+  <circle cx="80" cy="180" r="15" fill="#E1BEE7" stroke="#555" stroke-width="1"/>
+  <text x="80" cy="180" font-family="Arial" font-size="8" text-anchor="middle" fill="#333">ZnO</text>
+  <circle cx="80" cy="220" r="15" fill="#E1BEE7" stroke="#555" stroke-width="1"/>
+  <text x="80" cy="220" font-family="Arial" font-size="8" text-anchor="middle" fill="#333">WO₃</text>
+  <circle cx="80" cy="260" r="15" fill="#E1BEE7" stroke="#555" stroke-width="1"/>
+  <text x="80" cy="260" font-family="Arial" font-size="8" text-anchor="middle" fill="#333">SnO₂</text>
+  
+  <!-- Polymer Sensors -->
+  <circle cx="130" cy="140" r="15" fill="#CE93D8" stroke="#555" stroke-width="1"/>
+  <text x="130" cy="140" font-family="Arial" font-size="8" text-anchor="middle" fill="#333">PANI</text>
+  <circle cx="130" cy="180" r="15" fill="#CE93D8" stroke="#555" stroke-width="1"/>
+  <text x="130" cy="180" font-family="Arial" font-size="8" text-anchor="middle" fill="#333">PPy</text>
+  <circle cx="130" cy="220" r="15" fill="#CE93D8" stroke="#555" stroke-width="1"/>
+  <text x="130" cy="220" font-family="Arial" font-size="8" text-anchor="middle" fill="#333">PANI</text>
+  <circle cx="130" cy="260" r="15" fill="#CE93D8" stroke="#555" stroke-width="1"/>
+  <text x="130" cy="260" font-family="Arial" font-size="8" text-anchor="middle" fill="#333">PPy</text>
+  
+  <!-- Temperature Control -->
+  <rect x="180" y="140" width="40" height="120" fill="#f44336" stroke="#555" stroke-width="1" rx="5" ry="5"/>
+  <text x="200" y="180" font-family="Arial" font-size="10" text-anchor="middle" fill="white" transform="rotate(90 200,180)">Heater</text>
+  <circle cx="200" cy="280" r="10" fill="#03A9F4" stroke="#555" stroke-width="1"/>
+  <text x="200" cy="280" font-family="Arial" font-size="8" text-anchor="middle" fill="#333">Temp</text>
+  
+  <!-- Ranging Sensor Section -->
+  <rect x="560" y="100" width="180" height="200" fill="#FF9800" stroke="#064023" stroke-width="2" rx="5" ry="5"/>
+  <text x="650" y="90" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="white">Ranging Sensors</text>
+  
+  <!-- Ultrasonic Sensors -->
+  <rect x="580" y="120" width="50" height="30" fill="#FFE0B2" stroke="#555" stroke-width="1" rx="2" ry="2"/>
+  <circle cx="590" cy="135" r="8" fill="#333" stroke="#000" stroke-width="1"/>
+  <circle cx="620" cy="135" r="8" fill="#333" stroke="#000" stroke-width="1"/>
+  <text x="605" y="160" font-family="Arial" font-size="10" text-anchor="middle" fill="#333">HC-SR04 #1</text>
+  
+  <rect x="670" y="120" width="50" height="30" fill="#FFE0B2" stroke="#555" stroke-width="1" rx="2" ry="2"/>
+  <circle cx="680" cy="135" r="8" fill="#333" stroke="#000" stroke-width="1"/>
+  <circle cx="710" cy="135" r="8" fill="#333" stroke="#000" stroke-width="1"/>
+  <text x="695" y="160" font-family="Arial" font-size="10" text-anchor="middle" fill="#333">HC-SR04 #2</text>
+  
+  <rect x="625" y="180" width="50" height="30" fill="#FFE0B2" stroke="#555" stroke-width="1" rx="2" ry="2"/>
+  <circle cx="635" cy="195" r="8" fill="#333" stroke="#000" stroke-width="1"/>
+  <circle cx="665" cy="195" r="8" fill="#333" stroke="#000" stroke-width="1"/>
+  <text x="650" y="220" font-family="Arial" font-size="10" text-anchor="middle" fill="#333">HC-SR04 #3</text>
+  
+  <!-- Optional ToF Sensor -->
+  <rect x="610" y="240" width="80" height="40" fill="#FFCCBC" stroke="#555" stroke-width="1" rx="5" ry="5"/>
+  <text x="650" y="265" font-family="Arial" font-size="10" text-anchor="middle" fill="#333">VL53L1X (ToF)</text>
+  <text x="650" y="280" font-family="Arial" font-size="8" text-anchor="middle" fill="#333">(Optional)</text>
+  
+  <!-- Power Management -->
+  <rect x="40" y="320" width="200" height="180" fill="#607D8B" stroke="#064023" stroke-width="2" rx="5" ry="5"/>
+  <text x="140" y="340" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="white">Power Management</text>
+  
+  <!-- Battery Connector -->
+  <rect x="60" y="360" width="60" height="30" fill="#ccc" stroke="#555" stroke-width="1"/>
+  <text x="90" y="380" font-family="Arial" font-size="10" text-anchor="middle" fill="#333">Battery</text>
+  
+  <!-- BMS Circuit -->
+  <rect x="60" y="410" width="60" height="40" fill="#cfd8dc" stroke="#555" stroke-width="1"/>
+  <text x="90" y="430" font-family="Arial" font-size="10" text-anchor="middle" fill="#333">BMS</text>
+  
+  <!-- DC-DC Converter -->
+  <rect x="140" y="360" width="80" height="40" fill="#cfd8dc" stroke="#555" stroke-width="1"/>
+  <text x="180" y="380" font-family="Arial" font-size="10" text-anchor="middle" fill="#333">DC-DC</text>
+  <text x="180" y="395" font-family="Arial" font-size="10" text-anchor="middle" fill="#333">Converter</text>
+  
+  <!-- Power Switch -->
+  <rect x="160" y="420" width="40" height="20" fill="#90A4AE" stroke="#555" stroke-width="1" rx="10" ry="10"/>
+  <text x="180" y="435" font-family="Arial" font-size="10" text-anchor="middle" fill="white">SW</text>
+  
+  <!-- User Interface -->
+  <rect x="560" y="320" width="180" height="180" fill="#4CAF50" stroke="#064023" stroke-width="2" rx="5" ry="5"/>
+  <text x="650" y="340" font-family="Arial" font-size="14" font-weight="bold" text-anchor="middle" fill="white">User Interface</text>
+  
+  <!-- OLED Display -->
+  <rect x="590" y="360" width="120" height="60" fill="#C8E6C9" stroke="#555" stroke-width="1" rx="2" ry="2"/>
+  <rect x="600" y="370" width="100" height="40" fill="#333" stroke="#000" stroke-width="1"/>
+  <text x="650" y="430" font-family="Arial" font-size="10" text-anchor="middle" fill="#333">0.96" OLED</text>
+  
+  <!-- Buttons -->
+  <circle cx="610" cy="460" r="10" fill="#81C784" stroke="#555" stroke-width="1"/>
+  <text x="610" y="480" font-family="Arial" font-size="8" text-anchor="middle" fill="#333">BTN1</text>
+  
+  <circle cx="650" cy="460" r="10" fill="#81C784" stroke="#555" stroke-width="1"/>
+  <text x="650" y="480" font-family="Arial" font-size="8" text-anchor="middle" fill="#333">BTN2</text>
+  
+  <circle cx="690" cy="460" r="10" fill="#81C784" stroke="#555" stroke-width="1"/>
+  <text x="690" y="480" font-family="Arial" font-size="8" text-anchor="middle" fill="#333">BTN3</text>
+  
+  <!-- Connectors -->
+  <!-- Sensors to ADC -->
+  <path d="M240 200 L280 350" stroke="#ddd" stroke-width="2" fill="none"/>
+  <!-- Ranging to ESP32 -->
+  <path d="M560 200 L520 180" stroke="#ddd" stroke-width="2" fill="none"/>
+  <!-- Power to ESP32 -->
+  <path d="M240 360 L280 180" stroke="#ddd" stroke-width="2" fill="none"/>
+  <!-- UI to ESP32 -->
+  <path d="M560 360 L520 200" stroke="#ddd" stroke-width="2" fill="none"/>
+  <!-- ADC to ESP32 -->
+  <path d="M400 300 L400 280" stroke="#ddd" stroke-width="2" fill="none"/>
+  
+  <!-- Legend -->
+  <rect x="40" y="520" width="720" height="60" fill="#ECEFF1" stroke="#546E7A" stroke-width="1" rx="5" ry="5"/>
+  <text x="70" y="540" font-family="Arial" font-size="12" font-weight="bold" fill="#333">Legend:</text>
+  
+  <!-- Legend Items -->
+  <rect x="70" y="550" width="15" height="15" fill="#9C27B0"/>
+  <text x="95" y="562" font-family="Arial" font-size="12" fill="#333">Olfactory Sensors</text>
+  
+  <rect x="200" y="550" width="15" height="15" fill="#FF9800"/>
+  <text x="225" y="562" font-family="Arial" font-size="12" fill="#333">Ranging Sensors</text>
+  
+  <rect x="330" y="550" width="15" height="15" fill="#37946e"/>
+  <text x="355" y="562" font-family="Arial" font-size="12" fill="#333">Microcontroller</text>
+  
+  <rect x="460" y="550" width="15" height="15" fill="#206694"/>
+  <text x="485" y="562" font-family="Arial" font-size="12" fill="#333">Signal Processing</text>
+  
+  <rect x="590" y="550" width="15" height="15" fill="#607D8B"/>
+  <text x="615" y="562" font-family="Arial" font-size="12" fill="#333">Power Management</text>
+  
+  <rect x="720" y="550" width="15" height="15" fill="#4CAF50"/>
+  <text x="745" y="562" font-family="Arial" font-size="12" fill="#333">User Interface</text>
+</svg>
