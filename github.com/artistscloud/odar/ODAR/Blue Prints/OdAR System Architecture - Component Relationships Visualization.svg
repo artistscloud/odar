@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800">
+  <!-- Title -->
+  <text x="500" y="40" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">OdAR System Architecture - Component Relationships</text>
+  
+  <!-- Background -->
+  <rect width="1000" height="800" fill="#f9f9f9"/>
+  
+  <!-- Main System Groups -->
+  
+  <!-- Sensing Group -->
+  <rect x="50" y="100" width="300" height="200" fill="#e3f2fd" stroke="#1565c0" stroke-width="2" rx="10"/>
+  <text x="200" y="125" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#1565c0">Sensing System</text>
+  
+  <!-- MOS Array -->
+  <rect x="70" y="140" width="120" height="70" fill="#bbdefb" stroke="#1565c0" stroke-width="1"/>
+  <text x="130" y="170" font-family="Arial" font-size="14" text-anchor="middle">MOS Array</text>
+  <text x="130" y="190" font-family="Arial" font-size="12" text-anchor="middle" fill="#666">(SnO₂, ZnO, WO₃)</text>
+  
+  <!-- Polymer Array -->
+  <rect x="210" y="140" width="120" height="70" fill="#bbdefb" stroke="#1565c0" stroke-width="1"/>
+  <text x="270" y="170" font-family="Arial" font-size="14" text-anchor="middle">Polymer Array</text>
+  <text x="270" y="190" font-family="Arial" font-size="12" text-anchor="middle" fill="#666">(PANI, PPy)</text>
+  
+  <!-- Temperature Control -->
+  <rect x="70" y="220" width="260" height="60" fill="#bbdefb" stroke="#1565c0" stroke-width="1"/>
+  <text x="200" y="250" font-family="Arial" font-size="14" text-anchor="middle">Temperature Control System</text>
+  <text x="200" y="265" font-family="Arial" font-size="12" text-anchor="middle" fill="#666">(10-40°C Cycling)</text>
+  
+  <!-- Ranging Group -->
+  <rect x="400" y="100" width="250" height="200" fill="#f3e5f5" stroke="#6a1b9a" stroke-width="2" rx="10"/>
+  <text x="525" y="125" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#6a1b9a">Ranging System</text>
+  
+  <!-- Ultrasonic Sensors -->
+  <rect x="420" y="140" width="100" height="140" fill="#e1bee7" stroke="#6a1b9a" stroke-width="1"/>
+  <text x="470" y="160" font-family="Arial" font-size="14" text-anchor="middle">Ultrasonic</text>
+  <circle cx="470" cy="190" r="15" fill="#ce93d8" stroke="#6a1b9a"/>
+  <text x="470" y="195" font-family="Arial" font-size="12" text-anchor="middle">US1</text>
+  <circle cx="470" cy="230" r="15" fill="#ce93d8" stroke="#6a1b9a"/>
+  <text x="470" y="235" font-family="Arial" font-size="12" text-anchor="middle">US2</text>
+  <circle cx="470" cy="270" r="15" fill="#ce93d8" stroke="#6a1b9a"/>
+  <text x="470" y="275" font-family="Arial" font-size="12" text-anchor="middle">US3</text>
+  
+  <!-- ToF Sensor -->
+  <rect x="530" y="140" width="100" height="140" fill="#e1bee7" stroke="#6a1b9a" stroke-width="1" stroke-dasharray="5,5"/>
+  <text x="580" y="160" font-family="Arial" font-size="14" text-anchor="middle">ToF</text>
+  <text x="580" y="175" font-family="Arial" font-size="12" text-anchor="middle" fill="#666">(Optional)</text>
+  
+  <!-- Processing Group -->
+  <rect x="700" y="100" width="250" height="200" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2" rx="10"/>
+  <text x="825" y="125" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#2e7d32">Processing System</text>
+  
+  <!-- Main Processor -->
+  <rect x="720" y="140" width="210" height="60" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+  <text x="825" y="170" font-family="Arial" font-size="14" text-anchor="middle">ESP32-WROOM-32E</text>
+  <text x="825" y="185" font-family="Arial" font-size="12" text-anchor="middle" fill="#666">240MHz Dual-Core</text>
+  
+  <!-- Memory -->
+  <rect x="720" y="210" width="100" height="60" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+  <text x="770" y="235" font-family="Arial" font-size="14" text-anchor="middle">Flash</text>
+  <text x="770" y="250" font-family="Arial" font-size="12" text-anchor="middle" fill="#666">4MB</text>
+  
+  <!-- RAM -->
+  <rect x="830" y="210" width="100" height="60" fill="#c8e6c9" stroke="#2e7d32" stroke-width="1"/>
+  <text x="880" y="235" font-family="Arial" font-size="14" text-anchor="middle">SRAM</text>
+  <text x="880" y="250" font-family="Arial" font-size="12" text-anchor="middle" fill="#666">520KB</text>
+  
+  <!-- Interface Group -->
+  <rect x="50" y="350" width="900" height="150" fill="#fff3e0" stroke="#e65100" stroke-width="2" rx="10"/>
+  <text x="500" y="375" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#e65100">Interface Systems</text>
+  
+  <!-- Display -->
+  <rect x="70" y="390" width="160" height="90" fill="#ffe0b2" stroke="#e65100" stroke-width="1"/>
+  <text x="150" y="420" font-family="Arial" font-size="14" text-anchor="middle">OLED Display</text>
+  <text x="150" y="435" font-family="Arial" font-size="12" text-anchor="middle" fill="#666">0.96" 128x64</text>
+  
+  <!-- Controls -->
+  <rect x="240" y="390" width="160" height="90" fill="#ffe0b2" stroke="#e65100" stroke-width="1"/>
+  <text x="320" y="420" font-family="Arial" font-size="14" text-anchor="middle">Control Buttons</text>
+  <text x="320" y="435" font-family="Arial" font-size="12" text-anchor="middle" fill="#666">Menu/Select/Back</text>
+  
+  <!-- Storage -->
+  <rect x="410" y="390" width="160" height="90" fill="#ffe0b2" stroke="#e65100" stroke-width="1"/>
+  <text x="490" y="420" font-family="Arial" font-size="14" text-anchor="middle">SD Card</text>
+  <text x="490" y="435" font-family="Arial" font-size="12" text-anchor="middle" fill="#666">Data Logging</text>
+  
+  <!-- USB -->
+  <rect x="580" y="390" width="160" height="90" fill="#ffe0b2" stroke="#e65100" stroke-width="1"/>
+  <text x="660" y="420" font-family="Arial" font-size="14" text-anchor="middle">USB-C</text>
+  <text x="660" y="435" font-family="Arial" font-size="12" text-anchor="middle" fill="#666">Power/Data</text>
+  
+  <!-- Wireless -->
+  <rect x="750" y="390" width="160" height="90" fill="#ffe0b2" stroke="#e65100" stroke-width="1"/>
+  <text x="830" y="420" font-family="Arial" font-size="14" text-anchor="middle">Wireless</text>
+  <text x="830" y="435" font-family="Arial" font-size="12" text-anchor="middle" fill="#666">WiFi/BLE</text>
+  
+  <!-- Power Group -->
+  <rect x="50" y="550" width="900" height="150" fill="#fce4ec" stroke="#880e4f" stroke-width="2" rx="10"/>
+  <text x="500" y="575" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#880e4f">Power System</text>
+  
+  <!-- Battery -->
+  <rect x="70" y="590" width="200" height="90" fill="#f8bbd0" stroke="#880e4f" stroke-width="1"/>
+  <text x="170" y="620" font-family="Arial" font-size="14" text-anchor="middle">Li-Ion Battery</text>
+  <text x="170" y="635" font-family="Arial" font-size="12" text-anchor="middle" fill="#666">3.7V 3000mAh</text>
+  
+  <!-- Power Management -->
+  <rect x="280" y="590" width="200" height="90" fill="#f8bbd0" stroke="#880e4f" stroke-width="1"/>
+  <text x="380" y="620" font-family="Arial" font-size="14" text-anchor="middle">Power Management</text>
+  <text x="380" y="635" font-family="Arial" font-size="12" text-anchor="middle" fill="#666">BMS + DC-DC</text>
+  
+  <!-- Voltage Monitoring -->
+  <rect x="490" y="590" width="200" height="90" fill="#f8bbd0" stroke="#880e4f" stroke-width="1"/>
+  <text x="590" y="620" font-family="Arial" font-size="14" text-anchor="middle">Voltage Monitor</text>
+  <text x="590" y="635" font-family="Arial" font-size="12" text-anchor="middle" fill="#666">ADC Based</text>
+  
+  <!-- Power Distribution -->
+  <rect x="700" y="590" width="200" height="90" fill="#f8bbd0" stroke="#880e4f" stroke-width="1"/>
+  <text x="800" y="620" font-family="Arial" font-size="14" text-anchor="middle">Power Distribution</text>
+  <text x="800" y="635" font-family="Arial" font-size="12" text-anchor="middle" fill="#666">Regulated Rails</text>
+  
+  <!-- Data Flow Arrows -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+  </defs>
+  
+  <!-- Sensing to Processing -->
+  <path d="M350 200 H 700" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" fill="none"/>
+  
+  <!-- Ranging to Processing -->
+  <path d="M650 200 H 700" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" fill="none"/>
+  
+  <!-- Processing to Interface -->
+  <path d="M825 300 V 350" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" fill="none"/>
+  
+  <!-- Power to All Systems -->
+  <path d="M500 550 V 510" stroke="#880e4f" stroke-width="2" marker-end="url(#arrowhead)" fill="none"/>
+</svg>
