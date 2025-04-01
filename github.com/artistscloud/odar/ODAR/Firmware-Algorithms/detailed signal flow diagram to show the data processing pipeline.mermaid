@@ -1,0 +1,78 @@
+flowchart TB
+    subgraph Sensors["Sensor Array"]
+        MOS["MOS Sensors
+        SnO₂, ZnO, WO₃"]
+        CP["Polymer Sensors
+        PANI, PPy"]
+        US["Ultrasonic
+        Ranging"]
+        TEMP["Temperature
+        Control"]
+    end
+
+    subgraph ADC["Signal Conditioning"]
+        AMP["Amplification"]
+        FILT["Filtering"]
+        MUX["Multiplexing"]
+        CONV["ADC
+        12-bit"]
+    end
+
+    subgraph PROC["Processing Pipeline"]
+        CAL["Calibration
+        Correction"]
+        COMP["Environmental
+        Compensation"]
+        BASE["Baseline
+        Correction"]
+        FEAT["Feature
+        Extraction"]
+    end
+
+    subgraph AI["AI Processing"]
+        CNN["CNN Layer
+        Feature Detection"]
+        LSTM["LSTM Layer
+        Temporal Analysis"]
+        CLASS["Classification
+        Layer"]
+        REG["Regression
+        Layer"]
+    end
+
+    subgraph OUT["Output Processing"]
+        DET["Detection
+        Logic"]
+        RANG["Range
+        Calculation"]
+        CONF["Confidence
+        Scoring"]
+        VIS["Visualization
+        Processing"]
+    end
+
+    MOS --> AMP
+    CP --> AMP
+    US --> FILT
+    TEMP --> CONV
+
+    AMP --> FILT
+    FILT --> MUX
+    MUX --> CONV
+
+    CONV --> CAL
+    CAL --> COMP
+    COMP --> BASE
+    BASE --> FEAT
+
+    FEAT --> CNN
+    CNN --> LSTM
+    LSTM --> CLASS
+    LSTM --> REG
+
+    CLASS --> DET
+    REG --> DET
+    US --> RANG
+    DET --> CONF
+    RANG --> CONF
+    CONF --> VIS
