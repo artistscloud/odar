@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f8f8f8"/>
+  
+  <!-- Title -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">Nanotubular Follicle Structure</text>
+  <text x="400" y="70" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#666">OdAR System Nanofiber Enhancement</text>
+  
+  <!-- Dimensions -->
+  <text x="40" y="120" font-family="Arial, sans-serif" font-size="14" fill="#333">Dimensions:</text>
+  <text x="40" y="145" font-family="Arial, sans-serif" font-size="14" fill="#666">- Outer diameter: 350μm</text>
+  <text x="40" y="170" font-family="Arial, sans-serif" font-size="14" fill="#666">- Inner diameter: 200μm</text>
+  <text x="40" y="195" font-family="Arial, sans-serif" font-size="14" fill="#666">- Tube height: 0.6mm</text>
+  <text x="40" y="220" font-family="Arial, sans-serif" font-size="14" fill="#666">- Wall thickness: 75μm</text>
+  
+  <!-- Main tubular structure - vertical orientation -->
+  <g transform="translate(300, 150)">
+    <!-- Base nanofiber layer -->
+    <rect x="-100" y="300" width="200" height="20" fill="#8ab9f1" stroke="#333" stroke-width="1"/>
+    <text x="120" y="315" font-family="Arial, sans-serif" font-size="14" fill="#333">Base Nanofiber Layer</text>
+    
+    <!-- Tube outer wall -->
+    <path d="M-75,300 L-75,0 C-75,-20 75,-20 75,0 L75,300" fill="none" stroke="#333" stroke-width="3"/>
+    
+    <!-- Tube inner wall -->
+    <path d="M-45,300 L-45,30 C-45,15 45,15 45,30 L45,300" fill="none" stroke="#444" stroke-width="2"/>
+    
+    <!-- Zone 1: Entrance Filtering (top 100μm) -->
+    <path d="M-75,0 C-75,-20 75,-20 75,0 L75,50 C75,30 -75,30 -75,50 Z" fill="#f1c40f" fill-opacity="0.7" stroke="#e67e22" stroke-width="1"/>
+    <path d="M-45,30 C-45,15 45,15 45,30 L45,50 C45,40 -45,40 -45,50 Z" fill="#f1c40f" fill-opacity="0.4"/>
+    <text x="120" y="30" font-family="Arial, sans-serif" font-size="14" fill="#333">Zone 1: Entrance Filtering</text>
+    <text x="120" y="50" font-family="Arial, sans-serif" font-size="12" fill="#666">- Size-selective filtering</text>
+    <text x="120" y="70" font-family="Arial, sans-serif" font-size="12" fill="#666">- Pore size: 2.5μm to 0.8μm</text>
+    
+    <!-- Zone 2: Concentration Enhancement (middle 200μm) -->
+    <path d="M-75,50 C-75,30 75,30 75,50 L75,150 C75,130 -75,130 -75,150 Z" fill="#3498db" fill-opacity="0.7" stroke="#2980b9" stroke-width="1"/>
+    <path d="M-45,50 C-45,40 45,40 45,50 L45,150 C45,140 -45,140 -45,150 Z" fill="#3498db" fill-opacity="0.4"/>
+    <text x="120" y="100" font-family="Arial, sans-serif" font-size="14" fill="#333">Zone 2: Concentration Enhancement</text>
+    <text x="120" y="120" font-family="Arial, sans-serif" font-size="12" fill="#666">- Compound adsorption</text>
+    <text x="120" y="140" font-family="Arial, sans-serif" font-size="12" fill="#666">- Surface area: >1000m²/g</text>
+    
+    <!-- Zone 3: Detection Region (inner 300μm) -->
+    <path d="M-75,150 C-75,130 75,130 75,150 L75,300 C75,300 -75,300 -75,300 Z" fill="#27ae60" fill-opacity="0.7" stroke="#16a085" stroke-width="1"/>
+    <path d="M-45,150 C-45,140 45,140 45,150 L45,300 C45,300 -45,300 -45,300 Z" fill="#27ae60" fill-opacity="0.4"/>
+    <text x="120" y="200" font-family="Arial, sans-serif" font-size="14" fill="#333">Zone 3: Detection Region</text>
+    <text x="120" y="220" font-family="Arial, sans-serif" font-size="12" fill="#666">- Compound identification</text>
+    <text x="120" y="240" font-family="Arial, sans-serif" font-size="12" fill="#666">- Signal transduction</text>
+    <text x="120" y="260" font-family="Arial, sans-serif" font-size="12" fill="#666">- Conductive polymer integration</text>
+    
+    <!-- Airflow indicators -->
+    <path d="M0,-40 L0,-25 M-5,-30 L0,-25 L5,-30" stroke="#666" stroke-width="2" fill="none"/>
+    <text x="0" y="-45" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#666">Airflow</text>
+    
+    <!-- Signal indicators -->
+    <path d="M-100,310 L-120,330 L-160,330" stroke="#d35400" stroke-width="2" fill="none"/>
+    <circle cx="-170" cy="330" r="10" fill="#e74c3c"/>
+    <text x="-180" y="360" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#333">Signal Output</text>
+  </g>
+  
+  <!-- Material Composition Section -->
+  <g transform="translate(400, 470)">
+    <rect x="-370" y="0" width="740" height="120" rx="10" ry="10" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2"/>
+    <text x="0" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">Material Composition</text>
+    
+    <!-- Left column - Wall Structure -->
+    <text x="-270" y="50" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">Wall Structure:</text>
+    <text x="-270" y="70" font-family="Arial, sans-serif" font-size="12" fill="#666">- Base: Electrospun polyacrylonitrile (PAN)</text>
+    <text x="-270" y="90" font-family="Arial, sans-serif" font-size="12" fill="#666">- Fiber diameter: 120-180nm</text>
+    <text x="-270" y="110" font-family="Arial, sans-serif" font-size="12" fill="#666">- Conductive treatment: Silver nanoparticle infusion</text>
+    
+    <!-- Middle column - Functional Layer -->
+    <text x="0" y="50" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">Functional Layer:</text>
+    <text x="0" y="70" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#666">- PEDOT:PSS/ZIF-8 composite</text>
+    <text x="0" y="90" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#666">- Loading ratio: 1:3</text>
+    <text x="0" y="110" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#666">- Surface treatment: Oxygen plasma activation</text>
+    
+    <!-- Right column - Detection Elements -->
+    <text x="270" y="50" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="end" fill="#333">Detection Elements:</text>
+    <text x="270" y="70" font-family="Arial, sans-serif" font-size="12" text-anchor="end" fill="#666">- Molecular recognition sites</text>
+    <text x="270" y="90" font-family="Arial, sans-serif" font-size="12" text-anchor="end" fill="#666">- Binding site density: 3-5 sites/nm²</text>
+    <text x="270" y="110" font-family="Arial, sans-serif" font-size="12" text-anchor="end" fill="#666">- Carboxyl group functionalization</text>
+  </g>
+</svg>
