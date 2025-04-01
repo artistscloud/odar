@@ -1,0 +1,169 @@
+// Temperature Control Core System
+class TemperatureController {
+private:
+    // PID parameters
+    const float KP = 2.0;
+    const float KI = 0.1;
+    const float KD = 0.5;
+    
+    // Temperature cycle parameters
+    const float TEMP_MIN = 10.0;  // °C
+    const float TEMP_MAX = 40.0;  // °C
+    const float TEMP_STEP = 10.0; // °C
+    const uint32_t HOLD_TIME = 2000; // ms
+    
+    float integral = 0;
+    float prevError = 0;
+    uint32_t lastUpdate = 0;
+    float targetTemp = TEMP_MIN;
+    
+public:
+    float computePIDOutput(float currentTemp) {
+        float error = targetTemp - currentTemp;
+        
+        // Time delta calculation
+        uint32_t now = millis();
+        float dt = (now - lastUpdate) / 1000.0; // Convert to seconds
+        lastUpdate = now;
+        
+        // Integral term with anti-windup
+        integral += error * dt;
+        integral = constrain(integral, -100, 100);
+        
+        // Derivative term
+        float derivative = (error - prevError) / dt;
+        prevError = error;
+        
+        // PID output calculation
+        float output = KP * error + KI * integral + KD * derivative;
+        
+        // Constrain output to valid PWM range (0-255)
+        return constrain(output, 0, 255);
+    }
+    
+    void updateCycle(float currentTemp, uint32_t cycleStartTime) {
+        // State machine for temperature cycling
+        static enum {
+            HEATING,
+            HOLDING,
+            COOLING,
+            COMPLETE
+        } cycleState = HEATING;
+        
+        static uint32_t holdStartTime = 0;
+        
+        switch(cycleState) {
+            case HEATING:
+                if (abs(currentTemp - targetTemp) < 0.5) {
+                    cycleState = HOLDING;
+                    holdStartTime = millis();
+                }
+                break;
+                
+            case HOLDING:
+                if (millis() - holdStartTime >= HOLD_TIME) {
+                    targetTemp += TEMP_STEP;
+                    if (targetTemp > TEMP_MAX) {
+                        cycleState = COOLING;
+                    } else {
+                        cycleState = HEATING;
+                    }
+                }
+                break;
+                
+            case COOLING:
+                targetTemp = TEMP_MIN;
+                if (currentTemp < (TEMP_MIN + 5.0)) {
+                    cycleState = COMPLETE;
+                }
+                break;
+                
+            case COMPLETE:
+                // Maintain ambient temperature
+                targetTemp = 25.0;
+                break;
+        }
+    }
+};
+
+// Signal Processing System
+class SignalProcessor {
+private:
+    const float ALPHA = 0.01;  // Baseline adaptation rate
+    const float DETECTION_THRESHOLD = 0.10;  // 10% change threshold
+    
+    float baselines[NUM_SENSORS];
+    bool baselineInitialized = false;
+    
+public:
+    struct ProcessedData {
+        float relativeChanges[NUM_SENSORS];
+        float normalizedValues[NUM_SENSORS];
+        bool significantChange;
+        float maxDeviation;
+    };
+    
+    ProcessedData processSignals(const float rawValues[NUM_SENSORS], bool cleanAir) {
+        ProcessedData result;
+        result.significantChange = false;
+        result.maxDeviation = 0;
+        
+        // Initialize baselines if needed
+        if (!baselineInitialized) {
+            for (int i = 0; i < NUM_SENSORS; i++) {
+                baselines[i] = rawValues[i];
+            }
+            baselineInitialized = true;
+            return result;
+        }
+        
+        // Update baselines in clean air conditions
+        if (cleanAir) {
+            for (int i = 0; i < NUM_SENSORS; i++) {
+                baselines[i] = ALPHA * rawValues[i] + (1 - ALPHA) * baselines[i];
+            }
+        }
+        
+        // Calculate relative changes and check for significant deviations
+        for (int i = 0; i < NUM_SENSORS; i++) {
+            result.relativeChanges[i] = (rawValues[i] / baselines[i]) - 1.0;
+            result.normalizedValues[i] = rawValues[i] / baselines[i];
+            
+            float absChange = abs(result.relativeChanges[i]);
+            if (absChange > result.maxDeviation) {
+                result.maxDeviation = absChange;
+            }
+            
+            if (absChange > DETECTION_THRESHOLD) {
+                result.significantChange = true;
+            }
+        }
+        
+        return result;
+    }
+    
+    // Noise filtering using moving average
+    float* filterNoise(const float values[NUM_SENSORS], int windowSize) {
+        static float filteredValues[NUM_SENSORS];
+        static float buffer[NUM_SENSORS][MAX_WINDOW_SIZE];
+        static int bufferIndex = 0;
+        
+        // Store new values in circular buffer
+        for (int i = 0; i < NUM_SENSORS; i++) {
+            buffer[i][bufferIndex] = values[i];
+        }
+        
+        // Calculate moving averages
+        for (int i = 0; i < NUM_SENSORS; i++) {
+            float sum = 0;
+            for (int j = 0; j < windowSize; j++) {
+                int idx = (bufferIndex - j + MAX_WINDOW_SIZE) % MAX_WINDOW_SIZE;
+                sum += buffer[i][idx];
+            }
+            filteredValues[i] = sum / windowSize;
+        }
+        
+        bufferIndex = (bufferIndex + 1) % MAX_WINDOW_SIZE;
+        return filteredValues;
+    }
+};
