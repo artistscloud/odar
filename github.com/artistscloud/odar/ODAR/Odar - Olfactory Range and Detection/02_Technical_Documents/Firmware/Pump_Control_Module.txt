@@ -1,0 +1,178 @@
+// Pump Control Module for OdAR System
+// This module integrates with the existing firmware to provide
+// active sampling capabilities through PWM control of the micropump
+
+#include <Arduino.h>
+
+// Pin and PWM configuration
+#define PUMP_PWM_PIN       16      // GPIO pin for pump control
+#define PUMP_PWM_CHANNEL   0       // ESP32 PWM channel
+#define PUMP_PWM_FREQ      5000    // PWM frequency in Hz
+#define PUMP_PWM_RES       8       // 8-bit resolution (0-255)
+
+// Flow rate settings (percentage of maximum)
+#define FLOW_RATE_OFF      0
+#define FLOW_RATE_LOW      25
+#define FLOW_RATE_MEDIUM   50
+#define FLOW_RATE_HIGH     75
+#define FLOW_RATE_MAX      100
+
+// Operating modes
+typedef enum {
+  PUMP_MODE_OFF,
+  PUMP_MODE_CONTINUOUS,
+  PUMP_MODE_DUTY_CYCLE,
+  PUMP_MODE_ADAPTIVE
+} PumpMode;
+
+// Pump state variables
+static PumpMode currentMode = PUMP_MODE_OFF;
+static uint8_t currentFlowRate = FLOW_RATE_OFF;
+static uint32_t pumpOnTime = 0;
+static uint32_t pumpOffTime = 0;
+static uint32_t lastStateChange = 0;
+static bool pumpRunning = false;
+
+// Initialize pump control
+void initPump() {
+  // Configure PWM for pump control
+  ledcSetup(PUMP_PWM_CHANNEL, PUMP_PWM_FREQ, PUMP_PWM_RES);
+  ledcAttachPin(PUMP_PWM_PIN, PUMP_PWM_CHANNEL);
+  ledcWrite(PUMP_PWM_CHANNEL, 0); // Ensure pump is off on startup
+  
+  Serial.println("Pump control initialized");
+}
+
+// Set pump flow rate (0-100%)
+void setPumpFlow(uint8_t flowRate) {
+  if (flowRate > 100) {
+    flowRate = 100;
+  }
+  
+  currentFlowRate = flowRate;
+  
+  // Convert percentage to PWM value (0-255)
+  uint8_t pwmValue = map(flowRate, 0, 100, 0, 255);
+  ledcWrite(PUMP_PWM_CHANNEL, pwmValue);
+  
+  Serial.print("Pump flow rate set to ");
+  Serial.print(flowRate);
+  Serial.println("%");
+}
+
+// Set pump operating mode
+void setPumpMode(PumpMode mode, uint32_t onTimeMs = 5000, uint32_t offTimeMs = 15000) {
+  currentMode = mode;
+  
+  switch (mode) {
+    case PUMP_MODE_OFF:
+      setPumpFlow(FLOW_RATE_OFF);
+      Serial.println("Pump mode: OFF");
+      break;
+    
+    case PUMP_MODE_CONTINUOUS:
+      setPumpFlow(currentFlowRate > 0 ? currentFlowRate : FLOW_RATE_MEDIUM);
+      Serial.println("Pump mode: CONTINUOUS");
+      break;
+    
+    case PUMP_MODE_DUTY_CYCLE:
+      pumpOnTime = onTimeMs;
+      pumpOffTime = offTimeMs;
+      lastStateChange = millis();
+      pumpRunning = true;
+      setPumpFlow(currentFlowRate > 0 ? currentFlowRate : FLOW_RATE_MEDIUM);
+      Serial.print("Pump mode: DUTY_CYCLE (");
+      Serial.print(onTimeMs);
+      Serial.print("ms on, ");
+      Serial.print(offTimeMs);
+      Serial.println("ms off)");
+      break;
+    
+    case PUMP_MODE_ADAPTIVE:
+      // In adaptive mode, the pump will activate based on detection events
+      setPumpFlow(FLOW_RATE_OFF);
+      Serial.println("Pump mode: ADAPTIVE");
+      break;
+  }
+}
+
+// Update pump control - call this in the main loop
+void updatePump() {
+  uint32_t currentTime = millis();
+  
+  // Handle duty cycle mode
+  if (currentMode == PUMP_MODE_DUTY_CYCLE) {
+    if (pumpRunning && (currentTime - lastStateChange >= pumpOnTime)) {
+      // Switch to off phase
+      setPumpFlow(FLOW_RATE_OFF);
+      lastStateChange = currentTime;
+      pumpRunning = false;
+    } else if (!pumpRunning && (currentTime - lastStateChange >= pumpOffTime)) {
+      // Switch to on phase
+      setPumpFlow(currentFlowRate > 0 ? currentFlowRate : FLOW_RATE_MEDIUM);
+      lastStateChange = currentTime;
+      pumpRunning = true;
+    }
+  }
+  
+  // Handle adaptive mode - integrate with sensor data
+  if (currentMode == PUMP_MODE_ADAPTIVE) {
+    // Example logic: activate pump when sensor readings exceed threshold
+    /*
+    if (getSensorReading() > DETECTION_THRESHOLD) {
+      // Run pump for active sampling
+      setPumpFlow(FLOW_RATE_HIGH);
+      sampleStartTime = currentTime;
+      sampling = true;
+    } else if (sampling && (currentTime - sampleStartTime > SAMPLING_DURATION)) {
+      // Turn off pump after sampling duration
+      setPumpFlow(FLOW_RATE_OFF);
+      sampling = false;
+    }
+    */
+  }
+}
+
+// Example of integration with sensor data for adaptive mode
+void onDetectionEvent(float concentration) {
+  if (currentMode == PUMP_MODE_ADAPTIVE) {
+    // Adjust flow rate based on concentration
+    if (concentration > 10.0) {
+      setPumpFlow(FLOW_RATE_HIGH);
+    } else if (concentration > 5.0) {
+      setPumpFlow(FLOW_RATE_MEDIUM);
+    } else if (concentration > 2.0) {
+      setPumpFlow(FLOW_RATE_LOW);
+    } else {
+      setPumpFlow(FLOW_RATE_OFF);
+    }
+  }
+}
+
+// Example of integration into the main program
+void setup() {
+  // Other initialization code...
+  
+  Serial.begin(115200);
+  Serial.println("OdAR System Initializing...");
+  
+  initPump();
+  
+  // Set initial pump mode to duty cycle (5s on, 15s off)
+  setPumpMode(PUMP_MODE_DUTY_CYCLE, 5000, 15000);
+  
+  // Other setup code...
+}
+
+void loop() {
+  // Other loop code...
+  
+  // Update pump control
+  updatePump();
+  
+  // Example of triggering adaptive sampling
+  // If a detection occurs from another part of the system:
+  // onDetectionEvent(detectedConcentration);
+  
+  // Other loop code...
+}
