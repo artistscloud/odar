@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 600">
+  <!-- Generator: Adobe Illustrator 29.3.1, SVG Export Plug-In . SVG Version: 2.1.0 Build 151)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #000001;
+      }
+
+      .st1 {
+        fill: #f8f8f8;
+      }
+
+      .st1, .st2, .st3, .st4, .st5, .st6, .st7, .st8, .st9, .st10, .st11, .st12, .st13, .st14 {
+        stroke-width: .5px;
+      }
+
+      .st1, .st7 {
+        fill-opacity: .7;
+        stroke: #ddd;
+      }
+
+      .st15, .st6 {
+        fill: #111;
+      }
+
+      .st16 {
+        fill: #fff;
+        font-size: 8px;
+      }
+
+      .st16, .st17, .st18, .st19, .st20, .st21, .st22, .st23 {
+        isolation: isolate;
+      }
+
+      .st16, .st18, .st19, .st21, .st23 {
+        font-family: ArialMT, Arial;
+      }
+
+      .st17, .st19, .st3, .st20, .st21, .st22 {
+        fill: #333;
+      }
+
+      .st17, .st20, .st22 {
+        font-family: Arial-BoldMT, Arial;
+        font-weight: 700;
+      }
+
+      .st17, .st21 {
+        font-size: 12px;
+      }
+
+      .st18 {
+        fill: #090;
+      }
+
+      .st18, .st19 {
+        font-size: 10px;
+      }
+
+      .st2, .st4, .st24, .st8, .st25, .st13, .st26 {
+        stroke: #333;
+      }
+
+      .st2, .st10, .st27 {
+        fill: #222;
+      }
+
+      .st3, .st6, .st9, .st27 {
+        stroke: #444;
+      }
+
+      .st4, .st5, .st12, .st13 {
+        stroke-dasharray: 2 1;
+      }
+
+      .st20 {
+        font-size: 24px;
+      }
+
+      .st5, .st11, .st12 {
+        stroke: #090;
+      }
+
+      .st28, .st8, .st12, .st13, .st14 {
+        fill: none;
+      }
+
+      .st22 {
+        font-size: 16px;
+      }
+
+      .st29 {
+        clip-path: url(#clippath-1);
+      }
+
+      .st24 {
+        fill: #e1e1e1;
+      }
+
+      .st30 {
+        fill: #666;
+      }
+
+      .st23 {
+        fill: #4fc3f7;
+        font-size: 14px;
+      }
+
+      .st7 {
+        fill: #f9f9f9;
+      }
+
+      .st9 {
+        fill: #aaa;
+      }
+
+      .st10, .st14 {
+        stroke: #555;
+      }
+
+      .st11 {
+        fill: #2f2;
+      }
+
+      .st25 {
+        fill: url(#linear-gradient);
+      }
+
+      .st25, .st27 {
+        stroke-width: 1.5px;
+      }
+
+      .st31 {
+        clip-path: url(#clippath);
+      }
+
+      .st26 {
+        fill: #444;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="298.9" y1="401.3" x2="299.9" y2="400.3" gradientTransform="translate(-83440 64440) scale(280 -160)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#bfddf5"/>
+      <stop offset="1" stop-color="#89b4d9"/>
+    </linearGradient>
+    <clipPath id="clippath">
+      <rect class="st28" x="141" y="48.8" width="104.1" height="28.4"/>
+    </clipPath>
+    <clipPath id="clippath-1">
+      <rect class="st28" x="141" y="48.8" width="104.1" height="28.4"/>
+    </clipPath>
+  </defs>
+  <text class="st20" transform="translate(258.5 75.5)"><tspan x="0" y="0">- Front View (Technical Specifications)</tspan></text>
+  <g>
+    <text class="st22" transform="translate(359.3 220)"><tspan x="0" y="0">Front View</tspan></text>
+    <rect class="st25" x="260" y="240" width="280" height="160" rx="5" ry="5"/>
+    <rect class="st27" x="330" y="255" width="140" height="50"/>
+    <rect class="st15" x="340" y="260" width="120" height="40"/>
+    <text class="st23" transform="translate(355.7 285)"><tspan x="0" y="0">OdAR System</tspan></text>
+    <circle class="st26" cx="320" cy="360" r="12"/>
+    <text class="st16" transform="translate(308.2 365)"><tspan x="0" y="0">MENU</tspan></text>
+    <line class="st13" x1="320" y1="372" x2="320" y2="390"/>
+    <text class="st19" transform="translate(291.6 400)"><tspan x="0" y="0">Menu Button</tspan></text>
+    <circle class="st26" cx="400" cy="360" r="12"/>
+    <text class="st16" transform="translate(384.4 365)"><tspan x="0" y="0">SELECT</tspan></text>
+    <line class="st13" x1="400" y1="372" x2="400" y2="390"/>
+    <text class="st19" transform="translate(370.3 400)"><tspan x="0" y="0">Select Button</tspan></text>
+    <circle class="st26" cx="480" cy="360" r="12"/>
+    <text class="st16" transform="translate(469.1 365)"><tspan x="0" y="0">BACK</tspan></text>
+    <line class="st13" x1="480" y1="372" x2="480" y2="390"/>
+    <text class="st19" transform="translate(453 400)"><tspan x="0" y="0">Back Button</tspan></text>
+    <circle class="st11" cx="280" cy="360" r="6"/>
+    <line class="st13" x1="280" y1="366" x2="280" y2="390"/>
+    <text class="st19" transform="translate(254.7 400)"><tspan x="0" y="0">Power LED</tspan></text>
+    <circle class="st24" cx="300" cy="265" r="15"/>
+    <circle class="st9" cx="300" cy="265" r="10"/>
+    <circle class="st30" cx="300" cy="265" r="5"/>
+    <line class="st13" x1="300" y1="280" x2="270" y2="305"/>
+    <text class="st19" transform="translate(241.7 315)"><tspan x="0" y="0">HC-SR04 #1</tspan></text>
+    <text class="st19" transform="translate(244.4 327)"><tspan x="0" y="0">(Ultrasonic)</tspan></text>
+    <path class="st12" d="M300,265l-35,20c19.4,19.1,50.6,19.1,70,0l-35-20Z"/>
+    <text class="st18" transform="translate(241 230)"><tspan x="0" y="0">180° Front Sensing Range</tspan></text>
+    <line class="st12" x1="300" y1="265" x2="300" y2="240"/>
+    <rect class="st6" x="510" y="360" width="20" height="12" rx="2" ry="2"/>
+    <line class="st13" x1="520" y1="372" x2="520" y2="390"/>
+    <text class="st19" transform="translate(493.9 400)"><tspan x="0" y="0">USB-C Port</tspan></text>
+    <rect class="st3" x="510" y="330" width="20" height="10"/>
+    <line class="st13" x1="520" y1="330" x2="520" y2="310"/>
+    <text class="st19" transform="translate(489.7 305)"><tspan x="0" y="0">Power Switch</tspan></text>
+    <rect class="st2" x="500" y="255" width="30" height="30" rx="2" ry="2"/>
+    <line class="st14" x1="505" y1="255" x2="505" y2="285"/>
+    <line class="st14" x1="510" y1="255" x2="510" y2="285"/>
+    <line class="st14" x1="515" y1="255" x2="515" y2="285"/>
+    <line class="st14" x1="520" y1="255" x2="520" y2="285"/>
+    <line class="st14" x1="525" y1="255" x2="525" y2="285"/>
+    <line class="st14" x1="500" y1="260" x2="530" y2="260"/>
+    <line class="st14" x1="500" y1="265" x2="530" y2="265"/>
+    <line class="st14" x1="500" y1="270" x2="530" y2="270"/>
+    <line class="st14" x1="500" y1="275" x2="530" y2="275"/>
+    <line class="st14" x1="500" y1="280" x2="530" y2="280"/>
+    <line class="st13" x1="515" y1="285" x2="550" y2="305"/>
+    <text class="st19" transform="translate(499.7 315)"><tspan x="0" y="0">Olfactory Sensor Array</tspan></text>
+    <text class="st19" transform="translate(507.3 327)"><tspan x="0" y="0">(MOS/CP Sensors)</tspan></text>
+    <line class="st8" x1="240" y1="240" x2="240" y2="400"/>
+    <line class="st8" x1="237" y1="240" x2="243" y2="240"/>
+    <line class="st8" x1="237" y1="400" x2="243" y2="400"/>
+    <text class="st21" transform="translate(225 336.7) rotate(-90)"><tspan x="0" y="0">60mm</tspan></text>
+    <line class="st8" x1="260" y1="420" x2="540" y2="420"/>
+    <line class="st8" x1="260" y1="423" x2="260" y2="417"/>
+    <line class="st8" x1="540" y1="423" x2="540" y2="417"/>
+    <text class="st21" transform="translate(380 435)"><tspan x="0" y="0">100mm</tspan></text>
+    <rect class="st1" x="180" y="150" width="180" height="70" rx="3" ry="3"/>
+    <text class="st17" transform="translate(229.3 170)"><tspan x="0" y="0">Specifications</tspan></text>
+    <text class="st19" transform="translate(190 190)"><tspan x="0" y="0">Material: Polycarbonate</tspan></text>
+    <text class="st19" transform="translate(190 205)"><tspan x="0" y="0">Weight: ~200g</tspan></text>
+    <text class="st19" transform="translate(190 220)"><tspan x="0" y="0">Operating Temp: 0-40°C</tspan></text>
+    <rect class="st1" x="440" y="150" width="180" height="70" rx="3" ry="3"/>
+    <text class="st17" transform="translate(505 170)"><tspan x="0" y="0">Features</tspan></text>
+    <text class="st19" transform="translate(450 190)"><tspan x="0" y="0">IP65 Water/Dust Protection</tspan></text>
+    <text class="st19" transform="translate(450 205)"><tspan x="0" y="0">Connectivity: Wi-Fi, BLE</tspan></text>
+    <text class="st19" transform="translate(450 220)"><tspan x="0" y="0">Battery: 3000mAh Li-Ion</tspan></text>
+  </g>
+  <rect class="st7" x="551" y="520" width="180" height="60" rx="5" ry="5"/>
+  <text class="st17" transform="translate(598.6 540)"><tspan x="0" y="0">Key Properties</tspan></text>
+  <rect class="st11" x="561" y="552" width="10" height="10"/>
+  <text class="st19" transform="translate(579 562)"><tspan x="0" y="0">Status Indicators</tspan></text>
+  <rect class="st10" x="561" y="567" width="10" height="10"/>
+  <text class="st19" transform="translate(579 577)"><tspan x="0" y="0">Sensor Elements</tspan></text>
+  <path class="st5" d="M641,552h30"/>
+  <text class="st19" transform="translate(681 556)"><tspan x="0" y="0">Sensing Range</tspan></text>
+  <path class="st4" d="M641,567h30"/>
+  <text class="st19" transform="translate(681 571)"><tspan x="0" y="0">Component Link</tspan></text>
+  <g id="Artwork_894">
+    <g class="st31">
+      <g class="st29">
+        <path class="st0" d="M154.4,48.9c6.2-.4,12.3,3.9,14.3,9.8,1.2,3.7.8,7.8-1,11.2-2.7,5-8.6,8.1-14.3,7.3-3.4-.4-6.6-2.2-8.9-4.8-2-2.2-3.1-5-3.4-7.9-.4-3.6.7-7.4,3-10.2,2.4-3.2,6.3-5.1,10.3-5.4M152.8,57.5c-2.2.5-3.7,2.8-3.5,5,.3,2.9,2.6,5.2,5.2,6.1,1.4.5,3.1.4,4.4-.5,1.3-.9,2.2-2.6,2-4.2,0-1.9-1.2-3.5-2.5-4.7-1.5-1.3-3.6-2.2-5.6-1.7"/>
+        <path class="st0" d="M170.5,49.8c2.9,0,5.7,0,8.6,0,1.9,0,3.9-.1,5.8.3,2.9.6,5.7,2.1,7.6,4.4,1.8,2.2,2.9,4.9,3.2,7.7,1.7-4.1,3.4-8.3,5.1-12.4,3.3,0,6.6,0,9.9,0,2.7,6.6,5.2,13.2,8,19.8.1-6.6,0-13.2,0-19.8,5.5,0,11,0,16.5,0,2.5,0,4.9,1.2,6.5,3.1,2.2,2.9,2.4,7.1.7,10.2-.9,1.6-2.5,2.9-4.2,3.4,2.3,3.3,4.7,6.5,7,9.8-3.6,0-7.2,0-10.7,0-2.1-3-4.2-6.1-6.5-9,0,3,0,6,0,9-5.4,0-10.8,0-16.3,0-.3-.7-.6-1.5-.9-2.2-3.2,0-6.3,0-9.5,0,1.1-2.4,2.1-4.8,3.1-7.1,1.2,0,2.3,0,3.5,0-.7-2-1.5-4-2.3-6-1,2.1-1.8,4.2-2.7,6.4-1.2,3-2.5,5.9-3.8,8.9-3.2,0-6.4,0-9.7,0,.4-.9.7-1.8,1.1-2.7-2.5,1.8-5.6,2.8-8.7,2.8-3.8,0-7.6,0-11.4,0,0-8.8,0-17.6,0-26.5M227.9,57.6c0,1,0,2,0,3,1.6,0,3.1,0,4.7,0,.3,0,.7,0,1-.1,1.1-.5,1.1-2.5-.1-2.9-1.9,0-3.7,0-5.6,0M179.4,58.5c0,3,0,6.1,0,9.1,1.3,0,2.7.1,4-.1,1.9-.4,2.9-2.4,2.9-4.2,0-1.7-.6-3.8-2.3-4.5-1.5-.5-3.1-.2-4.6-.3"/>
+      </g>
+    </g>
+  </g>
+</svg>
