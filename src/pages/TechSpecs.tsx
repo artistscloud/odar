@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Header from '@/components/Header';
 import TechSpecsNav from '@/components/TechSpecsNav';
 import TechSpecsContent from '@/components/TechSpecsContent';
-import { FileCode } from 'lucide-react';
+import { FileCode, Layers } from 'lucide-react';
 
 const TechSpecs = () => {
   const [activeSection, setActiveSection] = useState('pump');
@@ -14,6 +14,7 @@ const TechSpecs = () => {
     { id: 'enclosure', label: 'Enclosure Design' },
     { id: 'microcontroller', label: 'Microcontroller System' },
     { id: 'sensor', label: 'Sensor Array' },
+    { id: 'nanofiber', label: 'Nanofiber Technology', icon: <Layers className="w-4 h-4" /> },
     { id: 'visuals', label: 'System Visuals' },
     { id: 'model', label: 'Model Architecture', icon: <FileCode className="w-4 h-4" /> }
   ];

@@ -7,6 +7,7 @@ import MicrocontrollerSystemSection from '@/components/tech-specs/Microcontrolle
 import SensorArraySection from '@/components/tech-specs/SensorArraySection';
 import SystemVisualsTabs from '@/components/tech-specs/SystemVisualsTabs';
 import ModelArchitectureSection from '@/components/tech-specs/ModelArchitectureSection';
+import NanoFiberSensorSection from '@/components/tech-specs/NanoFiberSensorSection';
 
 interface TechSpecsContentProps {
   activeSection: string;
@@ -37,6 +38,7 @@ const TechSpecsContent: React.FC<TechSpecsContentProps> = ({ activeSection, setA
       {activeSection === 'sensor' && <SensorArraySection />}
       {activeSection === 'visuals' && <SystemVisualsTabs />}
       {activeSection === 'model' && <ModelArchitectureSection />}
+      {activeSection === 'nanofiber' && <NanoFiberSensorSection />}
     </div>
   );
 };

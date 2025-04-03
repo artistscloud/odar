@@ -31,6 +31,32 @@ const SensorArrayContent: React.FC = () => {
           </div>
         </div>
       </section>
+      
+      <section className="mb-8">
+        <h3 className="text-xl font-semibold mb-3">3. Advanced Technology</h3>
+        
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200 mb-4">
+          <h4 className="text-lg font-medium mb-2 text-blue-800">Nanofiber Enhancement</h4>
+          <p className="text-odar-gray-700 mb-3">
+            The OdAR system features cutting-edge nanofiber tubular artificial hair follicle technology 
+            that significantly enhances the sensor array's sensitivity and selectivity. This biomimetic
+            approach mimics biological olfactory systems for superior performance.
+          </p>
+          <button 
+            className="text-white bg-blue-600 hover:bg-blue-700 transition-colors px-4 py-2 rounded-md flex items-center"
+            onClick={() => {
+              // Navigate to the nanofiber section
+              window.history.pushState({}, '', '/tech-specs');
+              const event = new CustomEvent('navigate-to-section', { 
+                detail: { section: 'nanofiber' } 
+              });
+              window.dispatchEvent(event);
+            }}
+          >
+            View Nanofiber Technology Details
+          </button>
+        </div>
+      </section>
     </>
   );
 };
