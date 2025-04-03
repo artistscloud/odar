@@ -1,63 +1,63 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Briefcase, Trophy, GraduationCap, Users } from 'lucide-react';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const TeamShowcase = () => {
   const executiveTeam = [
     {
-      name: "Dr. Sarah J. Chen",
-      title: "CEO & Co-Founder",
-      background: "Ph.D. Chemical Engineering, MIT",
-      experience: "15+ years in sensor technology and IoT",
-      achievements: "Former CTO at SensorTech, 2x startup exits",
-      imageUrl: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80"
+      name: "Mathew Riexinger",
+      title: "CEO & Founder",
+      background: "Bachelors in Multimedia Animation and Design",
+      experience: "Non Verbal Communications Expert, Former Tesla Employee (3 Years)",
+      achievements: "Worked on FSD and Optimus Projects, Experience with SOE, Eleven Labs, Adobe",
+      imageUrl: "/lovable-uploads/99b38f1d-1de0-432b-80a9-26fcba0c6e6c.png"
     },
     {
-      name: "Michael Rodriguez",
-      title: "CTO & Co-Founder",
-      background: "MS Computer Science, Stanford",
-      experience: "12+ years in AI and embedded systems",
-      achievements: "Former Lead Engineer at Google AI",
-      imageUrl: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80"
+      name: "TBD",
+      title: "CTO",
+      background: "Advanced Technical Degree",
+      experience: "Sensor technology and AI experience",
+      achievements: "Technical leadership in related fields",
+      imageUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80"
     },
     {
-      name: "Dr. Akira Tanaka",
+      name: "TBD",
       title: "Chief Scientist",
-      background: "Ph.D. Materials Science, Caltech",
-      experience: "20+ years in nanofiber technology",
-      achievements: "18 patents, former professor at Tokyo Tech",
+      background: "Ph.D. in relevant scientific field",
+      experience: "Expertise in olfactory detection technology",
+      achievements: "Patents and research in sensor technology",
       imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80"
     },
     {
-      name: "Olivia Washington",
+      name: "TBD",
       title: "CFO",
-      background: "MBA, Wharton Business School",
-      experience: "10+ years in venture finance",
-      achievements: "Raised $120M+ across multiple startups",
+      background: "Financial expertise",
+      experience: "Fundraising and financial management",
+      achievements: "Track record in startup financing",
       imageUrl: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80"
     }
   ];
 
   const advisors = [
     {
-      name: "Prof. Richard Huang",
+      name: "TBD",
       title: "Scientific Advisor",
-      affiliation: "Professor of Chemical Engineering, UC Berkeley",
+      affiliation: "Position open",
       specialty: "Environmental sensing systems",
       imageUrl: "https://images.unsplash.com/photo-1537511446984-935f663eb1f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80"
     },
     {
-      name: "Sophia Patel",
+      name: "TBD",
       title: "Industry Advisor",
-      affiliation: "VP Product, Industrial IoT Solutions Inc.",
+      affiliation: "Position open",
       specialty: "IoT product strategy",
       imageUrl: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80"
     },
     {
-      name: "Mark Daniels",
+      name: "TBD",
       title: "Strategic Advisor",
-      affiliation: "Former CEO, SafetySense Systems",
+      affiliation: "Position open",
       specialty: "Manufacturing scale & distribution",
       imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80"
     }
@@ -106,11 +106,19 @@ const TeamShowcase = () => {
             {executiveTeam.map((member) => (
               <div key={member.name} className="flex flex-col items-center text-center">
                 <div className="w-24 h-24 mb-4 rounded-full overflow-hidden">
-                  <img 
-                    src={member.imageUrl}
-                    alt={member.name}
-                    className="w-full h-full object-cover"
-                  />
+                  {member.name === "Mathew Riexinger" ? (
+                    <img 
+                      src={member.imageUrl}
+                      alt={member.name}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <Avatar className="w-full h-full">
+                      <AvatarFallback className="bg-slate-200 text-slate-600 text-xl">
+                        {member.title[0]}
+                      </AvatarFallback>
+                    </Avatar>
+                  )}
                 </div>
                 <h3 className="font-bold text-lg mb-1">{member.name}</h3>
                 <p className="text-odar-blue font-medium text-sm mb-2">{member.title}</p>
@@ -148,11 +156,11 @@ const TeamShowcase = () => {
               {advisors.map((advisor) => (
                 <div key={advisor.name} className="flex space-x-4">
                   <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
-                    <img 
-                      src={advisor.imageUrl}
-                      alt={advisor.name}
-                      className="w-full h-full object-cover"
-                    />
+                    <Avatar className="w-full h-full">
+                      <AvatarFallback className="bg-slate-200 text-slate-600 text-lg">
+                        {advisor.title[0]}
+                      </AvatarFallback>
+                    </Avatar>
                   </div>
                   <div>
                     <h3 className="font-semibold">{advisor.name}</h3>
@@ -176,29 +184,29 @@ const TeamShowcase = () => {
           <CardContent>
             <div className="space-y-4">
               <div className="bg-slate-50 p-3 rounded-lg">
-                <h4 className="font-medium mb-1">World-Class Expertise</h4>
+                <h4 className="font-medium mb-1">Leadership Vision</h4>
                 <ul className="text-sm space-y-1">
                   <li className="flex items-start">
                     <div className="w-1.5 h-1.5 bg-odar-blue rounded-full mt-1.5 mr-2 flex-shrink-0"></div>
-                    <span>Combined 50+ years of experience in sensors, materials, and AI</span>
+                    <span>Tesla FSD and Optimus project experience</span>
                   </li>
                   <li className="flex items-start">
                     <div className="w-1.5 h-1.5 bg-odar-blue rounded-full mt-1.5 mr-2 flex-shrink-0"></div>
-                    <span>Multiple advanced degrees from leading institutions</span>
+                    <span>Non-verbal communication expertise applied to sensor technology</span>
                   </li>
                 </ul>
               </div>
               
               <div className="bg-slate-50 p-3 rounded-lg">
-                <h4 className="font-medium mb-1">Proven Track Record</h4>
+                <h4 className="font-medium mb-1">Blue Ocean Strategy</h4>
                 <ul className="text-sm space-y-1">
                   <li className="flex items-start">
                     <div className="w-1.5 h-1.5 bg-odar-blue rounded-full mt-1.5 mr-2 flex-shrink-0"></div>
-                    <span>Previous successful exits in related technology sectors</span>
+                    <span>Creating an entirely new market space with limited competition</span>
                   </li>
                   <li className="flex items-start">
                     <div className="w-1.5 h-1.5 bg-odar-blue rounded-full mt-1.5 mr-2 flex-shrink-0"></div>
-                    <span>20+ patents held across the executive team</span>
+                    <span>Patentable technology across multiple verticals</span>
                   </li>
                 </ul>
               </div>
@@ -208,7 +216,7 @@ const TeamShowcase = () => {
                 <ul className="text-sm space-y-1">
                   <li className="flex items-start">
                     <div className="w-1.5 h-1.5 bg-odar-blue rounded-full mt-1.5 mr-2 flex-shrink-0"></div>
-                    <span>Currently 12 full-time employees</span>
+                    <span>Currently recruiting top-tier technical and scientific talent</span>
                   </li>
                   <li className="flex items-start">
                     <div className="w-1.5 h-1.5 bg-odar-blue rounded-full mt-1.5 mr-2 flex-shrink-0"></div>

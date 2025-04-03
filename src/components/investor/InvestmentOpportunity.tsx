@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { CircleDollarSign, LineChart, Shield, Target } from 'lucide-react';
+import { CircleDollarSign, LineChart, Shield, Target, Briefcase, Building, Globe } from 'lucide-react';
 
 const InvestmentOpportunity = () => {
   return (
@@ -93,6 +93,39 @@ const InvestmentOpportunity = () => {
         </CardContent>
       </Card>
       
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle>Blue Ocean Market Opportunity</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-6 md:grid-cols-3">
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-lg">
+              <Globe className="h-10 w-10 text-blue-600 mb-3" />
+              <h3 className="text-lg font-medium mb-2">Untapped Market</h3>
+              <p className="text-sm text-odar-gray-700">
+                First commercial entry into advanced olfactory detection space with minimal competition and substantial barriers to entry for followers.
+              </p>
+            </div>
+            
+            <div className="bg-gradient-to-br from-emerald-50 to-teal-50 p-4 rounded-lg">
+              <Building className="h-10 w-10 text-emerald-600 mb-3" />
+              <h3 className="text-lg font-medium mb-2">Government Contracts</h3>
+              <p className="text-sm text-odar-gray-700">
+                Significant potential for U.S. government and defense contracts in security, threat detection, and military applications.
+              </p>
+            </div>
+            
+            <div className="bg-gradient-to-br from-rose-50 to-pink-50 p-4 rounded-lg">
+              <Briefcase className="h-10 w-10 text-rose-600 mb-3" />
+              <h3 className="text-lg font-medium mb-2">Cross-Industry Applications</h3>
+              <p className="text-sm text-odar-gray-700">
+                Versatile technology with applications spanning medical diagnostics, environmental monitoring, security, and consumer products.
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+      
       <div className="grid gap-6 md:grid-cols-2">
         <Card>
           <CardHeader>
@@ -144,7 +177,7 @@ const InvestmentOpportunity = () => {
               <div className="bg-blue-50 p-3 rounded-lg">
                 <h4 className="font-medium mb-1">Strategic Acquisition</h4>
                 <p className="text-sm text-odar-gray-700">
-                  Primary exit strategy via acquisition by industrial technology companies, environmental monitoring corporations, or industrial IoT platforms. Comparable exits have valued companies at 5-8x revenue.
+                  Primary exit strategy via acquisition by defense contractors, industrial technology companies, environmental monitoring corporations, or industrial IoT platforms. Comparable exits have valued companies at 5-8x revenue.
                 </p>
               </div>
               
