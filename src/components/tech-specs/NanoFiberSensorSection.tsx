@@ -1,8 +1,9 @@
 
 import React from 'react';
-import NanoFiberSensorVisualization from 'github.com/artistscloud/odar/ODAR/Device/odar-nanofiber-sensor-visualization';
+import NanoFiberSensorVisualization from './NanoFiberSensorVisualization';
 import { Link } from 'react-router-dom';
 import { ArrowLeftCircle } from 'lucide-react';
+import blueprintImage from '../../assets/nanofiber-tube-follicle-blueprint.svg';
 
 const NanoFiberSensorSection: React.FC = () => {
   return (
@@ -40,7 +41,7 @@ const NanoFiberSensorSection: React.FC = () => {
         <h3 className="text-xl font-semibold mb-3">Blueprint</h3>
         <div className="bg-white p-4 rounded-lg shadow-md">
           <img 
-            src="/github.com/artistscloud/odar/ODAR/Blue Prints/nanofiber-tube-follicle-blueprint.svg" 
+            src={blueprintImage}
             alt="Nanofiber Tubular Artificial Hair Follicle Blueprint"
             className="w-full max-w-3xl mx-auto"
           />
