@@ -1,9 +1,12 @@
+
 import React from 'react';
 import { useStaggeredAnimation } from '@/utils/animation';
 import { Link } from 'react-router-dom';
-import { FileText, Home, ClipboardList } from 'lucide-react';
+import { FileText, Home, ClipboardList, TrendingUp } from 'lucide-react';
+
 const Header: React.FC = () => {
   const [logoVisible, titleVisible] = useStaggeredAnimation(2, 200, 300);
+  
   return <header className="w-full py-6 px-8 flex items-center justify-between">
       <div className="flex items-center space-x-4">
         <div className={`w-12 h-12 rounded-xl bg-gradient-to-br from-odar-blue to-odar-accent flex items-center justify-center transform transition-all duration-700 ${logoVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
@@ -37,6 +40,10 @@ const Header: React.FC = () => {
           <FileText size={16} className="text-odar-gray-600" />
           <span className="text-sm font-medium">Tech Specs</span>
         </Link>
+        <Link to="/investor" className="flex items-center glass-card px-3 py-1.5 space-x-2 hover:bg-odar-gray-100 transition-colors duration-200">
+          <TrendingUp size={16} className="text-odar-gray-600" />
+          <span className="text-sm font-medium">Investors</span>
+        </Link>
         <div className="flex items-center glass-card px-3 py-1.5 space-x-2">
           <div className="w-2 h-2 rounded-full bg-odar-success animate-pulse"></div>
           <span className="text-sm font-medium">System Active</span>
@@ -44,4 +51,5 @@ const Header: React.FC = () => {
       </div>
     </header>;
 };
+
 export default Header;
