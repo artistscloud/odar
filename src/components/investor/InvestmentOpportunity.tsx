@@ -1,7 +1,9 @@
 
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { CircleDollarSign, LineChart, Shield, Target, Briefcase, Building, Globe } from 'lucide-react';
+import { CircleDollarSign, LineChart, Shield, Target, Briefcase, Building, Globe, Microscope, FlaskConical } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 const InvestmentOpportunity = () => {
   return (
@@ -123,6 +125,90 @@ const InvestmentOpportunity = () => {
               </p>
             </div>
           </div>
+        </CardContent>
+      </Card>
+
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle>Testing Infrastructure Investment</CardTitle>
+          <p className="text-sm text-muted-foreground mt-1">
+            ISO Class 7 (Class 10,000) Clean Room Testing Chamber
+          </p>
+        </CardHeader>
+        <CardContent>
+          <Tabs defaultValue="blueprint1" className="w-full">
+            <TabsList className="mb-4 w-full flex justify-start overflow-x-auto">
+              <TabsTrigger value="blueprint1">Main Blueprint</TabsTrigger>
+              <TabsTrigger value="blueprint2">Environmental Systems</TabsTrigger>
+              <TabsTrigger value="blueprint3">Simplified Layout</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="blueprint1" className="space-y-4">
+              <div className="bg-blue-950 rounded-lg overflow-hidden shadow-lg">
+                <img 
+                  src="/lovable-uploads/2dbefdeb-4fb9-4044-bddc-f8cf5fb2bf13.png" 
+                  alt="OdAR Testing Chamber Blueprint" 
+                  className="w-full h-auto"
+                />
+              </div>
+              <div className="bg-slate-50 p-4 rounded-lg">
+                <h3 className="text-lg font-semibold mb-2 flex items-center">
+                  <Microscope className="h-5 w-5 text-blue-600 mr-2" />
+                  Testing Chamber Specifications
+                </h3>
+                <ul className="space-y-2 text-sm">
+                  <li>• ISO Class 7 (Class 10,000) clean room environment</li>
+                  <li>• Dimensions: 5.0m x 5.0m main chamber with 3.0m control room</li>
+                  <li>• Airlock entrance separation to maintain environmental integrity</li>
+                  <li>• Environmental control systems for precision testing conditions</li>
+                </ul>
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="blueprint2" className="space-y-4">
+              <div className="bg-blue-950 rounded-lg overflow-hidden shadow-lg">
+                <img 
+                  src="/lovable-uploads/75abafa1-1c1b-4d36-9ee5-16cab99032b7.png" 
+                  alt="OdAR Testing Chamber Environmental Systems" 
+                  className="w-full h-auto"
+                />
+              </div>
+              <div className="bg-slate-50 p-4 rounded-lg">
+                <h3 className="text-lg font-semibold mb-2 flex items-center">
+                  <FlaskConical className="h-5 w-5 text-green-600 mr-2" />
+                  Environmental Control Systems
+                </h3>
+                <ul className="space-y-2 text-sm">
+                  <li>• Temperature control: 10°C to 40°C with 0.5°C precision</li>
+                  <li>• Humidity control: 20% to 80% with 2% precision</li>
+                  <li>• Gas delivery system with precise compound control</li>
+                  <li>• Analytical and mapping systems for validation</li>
+                </ul>
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="blueprint3" className="space-y-4">
+              <div className="bg-blue-950 rounded-lg overflow-hidden shadow-lg">
+                <img 
+                  src="/lovable-uploads/c853d4a7-61c2-4f2a-a1b0-fe5d1612dcff.png" 
+                  alt="OdAR Testing Chamber Simplified Layout" 
+                  className="w-full h-auto"
+                />
+              </div>
+              <div className="bg-slate-50 p-4 rounded-lg">
+                <h3 className="text-lg font-semibold mb-2 flex items-center">
+                  <Building className="h-5 w-5 text-purple-600 mr-2" />
+                  Testing Facility Benefits
+                </h3>
+                <ul className="space-y-2 text-sm">
+                  <li>• Controlled testing environment for precise product validation</li>
+                  <li>• Facilitates government/military certification processes</li>
+                  <li>• Enables unparalleled R&D capabilities for sensor optimization</li>
+                  <li>• Allows comprehensive environmental interference testing</li>
+                </ul>
+              </div>
+            </TabsContent>
+          </Tabs>
         </CardContent>
       </Card>
       
