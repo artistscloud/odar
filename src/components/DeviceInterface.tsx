@@ -57,7 +57,7 @@ const DeviceInterface: React.FC = () => {
       <text x="40" y="191" fontFamily="Arial" fontWeight="bold" fontSize="14" fill="#FFF">ALERT: Acetone Detected</text>
       
       <foreignObject x="30" y="197" width="340" height="38">
-        <div xmlns="http://www.w3.org/1999/xhtml" style={{fontFamily: 'Arial', fontSize: '12px', color: '#2C3E50', padding: '8px', lineHeight: 1.2}}>
+        <div style={{fontFamily: 'Arial', fontSize: '12px', color: '#2C3E50', padding: '8px', lineHeight: 1.2}}>
           <span style={{fontWeight: 'bold'}}>High level of Acetone (310ppm) detected.</span> This exceeds the 15-min exposure limit (250ppm). <span style={{color: '#E53935', fontWeight: 'bold'}}>Ventilate area immediately. Use respiratory protection.</span>
         </div>
       </foreignObject>
