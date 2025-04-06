@@ -6,6 +6,7 @@ import SensorVisualizer from '@/components/SensorVisualizer';
 import RangeData from '@/components/RangeData';
 import ControlPanel from '@/components/ControlPanel';
 import SystemIntroduction from '@/components/SystemIntroduction';
+import DeviceVisualizer from '@/components/DeviceVisualizer';
 
 const Index = () => {
   const [loaded, setLoaded] = useState(false);
@@ -29,6 +30,10 @@ const Index = () => {
         <main className="mt-6">
           <div className="mb-10">
             <SystemIntroduction />
+          </div>
+          
+          <div className="mb-6">
+            <DeviceVisualizer />
           </div>
           
           <div className="mb-6">
