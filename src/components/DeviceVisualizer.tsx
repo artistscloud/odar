@@ -3,7 +3,6 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import DeviceInterface from './DeviceInterface';
 import { AlertTriangle, Info, Zap } from 'lucide-react';
-import enhancedFollicleImage from '/lovable-uploads/eaf09d52-fda2-4db9-b039-050f66d801e2.png';
 
 const DeviceVisualizer: React.FC = () => {
   return (
@@ -108,11 +107,12 @@ const DeviceVisualizer: React.FC = () => {
             </div>
             
             <div className="flex justify-center">
-              <img 
-                src={enhancedFollicleImage} 
-                alt="Enhanced Nanotubular Follicle with Multi-Metal Integration" 
-                className="max-w-full rounded-lg shadow-md"
-              />
+              <div className="max-w-full rounded-lg shadow-md bg-gray-100 p-8 flex items-center justify-center">
+                <div className="text-center">
+                  <Zap className="h-16 w-16 text-teal-600 mx-auto mb-4" />
+                  <p className="text-gray-600">Enhanced Nanotubular Follicle with Multi-Metal Integration</p>
+                </div>
+              </div>
             </div>
           </div>
         </CardContent>
