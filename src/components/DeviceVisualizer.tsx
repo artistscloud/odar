@@ -2,14 +2,15 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import DeviceInterface from './DeviceInterface';
-import { AlertTriangle, Info } from 'lucide-react';
+import { AlertTriangle, Info, Zap } from 'lucide-react';
+import enhancedFollicleImage from '/lovable-uploads/eaf09d52-fda2-4db9-b039-050f66d801e2.png';
 
 const DeviceVisualizer: React.FC = () => {
   return (
     <div className="mb-8">
       <h2 className="text-2xl font-bold mb-4">OdAR Device Interface Visualization</h2>
       
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         <Card className="overflow-hidden">
           <CardHeader className="bg-gradient-to-br from-blue-50 to-indigo-50">
             <CardTitle className="flex items-center">
@@ -59,6 +60,63 @@ const DeviceVisualizer: React.FC = () => {
           </CardContent>
         </Card>
       </div>
+      
+      <Card>
+        <CardHeader className="bg-gradient-to-br from-teal-50 to-blue-50">
+          <CardTitle className="flex items-center">
+            <Zap className="h-5 w-5 text-teal-600 mr-2" />
+            Enhanced Nanotubular Follicle Technology
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="p-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div>
+              <h3 className="text-lg font-medium mb-3">Multi-Metal Integration for Multi-Spectrum Sensing</h3>
+              <p className="text-odar-gray-700 mb-4">
+                The OdAR system employs cutting-edge nanotubular follicle technology with multi-metal integration 
+                to dramatically enhance detection sensitivity, selectivity, and response time.
+              </p>
+              
+              <div className="space-y-4">
+                <div className="p-3 bg-blue-50 rounded-md">
+                  <h4 className="font-medium text-blue-800">Zone 1: Entrance Filtering</h4>
+                  <ul className="list-disc list-inside text-sm mt-1">
+                    <li>Au/Pt nanoparticles (5-10nm)</li>
+                    <li>Ag nanowires for conductivity</li>
+                    <li>Cu-doped filter membrane</li>
+                  </ul>
+                </div>
+                
+                <div className="p-3 bg-indigo-50 rounded-md">
+                  <h4 className="font-medium text-indigo-800">Zone 2: Concentration Enhancement</h4>
+                  <ul className="list-disc list-inside text-sm mt-1">
+                    <li>ZnO/SnO2 composites</li>
+                    <li>Au interdigitated networks</li>
+                    <li>TiO2 photocatalytic elements</li>
+                  </ul>
+                </div>
+                
+                <div className="p-3 bg-teal-50 rounded-md">
+                  <h4 className="font-medium text-teal-800">Zone 3: Detection Region</h4>
+                  <ul className="list-disc list-inside text-sm mt-1">
+                    <li>Ag-Cu bimetallic particles</li>
+                    <li>Pt/Pd catalyst sites (2-4nm)</li>
+                    <li>Fe3O4 magnetic elements</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex justify-center">
+              <img 
+                src={enhancedFollicleImage} 
+                alt="Enhanced Nanotubular Follicle with Multi-Metal Integration" 
+                className="max-w-full rounded-lg shadow-md"
+              />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };
